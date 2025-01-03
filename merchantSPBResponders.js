@@ -1070,24 +1070,32 @@
       return e;
     }
   }};
+
   var t = {};
   function r(n) {
     var o = t[n];
-    if (undefined !== o) return o.exports;
-    var i = t[n] = {exports: {}};
+    if (undefined !== o) 
+      return o.exports;
+
+    t[n] = {exports: {}};
+    var i = t[n];
     e[n].call(i.exports, i, i.exports, r);
     return i.exports;
   }
+
   r.n = e => {
     var t = e && e.__esModule ? () => e.default : () => e;
     r.d(t, {a: t});
     return t;
   };
+
   r.d = (e, t) => {
-    for (var n in t) if (r.o(t, n) && !r.o(e, n)) {
-      Object.defineProperty(e, n, {enumerable: true, get: t[n]});
-    }
+    for (var n in t) 
+      if (r.o(t, n) && !r.o(e, n)) {
+        Object.defineProperty(e, n, {enumerable: true, get: t[n]});
+      }
   };
+
   r.g = function () {
     if ("object" == typeof globalThis) return globalThis;
     try {
@@ -1096,6 +1104,7 @@
       if ("object" == typeof window) return window;
     }
   }();
+
   r.o = (e, t) => Object.prototype.hasOwnProperty.call(e, t);
   r.r = e => {
     if ("undefined" != typeof Symbol && Symbol.toStringTag) {
@@ -1109,15 +1118,17 @@
     var t = r(4654);
     var n = r(7361);
     var o = r.n(n);
-    !function (e) {
-      e.merchantSPBGetWindowPath = "merchantSPB:merchantSPBGetWindowPath";
-      e.merchantSPBCreateOrder = "merchantSPB:merchantSPBCreateOrder";
-      e.merchantSPBApproveOrder = "merchantSPB:merchantSPBApproveOrder";
-      e.merchantSPBCancelOrder = "merchantSPB:merchantSPBCancelOrder";
-      e.merchantSPBErrorOrder = "merchantSPB:merchantSPBErrorOrder";
-      e.merchantSPBGuestEnabled = "merchantSPB:merchantSPBGuestEnabled";
-      e.merchantSPBGetFacilitatorAccessToken = "merchantSPB:merchantSPBGetFacilitatorAccessToken";
-    }(e || (e = {}));
+    if(!e) 
+      e = {};
+
+    e.merchantSPBGetWindowPath = "merchantSPB:merchantSPBGetWindowPath";
+    e.merchantSPBCreateOrder = "merchantSPB:merchantSPBCreateOrder";
+    e.merchantSPBApproveOrder = "merchantSPB:merchantSPBApproveOrder";
+    e.merchantSPBCancelOrder = "merchantSPB:merchantSPBCancelOrder";
+    e.merchantSPBErrorOrder = "merchantSPB:merchantSPBErrorOrder";
+    e.merchantSPBGuestEnabled = "merchantSPB:merchantSPBGuestEnabled";
+    e.merchantSPBGetFacilitatorAccessToken = "merchantSPB:merchantSPBGetFacilitatorAccessToken";
+    
     const i = {327: "327", 346: "346", 401: "401", 531: "531", 852: "852", 1285: "1285", 1327: "1327", 1469: "1469", 1614: "1614", 1789: "1789", 1811: "1811", 1866: "1866", 1989: "1989", 2081: "2081", 2117: "2117", 2333: "2333", 2705: "2705", 3218: "3218", 3369: "3369", 3448: "3448", 3560: "3560", 3982: "3982", 4125: "4125", 4239: "4239", 4429: "4429", 4523: "4523", 4536: "4536", 4654: "4654", 4705: "4705", 4785: "4785", 5050: "5050", 5265: "5265", 5346: "5346", 5403: "5403", 5514: "5514", 5639: "5639", 6e3: "6000", 6068: "6068", 7005: "7005", 7019: "7019", 7040: "7040", 7071: "7071", 7361: "7361", 7518: "7518", 7667: "7667", 7786: "7786", 7801: "7801", 7813: "7813", 8306: "8306", 8407: "8407", 8450: "8450", 8458: "8458", 8470: "8470", 9607: "9607", 9833: "9833", 9916: "9916", 9932: "9932"};
     var s = function (e, t, r, n) {
       return new (r || (r = Promise))(function (o, i) {

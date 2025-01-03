@@ -395,7 +395,7 @@
                         }, n.default.createElement(a.Logo, {
                             color: a.Colors.white,
                             size: 16,
-                            clickable: !1,
+                            clickable: false,
                             h: true
                         })), n.default.createElement("h1", {
                             className: e.title
@@ -926,7 +926,7 @@
                             }
                             h.push(c);
                             var b = i(c).sort(p && p(c)),
-                                _ = (m = "", !1);
+                                _ = (m = "", false);
                             for (g = 0; g < b.length; g++) {
                                 var w = t(c, a = b[g], c[a], f + 1);
                                 if (w) {
@@ -1039,7 +1039,7 @@
                             case "t":
                                 return a("t"), a("r"), a("u"), a("e"), true;
                             case "f":
-                                return a("f"), a("a"), a("l"), a("s"), a("e"), !1;
+                                return a("f"), a("a"), a("l"), a("s"), a("e"), false;
                             case "n":
                                 return a("n"), a("u"), a("l"), a("l"), null;
                             default:
@@ -1174,8 +1174,8 @@
                     }, t._ = e = {
                         numberToFormat: function (e, r, n) {
                             var o, i, a, c, u, l, f, p = s[t.options.currentLocale],
-                                h = !1,
-                                d = !1,
+                                h = false,
+                                d = false,
                                 y = 0,
                                 m = "",
                                 g = 1e12,
@@ -1183,7 +1183,7 @@
                                 b = 1e6,
                                 _ = 1e3,
                                 w = "",
-                                S = !1;
+                                S = false;
                             if (e = e || 0, i = Math.abs(e), t._.includes(r, "(") ? (h = true, r = r.replace(/[\(|\)]/g, "")) : (t._.includes(r, "+") || t._.includes(r, "-")) && (u = t._.includes(r, "+") ? r.indexOf("+") : e < 0 ? r.indexOf("-") : -1, r = r.replace(/[\+|\-]/g, "")), t._.includes(r, "a") && (o = !!(o = r.match(/a(k|m|b|t)?/)) && o[1], t._.includes(r, " a") && (m = " "), r = r.replace(new RegExp(m + "a[kmbt]?"), ""), i >= g && !o || "t" === o ? (m += p.abbreviations.trillion, e /= g) : i < g && i >= v && !o || "b" === o ? (m += p.abbreviations.billion, e /= v) : i < v && i >= b && !o || "m" === o ? (m += p.abbreviations.million, e /= b) : (i < b && i >= _ && !o || "k" === o) && (m += p.abbreviations.thousand, e /= _)), t._.includes(r, "[.]") && (d = true, r = r.replace("[.]", ".")), a = e.toString().split(".")[0], c = r.split(".")[1], l = r.indexOf(","), y = (r.split(".")[0].split(",")[0].match(/0/g) || []).length, c ? (t._.includes(c, "[") ? (c = (c = c.replace("]", "")).split("["), w = t._.toFixed(e, c[0].length + c[1].length, n, c[1].length)) : w = t._.toFixed(e, c.length, n), a = w.split(".")[0], w = t._.includes(w, ".") ? p.delimiters.decimal + w.split(".")[1] : "", d && 0 === Number(w.slice(1)) && (w = "")) : a = t._.toFixed(e, 0, n), m && !o && Number(a) >= 1e3 && m !== p.abbreviations.trillion) switch (a = String(Number(a) / 1e3), m) {
                             case p.abbreviations.thousand:
                                 m = p.abbreviations.million;
@@ -1277,7 +1277,7 @@
                     }, t.validate = function (e, r) {
                         var n, o, i, a, s, c, u, l;
                         if ("string" != typeof e && (e += "", console.warn && console.warn("Numeral.js: Value is not string. It has been co-erced to: ", e)), (e = e.trim()).match(/^\d+$/)) return true;
-                        if ("" === e) return !1;
+                        if ("" === e) return false;
                         try {
                             u = t.localeData(r)
                         } catch (e) {
@@ -1543,7 +1543,7 @@
                             $window: true
                         },
                         h = function () {
-                            if ("undefined" == typeof window) return !1;
+                            if ("undefined" == typeof window) return false;
                             for (var t in window) try {
                                 if (!p["$" + t] && o.call(window, t) && null !== window[t] && "object" == typeof window[t]) try {
                                     f(window[t])
@@ -1553,7 +1553,7 @@
                             } catch (t) {
                                 return true
                             }
-                            return !1
+                            return false
                         }();
                     n = function (t) {
                         var e = null !== t && "object" == typeof t,
@@ -1575,7 +1575,7 @@
                                     try {
                                         return f(t)
                                     } catch (t) {
-                                        return !1
+                                        return false
                                     }
                                 }(t), b = 0; b < l.length; ++b) v && "constructor" === l[b] || !o.call(t, l[b]) || p.push(l[b]);
                         return p
@@ -1725,13 +1725,13 @@
                     constructor(t) {
                         super(t), y(this, "onDragStart", ((t, e) => {
                             (0, f.default)("Draggable: onDragStart: %j", e);
-                            if (!1 === this.props.onStart(t, (0, c.createDraggableData)(this, e))) return !1;
+                            if (false === this.props.onStart(t, (0, c.createDraggableData)(this, e))) return false;
                             this.setState({
                                 dragging: true,
                                 dragged: true
                             })
                         })), y(this, "onDrag", ((t, e) => {
-                            if (!this.state.dragging) return !1;
+                            if (!this.state.dragging) return false;
                             (0, f.default)("Draggable: onDrag: %j", e);
                             const r = (0, c.createDraggableData)(this, e),
                                 n = {
@@ -1749,14 +1749,14 @@
                                 const [o, i] = (0, c.getBoundPosition)(this, n.x, n.y);
                                 n.x = o, n.y = i, n.slackX = this.state.slackX + (t - n.x), n.slackY = this.state.slackY + (e - n.y), r.x = n.x, r.y = n.y, r.deltaX = n.x - this.state.x, r.deltaY = n.y - this.state.y
                             }
-                            if (!1 === this.props.onDrag(t, r)) return !1;
+                            if (false === this.props.onDrag(t, r)) return false;
                             this.setState(n)
                         })), y(this, "onDragStop", ((t, e) => {
-                            if (!this.state.dragging) return !1;
-                            if (!1 === this.props.onStop(t, (0, c.createDraggableData)(this, e))) return !1;
+                            if (!this.state.dragging) return false;
+                            if (false === this.props.onStop(t, (0, c.createDraggableData)(this, e))) return false;
                             (0, f.default)("Draggable: onDragStop: %j", e);
                             const r = {
-                                dragging: !1,
+                                dragging: false,
                                 slackX: 0,
                                 slackY: 0
                             };
@@ -1769,8 +1769,8 @@
                             }
                             this.setState(r)
                         })), this.state = {
-                            dragging: !1,
-                            dragged: !1,
+                            dragging: false,
+                            dragged: false,
                             x: t.position ? t.position.x : t.defaultPosition.x,
                             y: t.position ? t.position.y : t.defaultPosition.y,
                             prevPropsPosition: {
@@ -1778,7 +1778,7 @@
                             },
                             slackX: 0,
                             slackY: 0,
-                            isElementSVG: !1
+                            isElementSVG: false
                         }, !t.position || t.onDrag || t.onStop || console.warn("A `position` was applied to this <Draggable>, without drag handlers. This will make this component effectively undraggable. Please attach `onDrag` or `onStop` handlers so you can adjust the `position` of this element.")
                     }
                     componentDidMount() {
@@ -1788,7 +1788,7 @@
                     }
                     componentWillUnmount() {
                         this.setState({
-                            dragging: !1
+                            dragging: false
                         })
                     }
                     findDOMNode() {
@@ -1844,7 +1844,7 @@
                         right: o.default.number,
                         top: o.default.number,
                         bottom: o.default.number
-                    }), o.default.string, o.default.oneOf([!1])]),
+                    }), o.default.string, o.default.oneOf([false])]),
                     defaultClassName: o.default.string,
                     defaultClassNameDragging: o.default.string,
                     defaultClassNameDragged: o.default.string,
@@ -1866,7 +1866,7 @@
                 }), y(m, "defaultProps", {
                     ...l.default.defaultProps,
                     axis: "both",
-                    bounds: !1,
+                    bounds: false,
                     defaultClassName: "react-draggable",
                     defaultClassNameDragging: "react-draggable-dragging",
                     defaultClassNameDragged: "react-draggable-dragged",
@@ -1953,8 +1953,8 @@
                 let y = d;
                 class m extends n.Component {
                     constructor() {
-                        super(...arguments), p(this, "dragging", !1), p(this, "lastX", NaN), p(this, "lastY", NaN), p(this, "touchIdentifier", null), p(this, "mounted", !1), p(this, "handleDragStart", (t => {
-                            if (this.props.onMouseDown(t), !this.props.allowAnyClick && "number" == typeof t.button && 0 !== t.button) return !1;
+                        super(...arguments), p(this, "dragging", false), p(this, "lastX", NaN), p(this, "lastY", NaN), p(this, "touchIdentifier", null), p(this, "mounted", false), p(this, "handleDragStart", (t => {
+                            if (this.props.onMouseDown(t), !this.props.allowAnyClick && "number" == typeof t.button && 0 !== t.button) return false;
                             const e = this.findDOMNode();
                             if (!e || !e.ownerDocument || !e.ownerDocument.body) throw new Error("<DraggableCore> not mounted on DragStart!");
                             const {
@@ -1971,7 +1971,7 @@
                                 y: c
                             } = o, l = (0, s.createCoreData)(this, i, c);
                             (0, u.default)("DraggableCore: handleDragStart: %j", l), (0, u.default)("calling", this.props.onStart);
-                            !1 !== this.props.onStart(t, l) && !1 !== this.mounted && (this.props.enableUserSelectHack && (0, a.addUserSelectStyles)(r), this.dragging = true, this.lastX = i, this.lastY = c, (0, a.addEvent)(r, y.move, this.handleDrag), (0, a.addEvent)(r, y.stop, this.handleDragStop))
+                            false !== this.props.onStart(t, l) && false !== this.mounted && (this.props.enableUserSelectHack && (0, a.addUserSelectStyles)(r), this.dragging = true, this.lastX = i, this.lastY = c, (0, a.addEvent)(r, y.move, this.handleDrag), (0, a.addEvent)(r, y.stop, this.handleDragStop))
                         })), p(this, "handleDrag", (t => {
                             const e = (0, s.getControlPosition)(t, this.touchIdentifier, this);
                             if (null == e) return;
@@ -1987,12 +1987,12 @@
                             }
                             const o = (0, s.createCoreData)(this, r, n);
                             (0, u.default)("DraggableCore: handleDrag: %j", o);
-                            if (!1 !== this.props.onDrag(t, o) && !1 !== this.mounted) this.lastX = r, this.lastY = n;
+                            if (false !== this.props.onDrag(t, o) && false !== this.mounted) this.lastX = r, this.lastY = n;
                             else try {
                                 this.handleDragStop(new MouseEvent("mouseup"))
                             } catch (t) {
                                 const e = document.createEvent("MouseEvents");
-                                e.initMouseEvent("mouseup", true, true, window, 0, 0, 0, 0, 0, !1, !1, !1, !1, 0, null), this.handleDragStop(e)
+                                e.initMouseEvent("mouseup", true, true, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null), this.handleDragStop(e)
                             }
                         })), p(this, "handleDragStop", (t => {
                             if (!this.dragging) return;
@@ -2008,27 +2008,27 @@
                                 [t, e] = (0, s.snapToGrid)(this.props.grid, t, e), r = this.lastX + t, n = this.lastY + e
                             }
                             const o = (0, s.createCoreData)(this, r, n);
-                            if (!1 === this.props.onStop(t, o) || !1 === this.mounted) return !1;
+                            if (false === this.props.onStop(t, o) || false === this.mounted) return false;
                             const i = this.findDOMNode();
-                            i && this.props.enableUserSelectHack && (0, a.removeUserSelectStyles)(i.ownerDocument), (0, u.default)("DraggableCore: handleDragStop: %j", o), this.dragging = !1, this.lastX = NaN, this.lastY = NaN, i && ((0, u.default)("DraggableCore: Removing handlers"), (0, a.removeEvent)(i.ownerDocument, y.move, this.handleDrag), (0, a.removeEvent)(i.ownerDocument, y.stop, this.handleDragStop))
+                            i && this.props.enableUserSelectHack && (0, a.removeUserSelectStyles)(i.ownerDocument), (0, u.default)("DraggableCore: handleDragStop: %j", o), this.dragging = false, this.lastX = NaN, this.lastY = NaN, i && ((0, u.default)("DraggableCore: Removing handlers"), (0, a.removeEvent)(i.ownerDocument, y.move, this.handleDrag), (0, a.removeEvent)(i.ownerDocument, y.stop, this.handleDragStop))
                         })), p(this, "onMouseDown", (t => (y = d, this.handleDragStart(t)))), p(this, "onMouseUp", (t => (y = d, this.handleDragStop(t)))), p(this, "onTouchStart", (t => (y = h, this.handleDragStart(t)))), p(this, "onTouchEnd", (t => (y = h, this.handleDragStop(t))))
                     }
                     componentDidMount() {
                         this.mounted = true;
                         const t = this.findDOMNode();
                         t && (0, a.addEvent)(t, h.start, this.onTouchStart, {
-                            passive: !1
+                            passive: false
                         })
                     }
                     componentWillUnmount() {
-                        this.mounted = !1;
+                        this.mounted = false;
                         const t = this.findDOMNode();
                         if (t) {
                             const {
                                 ownerDocument: e
                             } = t;
                             (0, a.removeEvent)(e, d.move, this.handleDrag), (0, a.removeEvent)(e, h.move, this.handleDrag), (0, a.removeEvent)(e, d.stop, this.handleDragStop), (0, a.removeEvent)(e, h.stop, this.handleDragStop), (0, a.removeEvent)(t, h.start, this.onTouchStart, {
-                                passive: !1
+                                passive: false
                             }), this.props.enableUserSelectHack && (0, a.removeUserSelectStyles)(e)
                         }
                     }
@@ -2065,8 +2065,8 @@
                     style: c.dontSetMe,
                     transform: c.dontSetMe
                 }), p(m, "defaultProps", {
-                    allowAnyClick: !1,
-                    disabled: !1,
+                    allowAnyClick: false,
+                    disabled: false,
                     enableUserSelectHack: true,
                     onStart: function () {},
                     onDrag: function () {},
@@ -2123,10 +2123,10 @@
                     let n = t;
                     do {
                         if (s(n, e)) return true;
-                        if (n === r) return !1;
+                        if (n === r) return false;
                         n = n.parentNode
                     } while (n);
-                    return !1
+                    return false
                 }, e.offsetXYFromParent = function (t, e, r) {
                     const n = e === e.ownerDocument.body ? {
                             left: 0,
@@ -2243,7 +2243,7 @@
                     return e ? "".concat(e).concat(function (t) {
                         let e = "",
                             r = true;
-                        for (let n = 0; n < t.length; n++) r ? (e += t[n].toUpperCase(), r = !1) : "-" === t[n] ? r = true : e += t[n];
+                        for (let n = 0; n < t.length; n++) r ? (e += t[n].toUpperCase(), r = false) : "-" === t[n] ? r = true : e += t[n];
                         return e
                     }(t)) : t
                 }
@@ -2668,7 +2668,7 @@
                                 var o = -1,
                                     i = function r() {
                                         for (; ++o < e.length;)
-                                            if (n.call(e, o)) return r.value = e[o], r.done = !1, r;
+                                            if (n.call(e, o)) return r.value = e[o], r.done = false, r;
                                         return r.value = t, r.done = true, r
                                     };
                                 return i.next = i
@@ -2711,14 +2711,14 @@
                             function t() {
                                 for (; r.length;) {
                                     var n = r.pop();
-                                    if (n in e) return t.value = n, t.done = !1, t
+                                    if (n in e) return t.value = n, t.done = false, t
                                 }
                                 return t.done = true, t
                             }
                     }, e.values = N, C.prototype = {
                         constructor: C,
                         reset: function (e) {
-                            if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = !1, this.delegate = null, this.method = "next", this.arg = t, this.tryEntries.forEach(j), !e)
+                            if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = false, this.delegate = null, this.method = "next", this.arg = t, this.tryEntries.forEach(j), !e)
                                 for (var r in this) "t" === r.charAt(0) && n.call(this, r) && !isNaN(+r.slice(1)) && (this[r] = t)
                         },
                         stop: function () {
@@ -2807,11 +2807,11 @@
                         if (null != r) {
                             var n, o, i, a, s = [],
                                 c = true,
-                                u = !1;
+                                u = false;
                             try {
                                 if (i = (r = r.call(t)).next, 0 === e) {
                                     if (Object(r) !== r) return;
-                                    c = !1
+                                    c = false
                                 } else
                                     for (; !(c = (n = i.call(r)).done) && (s.push(n.value), s.length !== e); c = true);
                             } catch (t) {
@@ -2914,7 +2914,7 @@
                                 try {
                                     o = document.querySelector(r), n.observe(o, {
                                         characterData: true,
-                                        attributes: !1,
+                                        attributes: false,
                                         childList: true,
                                         subtree: true
                                     })
@@ -2953,8 +2953,8 @@
                             case 2:
                                 return n = t.sent, r && "SUPPORTED" !== n.status && (0, g.v)({
                                     eligibilityReason: "store-not-enabled",
-                                    iframeLoaded: !1,
-                                    isEligible: !1
+                                    iframeLoaded: false,
+                                    isEligible: false
                                 }), t.abrupt("return", n);
                             case 5:
                             case "end":
@@ -3342,7 +3342,7 @@
                                 var o = -1,
                                     i = function r() {
                                         for (; ++o < e.length;)
-                                            if (n.call(e, o)) return r.value = e[o], r.done = !1, r;
+                                            if (n.call(e, o)) return r.value = e[o], r.done = false, r;
                                         return r.value = t, r.done = true, r
                                     };
                                 return i.next = i
@@ -3385,14 +3385,14 @@
                             function t() {
                                 for (; r.length;) {
                                     var n = r.pop();
-                                    if (n in e) return t.value = n, t.done = !1, t
+                                    if (n in e) return t.value = n, t.done = false, t
                                 }
                                 return t.done = true, t
                             }
                     }, e.values = N, C.prototype = {
                         constructor: C,
                         reset: function (e) {
-                            if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = !1, this.delegate = null, this.method = "next", this.arg = t, this.tryEntries.forEach(j), !e)
+                            if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = false, this.delegate = null, this.method = "next", this.arg = t, this.tryEntries.forEach(j), !e)
                                 for (var r in this) "t" === r.charAt(0) && n.call(this, r) && !isNaN(+r.slice(1)) && (this[r] = t)
                         },
                         stop: function () {
@@ -3534,7 +3534,7 @@
                                     return t.abrupt("return", null);
                                 case 2:
                                     return n = p(e, r), t.next = 5, i.Z.local.get(n).catch((function () {
-                                        return !1
+                                        return false
                                     }));
                                 case 5:
                                     return o = t.sent, (a = o && Date.now() < o) || i.Z.local.del(n), t.abrupt("return", a);
@@ -3737,7 +3737,7 @@
                     }), (function (t) {
                         return s.SO.selectNumUniqueInStockStores(t)
                     }), (function (t, e) {
-                        var r = t && !!t.canonicalClusterId || !1;
+                        var r = t && !!t.canonicalClusterId || false;
                         return e <= 1 ? null : r
                     }));
                 const d = (0, n.P1)((function (t) {
@@ -3811,7 +3811,7 @@
                         var e = o.$2.selectIsCondensedLaunchpadVariant(t),
                             r = ((0, i.Z)(t) || []).find((function (t) {
                                 return t && t.categoryId === n.Hr.CONDENSED_LAUNCHPAD
-                            })) || !1;
+                            })) || false;
                         return e && r
                     },
                     l = function (t) {
@@ -3846,8 +3846,8 @@
                         scrollToCard: i().bool
                     },
                     p = {
-                        isSecondary: !1,
-                        scrollToCard: !1
+                        isSecondary: false,
+                        scrollToCard: false
                     },
                     h = function (t) {
                         var e = t.tipId,
@@ -4073,13 +4073,15 @@
             72400: (t, e, r) => {
                 "use strict";
                 var n = {};
-                r.r(n), r.d(n, {
+                r.r(n);
+                r.d(n, {
                     FunctionToString: () => df,
                     InboundFilters: () => xf,
                     LinkedErrors: () => Cf
                 });
                 var o = {};
-                r.r(o), r.d(o, {
+                r.r(o);
+                r.d(o, {
                     Breadcrumbs: () => Ey,
                     Dedupe: () => jy,
                     GlobalHandlers: () => sy,
@@ -4088,7 +4090,8 @@
                     TryCatch: () => dy
                 });
                 var i = {};
-                r.r(i), r.d(i, {
+                r.r(i);
+                r.d(i, {
                     Breadcrumbs: () => Ey,
                     BrowserClient: () => Ud,
                     BrowserProfilingIntegration: () => ow,
@@ -4376,7 +4379,7 @@
                                 var o = -1,
                                     i = function r() {
                                         for (; ++o < e.length;)
-                                            if (n.call(e, o)) return r.value = e[o], r.done = !1, r;
+                                            if (n.call(e, o)) return r.value = e[o], r.done = false, r;
                                         return r.value = t, r.done = true, r
                                     };
                                 return i.next = i
@@ -4419,14 +4422,14 @@
                             function t() {
                                 for (; r.length;) {
                                     var n = r.pop();
-                                    if (n in e) return t.value = n, t.done = !1, t
+                                    if (n in e) return t.value = n, t.done = false, t
                                 }
                                 return t.done = true, t
                             }
                     }, e.values = N, C.prototype = {
                         constructor: C,
                         reset: function (e) {
-                            if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = !1, this.delegate = null, this.method = "next", this.arg = t, this.tryEntries.forEach(j), !e)
+                            if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = false, this.delegate = null, this.method = "next", this.arg = t, this.tryEntries.forEach(j), !e)
                                 for (var r in this) "t" === r.charAt(0) && n.call(this, r) && !isNaN(+r.slice(1)) && (this[r] = t)
                         },
                         stop: function () {
@@ -4792,7 +4795,7 @@
                                 var o = -1,
                                     i = function r() {
                                         for (; ++o < e.length;)
-                                            if (n.call(e, o)) return r.value = e[o], r.done = !1, r;
+                                            if (n.call(e, o)) return r.value = e[o], r.done = false, r;
                                         return r.value = t, r.done = true, r
                                     };
                                 return i.next = i
@@ -4835,14 +4838,14 @@
                             function t() {
                                 for (; r.length;) {
                                     var n = r.pop();
-                                    if (n in e) return t.value = n, t.done = !1, t
+                                    if (n in e) return t.value = n, t.done = false, t
                                 }
                                 return t.done = true, t
                             }
                     }, e.values = j, I.prototype = {
                         constructor: I,
                         reset: function (e) {
-                            if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = !1, this.delegate = null, this.method = "next", this.arg = t, this.tryEntries.forEach(P), !e)
+                            if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = false, this.delegate = null, this.method = "next", this.arg = t, this.tryEntries.forEach(P), !e)
                                 for (var r in this) "t" === r.charAt(0) && n.call(this, r) && !isNaN(+r.slice(1)) && (this[r] = t)
                         },
                         stop: function () {
@@ -5105,9 +5108,9 @@
                     });
                 const ft = new nt.PostMessenger({
                     types: ct,
-                    enableLogging: !1,
+                    enableLogging: false,
                     clientName: "extension",
-                    useEncryption: !1
+                    useEncryption: false
                 });
                 var pt = r(17468),
                     ht = r.n(pt),
@@ -5125,11 +5128,11 @@
                         if (null != r) {
                             var n, o, i, a, s = [],
                                 c = true,
-                                u = !1;
+                                u = false;
                             try {
                                 if (i = (r = r.call(t)).next, 0 === e) {
                                     if (Object(r) !== r) return;
-                                    c = !1
+                                    c = false
                                 } else
                                     for (; !(c = (n = i.call(r)).done) && (s.push(n.value), s.length !== e); c = true);
                             } catch (t) {
@@ -5255,7 +5258,7 @@
                             r = t.savings,
                             n = t.goldAward,
                             o = t.autoPopType,
-                            i = bt((0, N.useState)(!1), 2),
+                            i = bt((0, N.useState)(false), 2),
                             a = i[0],
                             s = i[1],
                             c = St({
@@ -5332,7 +5335,7 @@
                             className: c.content,
                             onClick: e,
                             onMouseEnter: l(true),
-                            onMouseLeave: l(!1)
+                            onMouseLeave: l(false)
                         }, N.createElement("img", {
                             className: c.icon,
                             src: "".concat("https://cdn.honey.io", "/images/finance/honey-icon-orange.svg"),
@@ -5623,7 +5626,7 @@
                                 var o = -1,
                                     i = function r() {
                                         for (; ++o < e.length;)
-                                            if (n.call(e, o)) return r.value = e[o], r.done = !1, r;
+                                            if (n.call(e, o)) return r.value = e[o], r.done = false, r;
                                         return r.value = t, r.done = true, r
                                     };
                                 return i.next = i
@@ -5666,14 +5669,14 @@
                             function t() {
                                 for (; r.length;) {
                                     var n = r.pop();
-                                    if (n in e) return t.value = n, t.done = !1, t
+                                    if (n in e) return t.value = n, t.done = false, t
                                 }
                                 return t.done = true, t
                             }
                     }, e.values = j, I.prototype = {
                         constructor: I,
                         reset: function (e) {
-                            if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = !1, this.delegate = null, this.method = "next", this.arg = t, this.tryEntries.forEach(P), !e)
+                            if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = false, this.delegate = null, this.method = "next", this.arg = t, this.tryEntries.forEach(P), !e)
                                 for (var r in this) "t" === r.charAt(0) && n.call(this, r) && !isNaN(+r.slice(1)) && (this[r] = t)
                         },
                         stop: function () {
@@ -5762,11 +5765,11 @@
                         if (null != r) {
                             var n, o, i, a, s = [],
                                 c = true,
-                                u = !1;
+                                u = false;
                             try {
                                 if (i = (r = r.call(t)).next, 0 === e) {
                                     if (Object(r) !== r) return;
-                                    c = !1
+                                    c = false
                                 } else
                                     for (; !(c = (n = i.call(r)).done) && (s.push(n.value), s.length !== e); c = true);
                             } catch (t) {
@@ -5883,14 +5886,14 @@
 
                 function Wt(t) {
                     var e = t.data,
-                        r = (0, N.useRef)(!1),
+                        r = (0, N.useRef)(false),
                         n = (0, N.useRef)(),
                         o = (0, N.useRef)((function () {})),
                         i = (0, N.useRef)(document.querySelector("body")),
                         a = Nt((0, N.useState)(null), 2),
                         s = a[0],
                         c = a[1],
-                        u = Nt((0, N.useState)(!1), 2),
+                        u = Nt((0, N.useState)(false), 2),
                         l = u[0],
                         f = u[1],
                         p = Nt((0, N.useState)(null), 2),
@@ -6311,7 +6314,7 @@
                     return null === s ? null : N.createElement(N.Fragment, null, l && N.createElement(xt, {
                         autoPopType: b,
                         handleUnMinimize: function () {
-                            ft.request(lt.giftCardsSetIsMinimized, !1), f(!1, b)
+                            ft.request(lt.giftCardsSetIsMinimized, false), f(false, b)
                         },
                         goldAward: m,
                         savings: h
@@ -6353,11 +6356,11 @@
                         if (null != r) {
                             var n, o, i, a, s = [],
                                 c = true,
-                                u = !1;
+                                u = false;
                             try {
                                 if (i = (r = r.call(t)).next, 0 === e) {
                                     if (Object(r) !== r) return;
-                                    c = !1
+                                    c = false
                                 } else
                                     for (; !(c = (n = i.call(r)).done) && (s.push(n.value), s.length !== e); c = true);
                             } catch (t) {
@@ -6578,7 +6581,7 @@
                                 var o = -1,
                                     i = function r() {
                                         for (; ++o < e.length;)
-                                            if (n.call(e, o)) return r.value = e[o], r.done = !1, r;
+                                            if (n.call(e, o)) return r.value = e[o], r.done = false, r;
                                         return r.value = t, r.done = true, r
                                     };
                                 return i.next = i
@@ -6621,14 +6624,14 @@
                             function t() {
                                 for (; r.length;) {
                                     var n = r.pop();
-                                    if (n in e) return t.value = n, t.done = !1, t
+                                    if (n in e) return t.value = n, t.done = false, t
                                 }
                                 return t.done = true, t
                             }
                     }, e.values = j, I.prototype = {
                         constructor: I,
                         reset: function (e) {
-                            if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = !1, this.delegate = null, this.method = "next", this.arg = t, this.tryEntries.forEach(P), !e)
+                            if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = false, this.delegate = null, this.method = "next", this.arg = t, this.tryEntries.forEach(P), !e)
                                 for (var r in this) "t" === r.charAt(0) && n.call(this, r) && !isNaN(+r.slice(1)) && (this[r] = t)
                         },
                         stop: function () {
@@ -6844,7 +6847,7 @@
                             case 8:
                                 i = t.sent, a = i ? document.body : document.querySelector(r), o.observe(a, {
                                     characterData: true,
-                                    attributes: !1,
+                                    attributes: false,
                                     childList: true,
                                     subtree: true
                                 }), t.next = 16;
@@ -7173,7 +7176,7 @@
                                     return n.startsWith(t)
                                 }))) return true
                         }
-                        return !1
+                        return false
                     })),
                     Ae = (0, Se.P1)(Ee.bQ.selectCurrentStore(), (function (t) {
                         return t.tips && t.tips.configuration && t.tips.configuration.blacklistedStaticUrlsByStoreId
@@ -7183,7 +7186,7 @@
                             var n = window && window.location && window.location.href;
                             if ((e[r] || []).includes(n)) return true
                         }
-                        return !1
+                        return false
                     })),
                     Me = (0, Se.P1)(Ee.bQ.selectCurrentStore(), (function (t) {
                         return t.tips && t.tips.configuration && t.tips.configuration.allowlistDynamicUrlsByStoreId
@@ -7191,7 +7194,7 @@
                         return t.tips && t.tips.configuration && t.tips.configuration.allowlistStaticUrlsByStoreId
                     }), (function (t, e, r) {
                         var n = t && t.id,
-                            o = !1,
+                            o = false,
                             i = window && window.location && window.location.href;
                         if (e && e[n]) {
                             if ((e[n] || []).some((function (t) {
@@ -7209,13 +7212,13 @@
                         return r && r.isLoggedIn ? !!e ? {
                             tipsEnabledByUser: true
                         } : undefined === e ? {
-                            tipsEnabledByUser: !1,
+                            tipsEnabledByUser: false,
                             reason: "tips_enabled_undefined"
                         } : {
-                            tipsEnabledByUser: !1,
+                            tipsEnabledByUser: false,
                             reason: "tips_enabled_false"
                         } : t ? {
-                            tipsEnabledByUser: !1,
+                            tipsEnabledByUser: false,
                             reason: "tips_logged_out_disabled"
                         } : {
                             tipsEnabledByUser: true
@@ -7238,12 +7241,12 @@
                                 }
                             }(e)(t),
                             o = n && r < n,
-                            i = r < (ke.nX.selectDeviceSetting("honeyTips:suppression:all:loggedOut:expirationDate")(t) || !1),
-                            a = r < (ke.nX.selectDeviceSetting(Pe)(t) || !1),
+                            i = r < (ke.nX.selectDeviceSetting("honeyTips:suppression:all:loggedOut:expirationDate")(t) || false),
+                            a = r < (ke.nX.selectDeviceSetting(Pe)(t) || false),
                             s = function (t) {
                                 var e = xe.py.selectUser()(t);
                                 if (!e || !e.isLoggedIn) return ke.nX.selectDeviceSetting("tipsLoggedOutDisabled")(t) ? {
-                                    tipsEnabledByUser: !1,
+                                    tipsEnabledByUser: false,
                                     reason: "tips_logged_out_disabled"
                                 } : {
                                     tipsEnabledByUser: true
@@ -7584,7 +7587,7 @@
                     customColor: ht().string
                 }, xr.defaultProps = {
                     onClick: null,
-                    open: !1,
+                    open: false,
                     options: [],
                     customSize: null,
                     customColor: null
@@ -7812,7 +7815,7 @@
                                 var o = -1,
                                     i = function r() {
                                         for (; ++o < e.length;)
-                                            if (n.call(e, o)) return r.value = e[o], r.done = !1, r;
+                                            if (n.call(e, o)) return r.value = e[o], r.done = false, r;
                                         return r.value = t, r.done = true, r
                                     };
                                 return i.next = i
@@ -7855,14 +7858,14 @@
                             function t() {
                                 for (; r.length;) {
                                     var n = r.pop();
-                                    if (n in e) return t.value = n, t.done = !1, t
+                                    if (n in e) return t.value = n, t.done = false, t
                                 }
                                 return t.done = true, t
                             }
                     }, e.values = j, I.prototype = {
                         constructor: I,
                         reset: function (e) {
-                            if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = !1, this.delegate = null, this.method = "next", this.arg = t, this.tryEntries.forEach(P), !e)
+                            if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = false, this.delegate = null, this.method = "next", this.arg = t, this.tryEntries.forEach(P), !e)
                                 for (var r in this) "t" === r.charAt(0) && n.call(this, r) && !isNaN(+r.slice(1)) && (this[r] = t)
                         },
                         stop: function () {
@@ -8021,11 +8024,11 @@
                         if (null != r) {
                             var n, o, i, a, s = [],
                                 c = true,
-                                u = !1;
+                                u = false;
                             try {
                                 if (i = (r = r.call(t)).next, 0 === e) {
                                     if (Object(r) !== r) return;
-                                    c = !1
+                                    c = false
                                 } else
                                     for (; !(c = (n = i.call(r)).done) && (s.push(n.value), s.length !== e); c = true);
                             } catch (t) {
@@ -8090,7 +8093,7 @@
                             h = undefined !== p && p,
                             d = f.featureSettings || "https://www.joinhoney.com/settings/feature-settings",
                             y = f.debugProduct || "https://dash.joinhoney.com/product-catalog/product?productId={PRODUCT_ID}",
-                            m = Ur((0, N.useState)(!1), 2),
+                            m = Ur((0, N.useState)(false), 2),
                             g = m[0],
                             v = m[1],
                             b = [{
@@ -8103,7 +8106,7 @@
                                 copy: k.Z.getMessage("Snooze_for_24_hours"),
                                 key: "snooze_24",
                                 onClick: function () {
-                                    o(Rr(1)), v(!1), o(or({
+                                    o(Rr(1)), v(false), o(or({
                                         event: "action",
                                         action: "snooze_24"
                                     })), Ha()
@@ -8378,7 +8381,7 @@
                 function dn(t, e) {
                     for (var r = 0; r < e.length; r++) {
                         var n = e[r];
-                        n.enumerable = n.enumerable || !1, n.configurable = true, "value" in n && (n.writable = true), Object.defineProperty(t, bn(n.key), n)
+                        n.enumerable = n.enumerable || false, n.configurable = true, "value" in n && (n.writable = true), Object.defineProperty(t, bn(n.key), n)
                     }
                 }
 
@@ -8390,13 +8393,13 @@
 
                 function mn(t) {
                     var e = function () {
-                        if ("undefined" == typeof Reflect || !Reflect.construct) return !1;
-                        if (Reflect.construct.sham) return !1;
+                        if ("undefined" == typeof Reflect || !Reflect.construct) return false;
+                        if (Reflect.construct.sham) return false;
                         if ("function" == typeof Proxy) return true;
                         try {
                             return Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], (function () {}))), true
                         } catch (t) {
-                            return !1
+                            return false
                         }
                     }();
                     return function () {
@@ -8447,7 +8450,7 @@
                                 configurable: true
                             }
                         }), Object.defineProperty(t, "prototype", {
-                            writable: !1
+                            writable: false
                         }), e && yn(t, e)
                     }(i, t);
                     var e, r, n, o = mn(i);
@@ -8489,7 +8492,7 @@
                             return this.state.error ? N.createElement(N.Fragment, null) : t
                         }
                     }]) && dn(e.prototype, r), n && dn(e, n), Object.defineProperty(e, "prototype", {
-                        writable: !1
+                        writable: false
                     }), i
                 }(N.Component);
                 _n.propTypes = {
@@ -8587,7 +8590,7 @@
                     isLastTip: ht().bool
                 }, Pn.defaultProps = {
                     children: undefined,
-                    isLastTip: !1
+                    isLastTip: false
                 };
                 const In = Pn;
                 var jn = r(66197),
@@ -8597,7 +8600,7 @@
                         var r = (0, _r.Z)(e()).id;
                         t(hr.OU.updateShowTopTipOnly({
                             containerId: r,
-                            showTopTipOnly: !1
+                            showTopTipOnly: false
                         })), t((0, Pr.K)({
                             event: "action",
                             action: "expand_container"
@@ -8840,7 +8843,7 @@
                                 var o = -1,
                                     i = function r() {
                                         for (; ++o < e.length;)
-                                            if (n.call(e, o)) return r.value = e[o], r.done = !1, r;
+                                            if (n.call(e, o)) return r.value = e[o], r.done = false, r;
                                         return r.value = t, r.done = true, r
                                     };
                                 return i.next = i
@@ -8883,14 +8886,14 @@
                             function t() {
                                 for (; r.length;) {
                                     var n = r.pop();
-                                    if (n in e) return t.value = n, t.done = !1, t
+                                    if (n in e) return t.value = n, t.done = false, t
                                 }
                                 return t.done = true, t
                             }
                     }, e.values = j, I.prototype = {
                         constructor: I,
                         reset: function (e) {
-                            if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = !1, this.delegate = null, this.method = "next", this.arg = t, this.tryEntries.forEach(P), !e)
+                            if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = false, this.delegate = null, this.method = "next", this.arg = t, this.tryEntries.forEach(P), !e)
                                 for (var r in this) "t" === r.charAt(0) && n.call(this, r) && !isNaN(+r.slice(1)) && (this[r] = t)
                         },
                         stop: function () {
@@ -9021,10 +9024,10 @@
                             }
                         }(), [t, e]);
                     return i && r && e ? N.createElement(Un.i, {
-                        inPopover: !1,
+                        inPopover: false,
                         store: r,
                         storeFollowButton: N.createElement("div", null, N.createElement(Fn.Z, {
-                            allowTooltip: !1,
+                            allowTooltip: false,
                             isFollowing: n,
                             isHeaderButton: true,
                             store: {
@@ -9050,11 +9053,11 @@
                         if (null != r) {
                             var n, o, i, a, s = [],
                                 c = true,
-                                u = !1;
+                                u = false;
                             try {
                                 if (i = (r = r.call(t)).next, 0 === e) {
                                     if (Object(r) !== r) return;
-                                    c = !1
+                                    c = false
                                 } else
                                     for (; !(c = (n = i.call(r)).done) && (s.push(n.value), s.length !== e); c = true);
                             } catch (t) {
@@ -9365,7 +9368,7 @@
                                 var o = -1,
                                     i = function r() {
                                         for (; ++o < e.length;)
-                                            if (n.call(e, o)) return r.value = e[o], r.done = !1, r;
+                                            if (n.call(e, o)) return r.value = e[o], r.done = false, r;
                                         return r.value = t, r.done = true, r
                                     };
                                 return i.next = i
@@ -9408,14 +9411,14 @@
                             function t() {
                                 for (; r.length;) {
                                     var n = r.pop();
-                                    if (n in e) return t.value = n, t.done = !1, t
+                                    if (n in e) return t.value = n, t.done = false, t
                                 }
                                 return t.done = true, t
                             }
                     }, e.values = j, I.prototype = {
                         constructor: I,
                         reset: function (e) {
-                            if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = !1, this.delegate = null, this.method = "next", this.arg = t, this.tryEntries.forEach(P), !e)
+                            if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = false, this.delegate = null, this.method = "next", this.arg = t, this.tryEntries.forEach(P), !e)
                                 for (var r in this) "t" === r.charAt(0) && n.call(this, r) && !isNaN(+r.slice(1)) && (this[r] = t)
                         },
                         stop: function () {
@@ -9585,11 +9588,11 @@
                         if (null != r) {
                             var n, o, i, a, s = [],
                                 c = true,
-                                u = !1;
+                                u = false;
                             try {
                                 if (i = (r = r.call(t)).next, 0 === e) {
                                     if (Object(r) !== r) return;
-                                    c = !1
+                                    c = false
                                 } else
                                     for (; !(c = (n = i.call(r)).done) && (s.push(n.value), s.length !== e); c = true);
                             } catch (t) {
@@ -9774,7 +9777,7 @@
                                 a = t.isHoveringOverContainer;
                             o || i || a || e(hr.OU.closeContainer({
                                 containerId: n,
-                                resetTipsShown: !1
+                                resetTipsShown: false
                             }))
                         }), t)
                     }
@@ -9788,11 +9791,11 @@
                         if (null != r) {
                             var n, o, i, a, s = [],
                                 c = true,
-                                u = !1;
+                                u = false;
                             try {
                                 if (i = (r = r.call(t)).next, 0 === e) {
                                     if (Object(r) !== r) return;
-                                    c = !1
+                                    c = false
                                 } else
                                     for (; !(c = (n = i.call(r)).done) && (s.push(n.value), s.length !== e); c = true);
                             } catch (t) {
@@ -9825,7 +9828,7 @@
                 }
                 const Io = function () {
                     var t = (0, cr.I0)(),
-                        e = Lo((0, N.useState)(!1), 2),
+                        e = Lo((0, N.useState)(false), 2),
                         r = e[0],
                         n = e[1],
                         o = (0, cr.v9)(_r.Z) || {},
@@ -9838,13 +9841,13 @@
                             })))
                         }), [i, t, r]),
                         c = (0, N.useCallback)((function () {
-                            n(!1), t(hr.OU.setIsHoveringOverContainer({
+                            n(false), t(hr.OU.setIsHoveringOverContainer({
                                 containerId: i,
-                                isHovering: !1
+                                isHovering: false
                             })), t(To(1e3))
                         }), [i, t]);
                     return (0, N.useEffect)((function () {
-                        !a && n(!1)
+                        !a && n(false)
                     }), [a]), (0, N.useMemo)((function () {
                         return {
                             handleMouseOver: s,
@@ -9905,11 +9908,11 @@
                         if (null != r) {
                             var n, o, i, a, s = [],
                                 c = true,
-                                u = !1;
+                                u = false;
                             try {
                                 if (i = (r = r.call(t)).next, 0 === e) {
                                     if (Object(r) !== r) return;
-                                    c = !1
+                                    c = false
                                 } else
                                     for (; !(c = (n = i.call(r)).done) && (s.push(n.value), s.length !== e); c = true);
                             } catch (t) {
@@ -10048,14 +10051,14 @@
                             onMouseDown: b,
                             onMouseOver: b,
                             onMouseLeave: function () {
-                                return c(!1)
+                                return c(false)
                             }
                         }, N.createElement("div", {
                             className: p.storeLogoContainer
                         }, N.createElement(gt.StoreLogo, {
                             className: p.storeLogo,
                             size: 48,
-                            overlay: !1,
+                            overlay: false,
                             storeId: d.id,
                             storeName: d.name
                         })), N.createElement("div", {
@@ -10290,7 +10293,7 @@
                         return N.createElement("div", {
                             className: r.root
                         }, N.createElement(gt.Logo, {
-                            clickable: !1,
+                            clickable: false,
                             color: gt.Colors.white,
                             size: 30,
                             h: true
@@ -10314,11 +10317,11 @@
                         if (null != r) {
                             var n, o, i, a, s = [],
                                 c = true,
-                                u = !1;
+                                u = false;
                             try {
                                 if (i = (r = r.call(t)).next, 0 === e) {
                                     if (Object(r) !== r) return;
-                                    c = !1
+                                    c = false
                                 } else
                                     for (; !(c = (n = i.call(r)).done) && (s.push(n.value), s.length !== e); c = true);
                             } catch (t) {
@@ -10445,19 +10448,19 @@
                 });
                 const si = function () {
                     var t = (0, cr.I0)(),
-                        e = oi((0, N.useState)(!1), 2),
+                        e = oi((0, N.useState)(false), 2),
                         r = e[0],
                         n = e[1],
-                        o = oi((0, N.useState)(!1), 2),
+                        o = oi((0, N.useState)(false), 2),
                         i = o[0],
                         a = o[1],
                         s = oi((0, N.useState)(), 2),
                         c = s[0],
                         u = s[1],
-                        l = oi((0, N.useState)(!1), 2),
+                        l = oi((0, N.useState)(false), 2),
                         f = l[0],
                         p = l[1],
-                        h = oi((0, N.useState)(!1), 2),
+                        h = oi((0, N.useState)(false), 2),
                         d = h[0],
                         y = h[1],
                         m = oi((0, N.useState)("control"), 2),
@@ -10496,7 +10499,7 @@
                             r || (n(true), clearTimeout(c))
                         }), [r, c]),
                         k = (0, N.useCallback)((function () {
-                            n(!1)
+                            n(false)
                         }), [n]),
                         T = {
                             animateTeaserIn: d,
@@ -10680,7 +10683,7 @@
                                     if (r === bi.l9.CCP_POP_ALL) return true;
                                     if (r === bi.l9.CCP_POP_ALL_NON_TOP_PICK && "CCP-Non-Top-Pick-Organic" === e.id) return true
                                 }
-                                return !1
+                                return false
                             }(t)) return true;
                         var e = (yr(t) || {}).categoryId,
                             r = (ci.Z.categories[e] || {}).maxAutopopPerStoreThreshold,
@@ -10722,7 +10725,7 @@
                         return Pi(t)
                     }), (function (t) {
                         return function (t) {
-                            if (!(0, Ar.ws)(t)) return !1;
+                            if (!(0, Ar.ws)(t)) return false;
                             var e = yr(t) || {},
                                 r = e.categoryId,
                                 n = e.maxAutopopOverrideThreshhold;
@@ -10738,7 +10741,7 @@
                         return Le.$2.selectIsPriceComparisonVariant(t)
                     }), (function (t, e, r, n, o, i, a, s, c) {
                         var u = -1 !== Y.ZP.AMAZON_STORES.indexOf(a.id);
-                        return !c || s || u ? t ? (L.Z.debug("".concat(Ei, "don't show autopop because standalone offer autopop is open")), !1) : e ? (L.Z.debug("".concat(Ei, "don't show autopop because container already open")), !1) : r ? n ? o ? (L.Z.debug("".concat(Ei, "show autopop because allow by tip configuration")), true) : i ? (L.Z.debug("".concat(Ei, "show autopop")), true) : (L.Z.debug("".concat(Ei, "don't show autopop because above max autopop per product threshold")), !1) : (L.Z.debug("".concat(Ei, "don't show autopop because above max autopop threshold for store and tip category")), !1) : (L.Z.debug("".concat(Ei, "don't show autopop because no tips have min autopop score")), !1) : (L.Z.debug("".concat(Ei, "don't show autopop because price comparison experiment variant no_conquest")), !1)
+                        return !c || s || u ? t ? (L.Z.debug("".concat(Ei, "don't show autopop because standalone offer autopop is open")), false) : e ? (L.Z.debug("".concat(Ei, "don't show autopop because container already open")), false) : r ? n ? o ? (L.Z.debug("".concat(Ei, "show autopop because allow by tip configuration")), true) : i ? (L.Z.debug("".concat(Ei, "show autopop")), true) : (L.Z.debug("".concat(Ei, "don't show autopop because above max autopop per product threshold")), false) : (L.Z.debug("".concat(Ei, "don't show autopop because above max autopop threshold for store and tip category")), false) : (L.Z.debug("".concat(Ei, "don't show autopop because no tips have min autopop score")), false) : (L.Z.debug("".concat(Ei, "don't show autopop because price comparison experiment variant no_conquest")), false)
                     })),
                     Ci = (0, Se.P1)((function (t) {
                         return (0, _r.Z)(t)
@@ -10752,7 +10755,7 @@
                         var o = t || {},
                             i = o.ready,
                             a = o.hasClosed;
-                        return i ? a ? (L.Z.debug("".concat(Ei, "don't show autopop because container was closed")), !1) : !r && (e ? Oi(n) : ji(n)) : (L.Z.debug("".concat(Ei, "don't show autopop because container isn't ready")), !1)
+                        return i ? a ? (L.Z.debug("".concat(Ei, "don't show autopop because container was closed")), false) : !r && (e ? Oi(n) : ji(n)) : (L.Z.debug("".concat(Ei, "don't show autopop because container isn't ready")), false)
                     }));
                 const Ni = Ci;
                 var Di = r(83269),
@@ -10955,7 +10958,7 @@
                                 var o = -1,
                                     i = function r() {
                                         for (; ++o < e.length;)
-                                            if (n.call(e, o)) return r.value = e[o], r.done = !1, r;
+                                            if (n.call(e, o)) return r.value = e[o], r.done = false, r;
                                         return r.value = t, r.done = true, r
                                     };
                                 return i.next = i
@@ -10998,14 +11001,14 @@
                             function t() {
                                 for (; r.length;) {
                                     var n = r.pop();
-                                    if (n in e) return t.value = n, t.done = !1, t
+                                    if (n in e) return t.value = n, t.done = false, t
                                 }
                                 return t.done = true, t
                             }
                     }, e.values = j, I.prototype = {
                         constructor: I,
                         reset: function (e) {
-                            if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = !1, this.delegate = null, this.method = "next", this.arg = t, this.tryEntries.forEach(P), !e)
+                            if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = false, this.delegate = null, this.method = "next", this.arg = t, this.tryEntries.forEach(P), !e)
                                 for (var r in this) "t" === r.charAt(0) && n.call(this, r) && !isNaN(+r.slice(1)) && (this[r] = t)
                         },
                         stop: function () {
@@ -11339,7 +11342,7 @@
                                 var o = -1,
                                     i = function r() {
                                         for (; ++o < e.length;)
-                                            if (n.call(e, o)) return r.value = e[o], r.done = !1, r;
+                                            if (n.call(e, o)) return r.value = e[o], r.done = false, r;
                                         return r.value = t, r.done = true, r
                                     };
                                 return i.next = i
@@ -11382,14 +11385,14 @@
                             function t() {
                                 for (; r.length;) {
                                     var n = r.pop();
-                                    if (n in e) return t.value = n, t.done = !1, t
+                                    if (n in e) return t.value = n, t.done = false, t
                                 }
                                 return t.done = true, t
                             }
                     }, e.values = j, I.prototype = {
                         constructor: I,
                         reset: function (e) {
-                            if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = !1, this.delegate = null, this.method = "next", this.arg = t, this.tryEntries.forEach(P), !e)
+                            if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = false, this.delegate = null, this.method = "next", this.arg = t, this.tryEntries.forEach(P), !e)
                                 for (var r in this) "t" === r.charAt(0) && n.call(this, r) && !isNaN(+r.slice(1)) && (this[r] = t)
                         },
                         stop: function () {
@@ -11746,7 +11749,7 @@
                                 var o = -1,
                                     i = function r() {
                                         for (; ++o < e.length;)
-                                            if (n.call(e, o)) return r.value = e[o], r.done = !1, r;
+                                            if (n.call(e, o)) return r.value = e[o], r.done = false, r;
                                         return r.value = t, r.done = true, r
                                     };
                                 return i.next = i
@@ -11789,14 +11792,14 @@
                             function t() {
                                 for (; r.length;) {
                                     var n = r.pop();
-                                    if (n in e) return t.value = n, t.done = !1, t
+                                    if (n in e) return t.value = n, t.done = false, t
                                 }
                                 return t.done = true, t
                             }
                     }, e.values = j, I.prototype = {
                         constructor: I,
                         reset: function (e) {
-                            if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = !1, this.delegate = null, this.method = "next", this.arg = t, this.tryEntries.forEach(P), !e)
+                            if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = false, this.delegate = null, this.method = "next", this.arg = t, this.tryEntries.forEach(P), !e)
                                 for (var r in this) "t" === r.charAt(0) && n.call(this, r) && !isNaN(+r.slice(1)) && (this[r] = t)
                         },
                         stop: function () {
@@ -11992,11 +11995,11 @@
                         if (null != r) {
                             var n, o, i, a, s = [],
                                 c = true,
-                                u = !1;
+                                u = false;
                             try {
                                 if (i = (r = r.call(t)).next, 0 === e) {
                                     if (Object(r) !== r) return;
-                                    c = !1
+                                    c = false
                                 } else
                                     for (; !(c = (n = i.call(r)).done) && (s.push(n.value), s.length !== e); c = true);
                             } catch (t) {
@@ -12039,7 +12042,7 @@
                 const sa = function (t) {
                     var e, r = t.badgeRef,
                         n = (0, cr.I0)(),
-                        o = na((0, N.useState)(!1), 2),
+                        o = na((0, N.useState)(false), 2),
                         i = o[0],
                         a = o[1],
                         s = na((0, N.useState)({}), 2),
@@ -12086,16 +12089,16 @@
                     }), [b, n]), (0, N.useEffect)((function () {
                         g && aa(w, b) && n(ra({
                             top: we.zX
-                        })), v(!1)
+                        })), v(false)
                     }), [b, w, n, g]);
                     var x = (0, N.useCallback)((function () {
                             y(undefined), n((0, Gr.Z)({
-                                resetTipsShown: !1
+                                resetTipsShown: false
                             })), a(true)
                         }), [n]),
                         O = (0, N.useCallback)((function (t, e) {
                             var r = e.y;
-                            a(!1);
+                            a(false);
                             var o = f + r;
                             n(ra({
                                 top: o,
@@ -12137,11 +12140,11 @@
                         if (null != r) {
                             var n, o, i, a, s = [],
                                 c = true,
-                                u = !1;
+                                u = false;
                             try {
                                 if (i = (r = r.call(t)).next, 0 === e) {
                                     if (Object(r) !== r) return;
-                                    c = !1
+                                    c = false
                                 } else
                                     for (; !(c = (n = i.call(r)).done) && (s.push(n.value), s.length !== e); c = true);
                             } catch (t) {
@@ -12175,13 +12178,13 @@
                 const pa = function () {
                     var t = (0, cr.I0)(),
                         e = (0, N.useRef)(),
-                        r = la((0, N.useState)(!1), 2),
+                        r = la((0, N.useState)(false), 2),
                         n = r[0],
                         o = r[1],
                         i = la((0, N.useState)(null), 2),
                         a = i[0],
                         s = i[1],
-                        c = la((0, N.useState)(!1), 2),
+                        c = la((0, N.useState)(false), 2),
                         u = c[0],
                         l = c[1],
                         f = ((0, cr.v9)(qo) || {}).categoryId,
@@ -12198,7 +12201,7 @@
                         g = h.badgePosition,
                         v = h.handleDragStart,
                         b = h.handleDragEnd,
-                        _ = (0, cr.v9)(hr.D1.selectRecentlyClosedContainer()) || !1,
+                        _ = (0, cr.v9)(hr.D1.selectRecentlyClosedContainer()) || false,
                         w = (0, N.useCallback)((function () {
                             var e = null;
                             f && !u && (l(true), e = f), t(Wi({
@@ -12216,7 +12219,7 @@
                         }), 1e3)), d && a && (clearTimeout(a), s(null)))
                     }), [p, d, n, w, a]);
                     var E = (0, N.useCallback)((function () {
-                            p && (clearTimeout(a), s(null)), o(!1), t(ua(!1)), t(To(2e3))
+                            p && (clearTimeout(a), s(null)), o(false), t(ua(false)), t(To(2e3))
                         }), [p, t, a]),
                         x = (0, cr.v9)(Ni);
                     return (0, N.useEffect)((function () {
@@ -12504,7 +12507,7 @@
                                 var o = -1,
                                     i = function r() {
                                         for (; ++o < e.length;)
-                                            if (n.call(e, o)) return r.value = e[o], r.done = !1, r;
+                                            if (n.call(e, o)) return r.value = e[o], r.done = false, r;
                                         return r.value = t, r.done = true, r
                                     };
                                 return i.next = i
@@ -12547,14 +12550,14 @@
                             function t() {
                                 for (; r.length;) {
                                     var n = r.pop();
-                                    if (n in e) return t.value = n, t.done = !1, t
+                                    if (n in e) return t.value = n, t.done = false, t
                                 }
                                 return t.done = true, t
                             }
                     }, e.values = j, I.prototype = {
                         constructor: I,
                         reset: function (e) {
-                            if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = !1, this.delegate = null, this.method = "next", this.arg = t, this.tryEntries.forEach(P), !e)
+                            if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = false, this.delegate = null, this.method = "next", this.arg = t, this.tryEntries.forEach(P), !e)
                                 for (var r in this) "t" === r.charAt(0) && n.call(this, r) && !isNaN(+r.slice(1)) && (this[r] = t)
                         },
                         stop: function () {
@@ -12665,7 +12668,7 @@
                                     return n >= t.length ? {
                                         done: true
                                     } : {
-                                        done: !1,
+                                        done: false,
                                         value: t[n++]
                                     }
                                 },
@@ -12678,7 +12681,7 @@
                         throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.")
                     }
                     var i, a = true,
-                        s = !1;
+                        s = false;
                     return {
                         s: function () {
                             r = r.call(t)
@@ -13021,7 +13024,7 @@
                                 var o = -1,
                                     i = function r() {
                                         for (; ++o < e.length;)
-                                            if (n.call(e, o)) return r.value = e[o], r.done = !1, r;
+                                            if (n.call(e, o)) return r.value = e[o], r.done = false, r;
                                         return r.value = t, r.done = true, r
                                     };
                                 return i.next = i
@@ -13064,14 +13067,14 @@
                             function t() {
                                 for (; r.length;) {
                                     var n = r.pop();
-                                    if (n in e) return t.value = n, t.done = !1, t
+                                    if (n in e) return t.value = n, t.done = false, t
                                 }
                                 return t.done = true, t
                             }
                     }, e.values = j, I.prototype = {
                         constructor: I,
                         reset: function (e) {
-                            if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = !1, this.delegate = null, this.method = "next", this.arg = t, this.tryEntries.forEach(P), !e)
+                            if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = false, this.delegate = null, this.method = "next", this.arg = t, this.tryEntries.forEach(P), !e)
                                 for (var r in this) "t" === r.charAt(0) && n.call(this, r) && !isNaN(+r.slice(1)) && (this[r] = t)
                         },
                         stop: function () {
@@ -13180,7 +13183,7 @@
                         }))
                     }
                 }
-                var Za, Ya = !1,
+                var Za, Ya = false,
                     $a = function () {
                         var t = Ba(Ua().mark((function t() {
                             var e, r, n;
@@ -13196,7 +13199,7 @@
                                     e = t.sent, r = e.container, n = e.unmountApp, Za = {
                                         container: r,
                                         unmountApp: n
-                                    }, Ya = !1;
+                                    }, Ya = false;
                                 case 9:
                                 case "end":
                                     return t.stop()
@@ -13404,7 +13407,7 @@
                                 ifTopSavingsLessThanDollarOn: o
                             }, {
                                 skipSessionCheck: true
-                            })), !1 === i) {
+                            })), false === i) {
                             var s = (0, Ve.Z)()(e());
                             t((0, Wa.r)(function (t) {
                                 for (var e = 1; e < arguments.length; e++) {
@@ -13622,7 +13625,7 @@
                                 var o = -1,
                                     i = function r() {
                                         for (; ++o < e.length;)
-                                            if (n.call(e, o)) return r.value = e[o], r.done = !1, r;
+                                            if (n.call(e, o)) return r.value = e[o], r.done = false, r;
                                         return r.value = t, r.done = true, r
                                     };
                                 return i.next = i
@@ -13665,14 +13668,14 @@
                             function t() {
                                 for (; r.length;) {
                                     var n = r.pop();
-                                    if (n in e) return t.value = n, t.done = !1, t
+                                    if (n in e) return t.value = n, t.done = false, t
                                 }
                                 return t.done = true, t
                             }
                     }, e.values = j, I.prototype = {
                         constructor: I,
                         reset: function (e) {
-                            if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = !1, this.delegate = null, this.method = "next", this.arg = t, this.tryEntries.forEach(P), !e)
+                            if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = false, this.delegate = null, this.method = "next", this.arg = t, this.tryEntries.forEach(P), !e)
                                 for (var r in this) "t" === r.charAt(0) && n.call(this, r) && !isNaN(+r.slice(1)) && (this[r] = t)
                         },
                         stop: function () {
@@ -13850,7 +13853,7 @@
                     };
                 const ds = function (t) {
                     var e = ((0, _r.Z)(t) || {}).id;
-                    if (!e) return !1;
+                    if (!e) return false;
                     var r = Te.mZ.selectMostRecentPageId()(t);
                     return e === (Te.mZ.selectPageByPageId(r)(t) || {}).containerId
                 };
@@ -14067,7 +14070,7 @@
                                 var o = -1,
                                     i = function r() {
                                         for (; ++o < e.length;)
-                                            if (n.call(e, o)) return r.value = e[o], r.done = !1, r;
+                                            if (n.call(e, o)) return r.value = e[o], r.done = false, r;
                                         return r.value = t, r.done = true, r
                                     };
                                 return i.next = i
@@ -14110,14 +14113,14 @@
                             function t() {
                                 for (; r.length;) {
                                     var n = r.pop();
-                                    if (n in e) return t.value = n, t.done = !1, t
+                                    if (n in e) return t.value = n, t.done = false, t
                                 }
                                 return t.done = true, t
                             }
                     }, e.values = j, I.prototype = {
                         constructor: I,
                         reset: function (e) {
-                            if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = !1, this.delegate = null, this.method = "next", this.arg = t, this.tryEntries.forEach(P), !e)
+                            if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = false, this.delegate = null, this.method = "next", this.arg = t, this.tryEntries.forEach(P), !e)
                                 for (var r in this) "t" === r.charAt(0) && n.call(this, r) && !isNaN(+r.slice(1)) && (this[r] = t)
                         },
                         stop: function () {
@@ -14309,7 +14312,7 @@
                                         subAction: y
                                     })), L.Z.debug("".concat(As, "Required feature flag not met")), t.abrupt("return");
                                 case 31:
-                                    if (m = !1, t.prev = 32, !u) {
+                                    if (m = false, t.prev = 32, !u) {
                                         t.next = 41;
                                         break
                                     }
@@ -14563,7 +14566,7 @@
                                 var o = -1,
                                     i = function r() {
                                         for (; ++o < e.length;)
-                                            if (n.call(e, o)) return r.value = e[o], r.done = !1, r;
+                                            if (n.call(e, o)) return r.value = e[o], r.done = false, r;
                                         return r.value = t, r.done = true, r
                                     };
                                 return i.next = i
@@ -14606,14 +14609,14 @@
                             function t() {
                                 for (; r.length;) {
                                     var n = r.pop();
-                                    if (n in e) return t.value = n, t.done = !1, t
+                                    if (n in e) return t.value = n, t.done = false, t
                                 }
                                 return t.done = true, t
                             }
                     }, e.values = j, I.prototype = {
                         constructor: I,
                         reset: function (e) {
-                            if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = !1, this.delegate = null, this.method = "next", this.arg = t, this.tryEntries.forEach(P), !e)
+                            if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = false, this.delegate = null, this.method = "next", this.arg = t, this.tryEntries.forEach(P), !e)
                                 for (var r in this) "t" === r.charAt(0) && n.call(this, r) && !isNaN(+r.slice(1)) && (this[r] = t)
                         },
                         stop: function () {
@@ -15169,7 +15172,7 @@
                                 var o = -1,
                                     i = function r() {
                                         for (; ++o < e.length;)
-                                            if (n.call(e, o)) return r.value = e[o], r.done = !1, r;
+                                            if (n.call(e, o)) return r.value = e[o], r.done = false, r;
                                         return r.value = t, r.done = true, r
                                     };
                                 return i.next = i
@@ -15212,14 +15215,14 @@
                             function t() {
                                 for (; r.length;) {
                                     var n = r.pop();
-                                    if (n in e) return t.value = n, t.done = !1, t
+                                    if (n in e) return t.value = n, t.done = false, t
                                 }
                                 return t.done = true, t
                             }
                     }, e.values = j, I.prototype = {
                         constructor: I,
                         reset: function (e) {
-                            if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = !1, this.delegate = null, this.method = "next", this.arg = t, this.tryEntries.forEach(P), !e)
+                            if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = false, this.delegate = null, this.method = "next", this.arg = t, this.tryEntries.forEach(P), !e)
                                 for (var r in this) "t" === r.charAt(0) && n.call(this, r) && !isNaN(+r.slice(1)) && (this[r] = t)
                         },
                         stop: function () {
@@ -15612,7 +15615,7 @@
                                 var o = -1,
                                     i = function r() {
                                         for (; ++o < e.length;)
-                                            if (n.call(e, o)) return r.value = e[o], r.done = !1, r;
+                                            if (n.call(e, o)) return r.value = e[o], r.done = false, r;
                                         return r.value = t, r.done = true, r
                                     };
                                 return i.next = i
@@ -15655,14 +15658,14 @@
                             function t() {
                                 for (; r.length;) {
                                     var n = r.pop();
-                                    if (n in e) return t.value = n, t.done = !1, t
+                                    if (n in e) return t.value = n, t.done = false, t
                                 }
                                 return t.done = true, t
                             }
                     }, e.values = j, I.prototype = {
                         constructor: I,
                         reset: function (e) {
-                            if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = !1, this.delegate = null, this.method = "next", this.arg = t, this.tryEntries.forEach(P), !e)
+                            if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = false, this.delegate = null, this.method = "next", this.arg = t, this.tryEntries.forEach(P), !e)
                                 for (var r in this) "t" === r.charAt(0) && n.call(this, r) && !isNaN(+r.slice(1)) && (this[r] = t)
                         },
                         stop: function () {
@@ -16000,7 +16003,7 @@
                                 var o = -1,
                                     i = function r() {
                                         for (; ++o < e.length;)
-                                            if (n.call(e, o)) return r.value = e[o], r.done = !1, r;
+                                            if (n.call(e, o)) return r.value = e[o], r.done = false, r;
                                         return r.value = t, r.done = true, r
                                     };
                                 return i.next = i
@@ -16043,14 +16046,14 @@
                             function t() {
                                 for (; r.length;) {
                                     var n = r.pop();
-                                    if (n in e) return t.value = n, t.done = !1, t
+                                    if (n in e) return t.value = n, t.done = false, t
                                 }
                                 return t.done = true, t
                             }
                     }, e.values = j, I.prototype = {
                         constructor: I,
                         reset: function (e) {
-                            if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = !1, this.delegate = null, this.method = "next", this.arg = t, this.tryEntries.forEach(P), !e)
+                            if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = false, this.delegate = null, this.method = "next", this.arg = t, this.tryEntries.forEach(P), !e)
                                 for (var r in this) "t" === r.charAt(0) && n.call(this, r) && !isNaN(+r.slice(1)) && (this[r] = t)
                         },
                         stop: function () {
@@ -16458,7 +16461,7 @@
                                 var o = -1,
                                     i = function r() {
                                         for (; ++o < e.length;)
-                                            if (n.call(e, o)) return r.value = e[o], r.done = !1, r;
+                                            if (n.call(e, o)) return r.value = e[o], r.done = false, r;
                                         return r.value = t, r.done = true, r
                                     };
                                 return i.next = i
@@ -16501,14 +16504,14 @@
                             function t() {
                                 for (; r.length;) {
                                     var n = r.pop();
-                                    if (n in e) return t.value = n, t.done = !1, t
+                                    if (n in e) return t.value = n, t.done = false, t
                                 }
                                 return t.done = true, t
                             }
                     }, e.values = j, I.prototype = {
                         constructor: I,
                         reset: function (e) {
-                            if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = !1, this.delegate = null, this.method = "next", this.arg = t, this.tryEntries.forEach(P), !e)
+                            if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = false, this.delegate = null, this.method = "next", this.arg = t, this.tryEntries.forEach(P), !e)
                                 for (var r in this) "t" === r.charAt(0) && n.call(this, r) && !isNaN(+r.slice(1)) && (this[r] = t)
                         },
                         stop: function () {
@@ -16920,7 +16923,7 @@
                                 var o = -1,
                                     i = function r() {
                                         for (; ++o < e.length;)
-                                            if (n.call(e, o)) return r.value = e[o], r.done = !1, r;
+                                            if (n.call(e, o)) return r.value = e[o], r.done = false, r;
                                         return r.value = t, r.done = true, r
                                     };
                                 return i.next = i
@@ -16963,14 +16966,14 @@
                             function t() {
                                 for (; r.length;) {
                                     var n = r.pop();
-                                    if (n in e) return t.value = n, t.done = !1, t
+                                    if (n in e) return t.value = n, t.done = false, t
                                 }
                                 return t.done = true, t
                             }
                     }, e.values = j, I.prototype = {
                         constructor: I,
                         reset: function (e) {
-                            if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = !1, this.delegate = null, this.method = "next", this.arg = t, this.tryEntries.forEach(P), !e)
+                            if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = false, this.delegate = null, this.method = "next", this.arg = t, this.tryEntries.forEach(P), !e)
                                 for (var r in this) "t" === r.charAt(0) && n.call(this, r) && !isNaN(+r.slice(1)) && (this[r] = t)
                         },
                         stop: function () {
@@ -17296,7 +17299,7 @@
                                 var o = -1,
                                     i = function r() {
                                         for (; ++o < e.length;)
-                                            if (n.call(e, o)) return r.value = e[o], r.done = !1, r;
+                                            if (n.call(e, o)) return r.value = e[o], r.done = false, r;
                                         return r.value = t, r.done = true, r
                                     };
                                 return i.next = i
@@ -17339,14 +17342,14 @@
                             function t() {
                                 for (; r.length;) {
                                     var n = r.pop();
-                                    if (n in e) return t.value = n, t.done = !1, t
+                                    if (n in e) return t.value = n, t.done = false, t
                                 }
                                 return t.done = true, t
                             }
                     }, e.values = j, I.prototype = {
                         constructor: I,
                         reset: function (e) {
-                            if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = !1, this.delegate = null, this.method = "next", this.arg = t, this.tryEntries.forEach(P), !e)
+                            if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = false, this.delegate = null, this.method = "next", this.arg = t, this.tryEntries.forEach(P), !e)
                                 for (var r in this) "t" === r.charAt(0) && n.call(this, r) && !isNaN(+r.slice(1)) && (this[r] = t)
                         },
                         stop: function () {
@@ -17703,7 +17706,7 @@
                                 var o = -1,
                                     i = function r() {
                                         for (; ++o < e.length;)
-                                            if (n.call(e, o)) return r.value = e[o], r.done = !1, r;
+                                            if (n.call(e, o)) return r.value = e[o], r.done = false, r;
                                         return r.value = t, r.done = true, r
                                     };
                                 return i.next = i
@@ -17746,14 +17749,14 @@
                             function t() {
                                 for (; r.length;) {
                                     var n = r.pop();
-                                    if (n in e) return t.value = n, t.done = !1, t
+                                    if (n in e) return t.value = n, t.done = false, t
                                 }
                                 return t.done = true, t
                             }
                     }, e.values = j, I.prototype = {
                         constructor: I,
                         reset: function (e) {
-                            if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = !1, this.delegate = null, this.method = "next", this.arg = t, this.tryEntries.forEach(P), !e)
+                            if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = false, this.delegate = null, this.method = "next", this.arg = t, this.tryEntries.forEach(P), !e)
                                 for (var r in this) "t" === r.charAt(0) && n.call(this, r) && !isNaN(+r.slice(1)) && (this[r] = t)
                         },
                         stop: function () {
@@ -18081,7 +18084,7 @@
                                 var o = -1,
                                     i = function r() {
                                         for (; ++o < e.length;)
-                                            if (n.call(e, o)) return r.value = e[o], r.done = !1, r;
+                                            if (n.call(e, o)) return r.value = e[o], r.done = false, r;
                                         return r.value = t, r.done = true, r
                                     };
                                 return i.next = i
@@ -18124,14 +18127,14 @@
                             function t() {
                                 for (; r.length;) {
                                     var n = r.pop();
-                                    if (n in e) return t.value = n, t.done = !1, t
+                                    if (n in e) return t.value = n, t.done = false, t
                                 }
                                 return t.done = true, t
                             }
                     }, e.values = j, I.prototype = {
                         constructor: I,
                         reset: function (e) {
-                            if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = !1, this.delegate = null, this.method = "next", this.arg = t, this.tryEntries.forEach(P), !e)
+                            if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = false, this.delegate = null, this.method = "next", this.arg = t, this.tryEntries.forEach(P), !e)
                                 for (var r in this) "t" === r.charAt(0) && n.call(this, r) && !isNaN(+r.slice(1)) && (this[r] = t)
                         },
                         stop: function () {
@@ -18465,7 +18468,7 @@
                                 var o = -1,
                                     i = function r() {
                                         for (; ++o < e.length;)
-                                            if (n.call(e, o)) return r.value = e[o], r.done = !1, r;
+                                            if (n.call(e, o)) return r.value = e[o], r.done = false, r;
                                         return r.value = t, r.done = true, r
                                     };
                                 return i.next = i
@@ -18508,14 +18511,14 @@
                             function t() {
                                 for (; r.length;) {
                                     var n = r.pop();
-                                    if (n in e) return t.value = n, t.done = !1, t
+                                    if (n in e) return t.value = n, t.done = false, t
                                 }
                                 return t.done = true, t
                             }
                     }, e.values = j, I.prototype = {
                         constructor: I,
                         reset: function (e) {
-                            if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = !1, this.delegate = null, this.method = "next", this.arg = t, this.tryEntries.forEach(P), !e)
+                            if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = false, this.delegate = null, this.method = "next", this.arg = t, this.tryEntries.forEach(P), !e)
                                 for (var r in this) "t" === r.charAt(0) && n.call(this, r) && !isNaN(+r.slice(1)) && (this[r] = t)
                         },
                         stop: function () {
@@ -18847,7 +18850,7 @@
                                 var o = -1,
                                     i = function r() {
                                         for (; ++o < e.length;)
-                                            if (n.call(e, o)) return r.value = e[o], r.done = !1, r;
+                                            if (n.call(e, o)) return r.value = e[o], r.done = false, r;
                                         return r.value = t, r.done = true, r
                                     };
                                 return i.next = i
@@ -18890,14 +18893,14 @@
                             function t() {
                                 for (; r.length;) {
                                     var n = r.pop();
-                                    if (n in e) return t.value = n, t.done = !1, t
+                                    if (n in e) return t.value = n, t.done = false, t
                                 }
                                 return t.done = true, t
                             }
                     }, e.values = j, I.prototype = {
                         constructor: I,
                         reset: function (e) {
-                            if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = !1, this.delegate = null, this.method = "next", this.arg = t, this.tryEntries.forEach(P), !e)
+                            if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = false, this.delegate = null, this.method = "next", this.arg = t, this.tryEntries.forEach(P), !e)
                                 for (var r in this) "t" === r.charAt(0) && n.call(this, r) && !isNaN(+r.slice(1)) && (this[r] = t)
                         },
                         stop: function () {
@@ -19229,7 +19232,7 @@
                                 var o = -1,
                                     i = function r() {
                                         for (; ++o < e.length;)
-                                            if (n.call(e, o)) return r.value = e[o], r.done = !1, r;
+                                            if (n.call(e, o)) return r.value = e[o], r.done = false, r;
                                         return r.value = t, r.done = true, r
                                     };
                                 return i.next = i
@@ -19272,14 +19275,14 @@
                             function t() {
                                 for (; r.length;) {
                                     var n = r.pop();
-                                    if (n in e) return t.value = n, t.done = !1, t
+                                    if (n in e) return t.value = n, t.done = false, t
                                 }
                                 return t.done = true, t
                             }
                     }, e.values = j, I.prototype = {
                         constructor: I,
                         reset: function (e) {
-                            if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = !1, this.delegate = null, this.method = "next", this.arg = t, this.tryEntries.forEach(P), !e)
+                            if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = false, this.delegate = null, this.method = "next", this.arg = t, this.tryEntries.forEach(P), !e)
                                 for (var r in this) "t" === r.charAt(0) && n.call(this, r) && !isNaN(+r.slice(1)) && (this[r] = t)
                         },
                         stop: function () {
@@ -19607,7 +19610,7 @@
                                 var o = -1,
                                     i = function r() {
                                         for (; ++o < e.length;)
-                                            if (n.call(e, o)) return r.value = e[o], r.done = !1, r;
+                                            if (n.call(e, o)) return r.value = e[o], r.done = false, r;
                                         return r.value = t, r.done = true, r
                                     };
                                 return i.next = i
@@ -19650,14 +19653,14 @@
                             function t() {
                                 for (; r.length;) {
                                     var n = r.pop();
-                                    if (n in e) return t.value = n, t.done = !1, t
+                                    if (n in e) return t.value = n, t.done = false, t
                                 }
                                 return t.done = true, t
                             }
                     }, e.values = j, I.prototype = {
                         constructor: I,
                         reset: function (e) {
-                            if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = !1, this.delegate = null, this.method = "next", this.arg = t, this.tryEntries.forEach(P), !e)
+                            if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = false, this.delegate = null, this.method = "next", this.arg = t, this.tryEntries.forEach(P), !e)
                                 for (var r in this) "t" === r.charAt(0) && n.call(this, r) && !isNaN(+r.slice(1)) && (this[r] = t)
                         },
                         stop: function () {
@@ -20003,7 +20006,7 @@
                                 var o = -1,
                                     i = function r() {
                                         for (; ++o < e.length;)
-                                            if (n.call(e, o)) return r.value = e[o], r.done = !1, r;
+                                            if (n.call(e, o)) return r.value = e[o], r.done = false, r;
                                         return r.value = t, r.done = true, r
                                     };
                                 return i.next = i
@@ -20046,14 +20049,14 @@
                             function t() {
                                 for (; r.length;) {
                                     var n = r.pop();
-                                    if (n in e) return t.value = n, t.done = !1, t
+                                    if (n in e) return t.value = n, t.done = false, t
                                 }
                                 return t.done = true, t
                             }
                     }, e.values = j, I.prototype = {
                         constructor: I,
                         reset: function (e) {
-                            if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = !1, this.delegate = null, this.method = "next", this.arg = t, this.tryEntries.forEach(P), !e)
+                            if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = false, this.delegate = null, this.method = "next", this.arg = t, this.tryEntries.forEach(P), !e)
                                 for (var r in this) "t" === r.charAt(0) && n.call(this, r) && !isNaN(+r.slice(1)) && (this[r] = t)
                         },
                         stop: function () {
@@ -20377,7 +20380,7 @@
                                 var o = -1,
                                     i = function r() {
                                         for (; ++o < e.length;)
-                                            if (n.call(e, o)) return r.value = e[o], r.done = !1, r;
+                                            if (n.call(e, o)) return r.value = e[o], r.done = false, r;
                                         return r.value = t, r.done = true, r
                                     };
                                 return i.next = i
@@ -20420,14 +20423,14 @@
                             function t() {
                                 for (; r.length;) {
                                     var n = r.pop();
-                                    if (n in e) return t.value = n, t.done = !1, t
+                                    if (n in e) return t.value = n, t.done = false, t
                                 }
                                 return t.done = true, t
                             }
                     }, e.values = j, I.prototype = {
                         constructor: I,
                         reset: function (e) {
-                            if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = !1, this.delegate = null, this.method = "next", this.arg = t, this.tryEntries.forEach(P), !e)
+                            if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = false, this.delegate = null, this.method = "next", this.arg = t, this.tryEntries.forEach(P), !e)
                                 for (var r in this) "t" === r.charAt(0) && n.call(this, r) && !isNaN(+r.slice(1)) && (this[r] = t)
                         },
                         stop: function () {
@@ -20753,7 +20756,7 @@
                                 var o = -1,
                                     i = function r() {
                                         for (; ++o < e.length;)
-                                            if (n.call(e, o)) return r.value = e[o], r.done = !1, r;
+                                            if (n.call(e, o)) return r.value = e[o], r.done = false, r;
                                         return r.value = t, r.done = true, r
                                     };
                                 return i.next = i
@@ -20796,14 +20799,14 @@
                             function t() {
                                 for (; r.length;) {
                                     var n = r.pop();
-                                    if (n in e) return t.value = n, t.done = !1, t
+                                    if (n in e) return t.value = n, t.done = false, t
                                 }
                                 return t.done = true, t
                             }
                     }, e.values = j, I.prototype = {
                         constructor: I,
                         reset: function (e) {
-                            if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = !1, this.delegate = null, this.method = "next", this.arg = t, this.tryEntries.forEach(P), !e)
+                            if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = false, this.delegate = null, this.method = "next", this.arg = t, this.tryEntries.forEach(P), !e)
                                 for (var r in this) "t" === r.charAt(0) && n.call(this, r) && !isNaN(+r.slice(1)) && (this[r] = t)
                         },
                         stop: function () {
@@ -21129,7 +21132,7 @@
                                 var o = -1,
                                     i = function r() {
                                         for (; ++o < e.length;)
-                                            if (n.call(e, o)) return r.value = e[o], r.done = !1, r;
+                                            if (n.call(e, o)) return r.value = e[o], r.done = false, r;
                                         return r.value = t, r.done = true, r
                                     };
                                 return i.next = i
@@ -21172,14 +21175,14 @@
                             function t() {
                                 for (; r.length;) {
                                     var n = r.pop();
-                                    if (n in e) return t.value = n, t.done = !1, t
+                                    if (n in e) return t.value = n, t.done = false, t
                                 }
                                 return t.done = true, t
                             }
                     }, e.values = j, I.prototype = {
                         constructor: I,
                         reset: function (e) {
-                            if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = !1, this.delegate = null, this.method = "next", this.arg = t, this.tryEntries.forEach(P), !e)
+                            if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = false, this.delegate = null, this.method = "next", this.arg = t, this.tryEntries.forEach(P), !e)
                                 for (var r in this) "t" === r.charAt(0) && n.call(this, r) && !isNaN(+r.slice(1)) && (this[r] = t)
                         },
                         stop: function () {
@@ -21522,7 +21525,7 @@
                                 var o = -1,
                                     i = function r() {
                                         for (; ++o < e.length;)
-                                            if (n.call(e, o)) return r.value = e[o], r.done = !1, r;
+                                            if (n.call(e, o)) return r.value = e[o], r.done = false, r;
                                         return r.value = t, r.done = true, r
                                     };
                                 return i.next = i
@@ -21565,14 +21568,14 @@
                             function t() {
                                 for (; r.length;) {
                                     var n = r.pop();
-                                    if (n in e) return t.value = n, t.done = !1, t
+                                    if (n in e) return t.value = n, t.done = false, t
                                 }
                                 return t.done = true, t
                             }
                     }, e.values = j, I.prototype = {
                         constructor: I,
                         reset: function (e) {
-                            if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = !1, this.delegate = null, this.method = "next", this.arg = t, this.tryEntries.forEach(P), !e)
+                            if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = false, this.delegate = null, this.method = "next", this.arg = t, this.tryEntries.forEach(P), !e)
                                 for (var r in this) "t" === r.charAt(0) && n.call(this, r) && !isNaN(+r.slice(1)) && (this[r] = t)
                         },
                         stop: function () {
@@ -21911,7 +21914,7 @@
                                 var o = -1,
                                     i = function r() {
                                         for (; ++o < e.length;)
-                                            if (n.call(e, o)) return r.value = e[o], r.done = !1, r;
+                                            if (n.call(e, o)) return r.value = e[o], r.done = false, r;
                                         return r.value = t, r.done = true, r
                                     };
                                 return i.next = i
@@ -21954,14 +21957,14 @@
                             function t() {
                                 for (; r.length;) {
                                     var n = r.pop();
-                                    if (n in e) return t.value = n, t.done = !1, t
+                                    if (n in e) return t.value = n, t.done = false, t
                                 }
                                 return t.done = true, t
                             }
                     }, e.values = j, I.prototype = {
                         constructor: I,
                         reset: function (e) {
-                            if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = !1, this.delegate = null, this.method = "next", this.arg = t, this.tryEntries.forEach(P), !e)
+                            if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = false, this.delegate = null, this.method = "next", this.arg = t, this.tryEntries.forEach(P), !e)
                                 for (var r in this) "t" === r.charAt(0) && n.call(this, r) && !isNaN(+r.slice(1)) && (this[r] = t)
                         },
                         stop: function () {
@@ -22286,7 +22289,7 @@
                                 var o = -1,
                                     i = function r() {
                                         for (; ++o < e.length;)
-                                            if (n.call(e, o)) return r.value = e[o], r.done = !1, r;
+                                            if (n.call(e, o)) return r.value = e[o], r.done = false, r;
                                         return r.value = t, r.done = true, r
                                     };
                                 return i.next = i
@@ -22329,14 +22332,14 @@
                             function t() {
                                 for (; r.length;) {
                                     var n = r.pop();
-                                    if (n in e) return t.value = n, t.done = !1, t
+                                    if (n in e) return t.value = n, t.done = false, t
                                 }
                                 return t.done = true, t
                             }
                     }, e.values = j, I.prototype = {
                         constructor: I,
                         reset: function (e) {
-                            if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = !1, this.delegate = null, this.method = "next", this.arg = t, this.tryEntries.forEach(P), !e)
+                            if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = false, this.delegate = null, this.method = "next", this.arg = t, this.tryEntries.forEach(P), !e)
                                 for (var r in this) "t" === r.charAt(0) && n.call(this, r) && !isNaN(+r.slice(1)) && (this[r] = t)
                         },
                         stop: function () {
@@ -22664,7 +22667,7 @@
                                 var o = -1,
                                     i = function r() {
                                         for (; ++o < e.length;)
-                                            if (n.call(e, o)) return r.value = e[o], r.done = !1, r;
+                                            if (n.call(e, o)) return r.value = e[o], r.done = false, r;
                                         return r.value = t, r.done = true, r
                                     };
                                 return i.next = i
@@ -22707,14 +22710,14 @@
                             function t() {
                                 for (; r.length;) {
                                     var n = r.pop();
-                                    if (n in e) return t.value = n, t.done = !1, t
+                                    if (n in e) return t.value = n, t.done = false, t
                                 }
                                 return t.done = true, t
                             }
                     }, e.values = j, I.prototype = {
                         constructor: I,
                         reset: function (e) {
-                            if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = !1, this.delegate = null, this.method = "next", this.arg = t, this.tryEntries.forEach(P), !e)
+                            if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = false, this.delegate = null, this.method = "next", this.arg = t, this.tryEntries.forEach(P), !e)
                                 for (var r in this) "t" === r.charAt(0) && n.call(this, r) && !isNaN(+r.slice(1)) && (this[r] = t)
                         },
                         stop: function () {
@@ -23091,7 +23094,7 @@
                                 var o = -1,
                                     i = function r() {
                                         for (; ++o < e.length;)
-                                            if (n.call(e, o)) return r.value = e[o], r.done = !1, r;
+                                            if (n.call(e, o)) return r.value = e[o], r.done = false, r;
                                         return r.value = t, r.done = true, r
                                     };
                                 return i.next = i
@@ -23134,14 +23137,14 @@
                             function t() {
                                 for (; r.length;) {
                                     var n = r.pop();
-                                    if (n in e) return t.value = n, t.done = !1, t
+                                    if (n in e) return t.value = n, t.done = false, t
                                 }
                                 return t.done = true, t
                             }
                     }, e.values = j, I.prototype = {
                         constructor: I,
                         reset: function (e) {
-                            if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = !1, this.delegate = null, this.method = "next", this.arg = t, this.tryEntries.forEach(P), !e)
+                            if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = false, this.delegate = null, this.method = "next", this.arg = t, this.tryEntries.forEach(P), !e)
                                 for (var r in this) "t" === r.charAt(0) && n.call(this, r) && !isNaN(+r.slice(1)) && (this[r] = t)
                         },
                         stop: function () {
@@ -23266,7 +23269,7 @@
                     };
 
                 function ul(t, e) {
-                    if (!t || !e) return !1;
+                    if (!t || !e) return false;
                     var r = t === e,
                         n = t.includes(e),
                         o = e.includes(t);
@@ -23470,11 +23473,11 @@
                         if (null != r) {
                             var n, o, i, a, s = [],
                                 c = true,
-                                u = !1;
+                                u = false;
                             try {
                                 if (i = (r = r.call(t)).next, 0 === e) {
                                     if (Object(r) !== r) return;
-                                    c = !1
+                                    c = false
                                 } else
                                     for (; !(c = (n = i.call(r)).done) && (s.push(n.value), s.length !== e); c = true);
                             } catch (t) {
@@ -23695,7 +23698,7 @@
                                 var o = -1,
                                     i = function r() {
                                         for (; ++o < e.length;)
-                                            if (n.call(e, o)) return r.value = e[o], r.done = !1, r;
+                                            if (n.call(e, o)) return r.value = e[o], r.done = false, r;
                                         return r.value = t, r.done = true, r
                                     };
                                 return i.next = i
@@ -23738,14 +23741,14 @@
                             function t() {
                                 for (; r.length;) {
                                     var n = r.pop();
-                                    if (n in e) return t.value = n, t.done = !1, t
+                                    if (n in e) return t.value = n, t.done = false, t
                                 }
                                 return t.done = true, t
                             }
                     }, e.values = j, I.prototype = {
                         constructor: I,
                         reset: function (e) {
-                            if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = !1, this.delegate = null, this.method = "next", this.arg = t, this.tryEntries.forEach(P), !e)
+                            if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = false, this.delegate = null, this.method = "next", this.arg = t, this.tryEntries.forEach(P), !e)
                                 for (var r in this) "t" === r.charAt(0) && n.call(this, r) && !isNaN(+r.slice(1)) && (this[r] = t)
                         },
                         stop: function () {
@@ -23899,7 +23902,7 @@
                                     is_initial_observation: kl,
                                     products: p,
                                     useDeterministicParentId: u
-                                }), kl = !1;
+                                }), kl = false;
                             case 23:
                             case "end":
                                 return t.stop()
@@ -24007,7 +24010,7 @@
                     try {
                         return t instanceof e
                     } catch (t) {
-                        return !1
+                        return false
                     }
                 }
 
@@ -24075,13 +24078,13 @@
                     }
                 }
                 const Xl = function () {
-                    let t = !1;
+                    let t = false;
                     const e = {
                         enable: () => {
                             t = true
                         },
                         disable: () => {
-                            t = !1
+                            t = false
                         },
                         isEnabled: () => t
                     };
@@ -24114,11 +24117,11 @@
                     return r.join(e)
                 }
 
-                function ef(t, e, r = !1) {
+                function ef(t, e, r = false) {
                     return !!Al(t) && (Nl(e, "RegExp") ? e.test(t) : !!Al(e) && (r ? t === e : t.includes(e)))
                 }
 
-                function rf(t, e = [], r = !1) {
+                function rf(t, e = [], r = false) {
                     return e.some((e => ef(t, e, r)))
                 }
 
@@ -24287,7 +24290,7 @@
                     try {
                         of (t, "__sentry_captured__", true)
                     } catch (t) {}
-                    return !1
+                    return false
                 }
 
                 function wf(t) {
@@ -24319,10 +24322,10 @@
                                     try {
                                         return "SentryError" === t.exception.values[0].type
                                     } catch (t) {}
-                                    return !1
+                                    return false
                                 }(t)) return ("undefined" == typeof __SENTRY_DEBUG__ || __SENTRY_DEBUG__) && Xl.warn(`Event dropped due to being internal Sentry Error.\nEvent: ${gf(t)}`), true;
                             if (function (t, e) {
-                                    if (t.type || !e || !e.length) return !1;
+                                    if (t.type || !e || !e.length) return false;
                                     return function (t) {
                                         const e = [];
                                         t.message && e.push(t.message);
@@ -24336,12 +24339,12 @@
                                     }(t).some((t => rf(t, e)))
                                 }(t, e.ignoreErrors)) return ("undefined" == typeof __SENTRY_DEBUG__ || __SENTRY_DEBUG__) && Xl.warn(`Event dropped due to being matched by \`ignoreErrors\` option.\nEvent: ${gf(t)}`), true;
                             if (function (t, e) {
-                                    if ("transaction" !== t.type || !e || !e.length) return !1;
+                                    if ("transaction" !== t.type || !e || !e.length) return false;
                                     const r = t.transaction;
                                     return !!r && rf(r, e)
                                 }(t, e.ignoreTransactions)) return ("undefined" == typeof __SENTRY_DEBUG__ || __SENTRY_DEBUG__) && Xl.warn(`Event dropped due to being matched by \`ignoreTransactions\` option.\nEvent: ${gf(t)}`), true;
                             if (function (t, e) {
-                                    if (!e || !e.length) return !1;
+                                    if (!e || !e.length) return false;
                                     const r = Of(t);
                                     return !!r && rf(r, e)
                                 }(t, e.denyUrls)) return ("undefined" == typeof __SENTRY_DEBUG__ || __SENTRY_DEBUG__) && Xl.warn(`Event dropped due to being matched by \`denyUrls\` option.\nEvent: ${gf(t)}.\nUrl: ${Of(t)}`), true;
@@ -24350,7 +24353,7 @@
                                     const r = Of(t);
                                     return !r || rf(r, e)
                                 }(t, e.allowUrls)) return ("undefined" == typeof __SENTRY_DEBUG__ || __SENTRY_DEBUG__) && Xl.warn(`Event dropped due to not being matched by \`allowUrls\` option.\nEvent: ${gf(t)}.\nUrl: ${Of(t)}`), true;
-                            return !1
+                            return false
                         }(t, o) ? null : t
                     }
                 }
@@ -24482,7 +24485,7 @@
                     }
                     then(t, e) {
                         return new Gf(((r, n) => {
-                            this._handlers.push([!1, e => {
+                            this._handlers.push([false, e => {
                                 if (t) try {
                                     r(t(e))
                                 } catch (t) {
@@ -24502,7 +24505,7 @@
                         return new Gf(((e, r) => {
                             let n, o;
                             return this.then((e => {
-                                o = !1, n = e, t && t()
+                                o = false, n = e, t && t()
                             }), (e => {
                                 o = true, n = e, t && t()
                             })).then((() => {
@@ -24567,7 +24570,7 @@
                             duration: 0,
                             status: "ok",
                             errors: 0,
-                            ignoreDuration: !1,
+                            ignoreDuration: false,
                             toJSON: () => function (t) {
                                 return ff({
                                     sid: `${t.sid}`,
@@ -24602,7 +24605,7 @@
                 }
                 class $f {
                     constructor() {
-                        this._notifyingListeners = !1, this._scopeListeners = [], this._eventProcessors = [], this._breadcrumbs = [], this._attachments = [], this._user = {}, this._tags = {}, this._extra = {}, this._contexts = {}, this._sdkProcessingMetadata = {}, this._propagationContext = Hf()
+                        this._notifyingListeners = false, this._scopeListeners = [], this._eventProcessors = [], this._breadcrumbs = [], this._attachments = [], this._user = {}, this._tags = {}, this._extra = {}, this._contexts = {}, this._sdkProcessingMetadata = {}, this._propagationContext = Hf()
                     }
                     static clone(t) {
                         const e = new $f;
@@ -24802,7 +24805,7 @@
                     _notifyScopeListeners() {
                         this._notifyingListeners || (this._notifyingListeners = true, this._scopeListeners.forEach((t => {
                             t(this)
-                        })), this._notifyingListeners = !1)
+                        })), this._notifyingListeners = false)
                     }
                     _applyFingerprint(t) {
                         t.fingerprint = t.fingerprint ? wf(t.fingerprint) : [], this._fingerprint && (t.fingerprint = t.fingerprint.concat(this._fingerprint)), t.fingerprint && !t.fingerprint.length && delete t.fingerprint
@@ -24965,7 +24968,7 @@
                     traceHeaders() {
                         return this._callExtensionMethod("traceHeaders")
                     }
-                    captureSession(t = !1) {
+                    captureSession(t = false) {
                         if (t) return this.endSession();
                         this._sendSessionUpdate()
                     }
@@ -25064,12 +25067,12 @@
                 }
 
                 function ep(t, e) {
-                    if (!t) return !1;
+                    if (!t) return false;
                     return (t.__SENTRY__ = t.__SENTRY__ || {}).hub = e, true
                 }
                 const rp = /^(?:(\w+):)\/\/(?:(\w+)(?::(\w+)?)?@)([\w.-]+)(?::(\d+))?\/(.+)/;
 
-                function np(t, e = !1) {
+                function np(t, e = false) {
                     const {
                         host: r,
                         path: n,
@@ -25200,10 +25203,10 @@
                     const t = "function" == typeof WeakSet,
                         e = t ? new WeakSet : [];
                     return [function (r) {
-                        if (t) return !!e.has(r) || (e.add(r), !1);
+                        if (t) return !!e.has(r) || (e.add(r), false);
                         for (let t = 0; t < e.length; t++)
                             if (e[t] === r) return true;
-                        return e.push(r), !1
+                        return e.push(r), false
                     }, function (r) {
                         if (t) e.delete(r);
                         else
@@ -25277,7 +25280,7 @@
                     for (const t of r) {
                         if (e(t, t[0].type)) return true
                     }
-                    return !1
+                    return false
                 }
 
                 function bp(t, e) {
@@ -25496,11 +25499,11 @@
                 }
                 async function $p(t) {
                     const e = Kf().getClient();
-                    return e ? e.flush(t) : (("undefined" == typeof __SENTRY_DEBUG__ || __SENTRY_DEBUG__) && Xl.warn("Cannot flush events. No client defined."), Promise.resolve(!1))
+                    return e ? e.flush(t) : (("undefined" == typeof __SENTRY_DEBUG__ || __SENTRY_DEBUG__) && Xl.warn("Cannot flush events. No client defined."), Promise.resolve(false))
                 }
                 async function Hp(t) {
                     const e = Kf().getClient();
-                    return e ? e.close(t) : (("undefined" == typeof __SENTRY_DEBUG__ || __SENTRY_DEBUG__) && Xl.warn("Cannot flush events and disable SDK. No client defined."), Promise.resolve(!1))
+                    return e ? e.close(t) : (("undefined" == typeof __SENTRY_DEBUG__ || __SENTRY_DEBUG__) && Xl.warn("Cannot flush events and disable SDK. No client defined."), Promise.resolve(false))
                 }
 
                 function zp() {
@@ -25557,11 +25560,11 @@
                 const Kp = (0, $l.Rf)();
 
                 function Xp() {
-                    if (!("fetch" in Kp)) return !1;
+                    if (!("fetch" in Kp)) return false;
                     try {
                         return new Headers, new Request("http://www.example.com"), new Response, true
                     } catch (t) {
-                        return !1
+                        return false
                     }
                 }
 
@@ -25599,7 +25602,7 @@
                             if (!eh.document) return;
                             const t = sh.bind(null, "dom"),
                                 e = yh(t, true);
-                            eh.document.addEventListener("click", e, !1), eh.document.addEventListener("keypress", e, !1), ["EventTarget", "Node"].forEach((e => {
+                            eh.document.addEventListener("click", e, false), eh.document.addEventListener("keypress", e, false), ["EventTarget", "Node"].forEach((e => {
                                 const r = eh[e] && eh[e].prototype;
                                 r && r.hasOwnProperty && r.hasOwnProperty("addEventListener") && (nf(r, "addEventListener", (function (e) {
                                     return function (r, n, o) {
@@ -25686,9 +25689,9 @@
                         ! function () {
                             if (! function () {
                                     if ("string" == typeof EdgeRuntime) return true;
-                                    if (!Xp()) return !1;
+                                    if (!Xp()) return false;
                                     if (Qp(Kp.fetch)) return true;
-                                    let t = !1;
+                                    let t = false;
                                     const e = Kp.document;
                                     if (e && "function" == typeof e.createElement) try {
                                         const r = e.createElement("iframe");
@@ -25826,7 +25829,7 @@
                 const fh = 1e3;
                 let ph, hh, dh;
 
-                function yh(t, e = !1) {
+                function yh(t, e = false) {
                     return r => {
                         if (!r || r._sentryCaptured) return;
                         const n = function (t) {
@@ -25841,9 +25844,9 @@
                             }(r.type, n)) return; of (r, "_sentryCaptured", true), n && !n._sentryId && of (n, "_sentryId", yf());
                         const o = "keypress" === r.type ? "input" : r.type;
                         (function (t) {
-                            if (t.type !== hh) return !1;
+                            if (t.type !== hh) return false;
                             try {
-                                if (!t.target || t.target._sentryId !== dh) return !1
+                                if (!t.target || t.target._sentryId !== dh) return false
                             } catch (t) {}
                             return true
                         })(r) || (t({
@@ -25884,7 +25887,7 @@
                     const e = t.match(xh);
                     if (!e) return;
                     let r;
-                    return "1" === e[3] ? r = true : "0" === e[3] && (r = !1), {
+                    return "1" === e[3] ? r = true : "0" === e[3] && (r = false), {
                         traceId: e[1],
                         parentSampled: r,
                         parentSpanId: e[2]
@@ -25933,7 +25936,7 @@
                     return (t || Kf()).getScope().getTransaction()
                 }
                 const Ph = Oh;
-                let Ih = !1;
+                let Ih = false;
 
                 function jh() {
                     const t = Lh();
@@ -26227,8 +26230,8 @@
                     }
                 }
                 class Fh extends Ah {
-                    constructor(t, e, r = Mh.idleTimeout, n = Mh.finalTimeout, o = Mh.heartbeatInterval, i = !1) {
-                        super(t, e), this._idleHub = e, this._idleTimeout = r, this._finalTimeout = n, this._heartbeatInterval = o, this._onScope = i, this.activities = {}, this._heartbeatCounter = 0, this._finished = !1, this._idleTimeoutCanceledPermanently = !1, this._beforeFinishCallbacks = [], this._finishReason = Gh[4], i && (("undefined" == typeof __SENTRY_DEBUG__ || __SENTRY_DEBUG__) && Xl.log(`Setting idle transaction on scope. Span ID: ${this.spanId}`), e.configureScope((t => t.setSpan(this)))), this._restartIdleTimeout(), setTimeout((() => {
+                    constructor(t, e, r = Mh.idleTimeout, n = Mh.finalTimeout, o = Mh.heartbeatInterval, i = false) {
+                        super(t, e), this._idleHub = e, this._idleTimeout = r, this._finalTimeout = n, this._heartbeatInterval = o, this._onScope = i, this.activities = {}, this._heartbeatCounter = 0, this._finished = false, this._idleTimeoutCanceledPermanently = false, this._beforeFinishCallbacks = [], this._finishReason = Gh[4], i && (("undefined" == typeof __SENTRY_DEBUG__ || __SENTRY_DEBUG__) && Xl.log(`Setting idle transaction on scope. Span ID: ${this.spanId}`), e.configureScope((t => t.setSpan(this)))), this._restartIdleTimeout(), setTimeout((() => {
                             this._finished || (this.setStatus("deadline_exceeded"), this._finishReason = Gh[3], this.finish())
                         }), this._finalTimeout)
                     }
@@ -26275,7 +26278,7 @@
                     } = {
                         restartOnChildSpanChange: true
                     }) {
-                        this._idleTimeoutCanceledPermanently = !1 === e, this._idleTimeoutID && (clearTimeout(this._idleTimeoutID), this._idleTimeoutID = undefined, 0 === Object.keys(this.activities).length && this._idleTimeoutCanceledPermanently && (this._finishReason = Gh[5], this.finish(t)))
+                        this._idleTimeoutCanceledPermanently = false === e, this._idleTimeoutID && (clearTimeout(this._idleTimeoutID), this._idleTimeoutID = undefined, 0 === Object.keys(this.activities).length && this._idleTimeoutCanceledPermanently && (this._finishReason = Gh[5], this.finish(t)))
                     }
                     setFinishReason(t) {
                         this._finishReason = t
@@ -26309,14 +26312,14 @@
                 }
 
                 function Bh(t) {
-                    if ("boolean" == typeof __SENTRY_TRACING__ && !__SENTRY_TRACING__) return !1;
+                    if ("boolean" == typeof __SENTRY_TRACING__ && !__SENTRY_TRACING__) return false;
                     const e = Kf().getClient(),
                         r = t || e && e.getOptions();
                     return !!r && (r.enableTracing || "tracesSampleRate" in r || "tracesSampler" in r)
                 }
 
                 function Zh(t, e, r) {
-                    if (!Bh(e)) return t.sampled = !1, t;
+                    if (!Bh(e)) return t.sampled = false, t;
                     if (undefined !== t.sampled) return t.setMetadata({
                         sampleRate: Number(t.sampled)
                     }), t;
@@ -26329,10 +26332,10 @@
                             sampleRate: n
                         })),
                         function (t) {
-                            if (Bl(t) || "number" != typeof t && "boolean" != typeof t) return ("undefined" == typeof __SENTRY_DEBUG__ || __SENTRY_DEBUG__) && Xl.warn(`[Tracing] Given sample rate is invalid. Sample rate must be a boolean or a number between 0 and 1. Got ${JSON.stringify(t)} of type ${JSON.stringify(typeof t)}.`), !1;
-                            if (t < 0 || t > 1) return ("undefined" == typeof __SENTRY_DEBUG__ || __SENTRY_DEBUG__) && Xl.warn(`[Tracing] Given sample rate is invalid. Sample rate must be between 0 and 1. Got ${t}.`), !1;
+                            if (Bl(t) || "number" != typeof t && "boolean" != typeof t) return ("undefined" == typeof __SENTRY_DEBUG__ || __SENTRY_DEBUG__) && Xl.warn(`[Tracing] Given sample rate is invalid. Sample rate must be a boolean or a number between 0 and 1. Got ${JSON.stringify(t)} of type ${JSON.stringify(typeof t)}.`), false;
+                            if (t < 0 || t > 1) return ("undefined" == typeof __SENTRY_DEBUG__ || __SENTRY_DEBUG__) && Xl.warn(`[Tracing] Given sample rate is invalid. Sample rate must be between 0 and 1. Got ${t}.`), false;
                             return true
-                        }(n) ? n ? (t.sampled = Math.random() < n, t.sampled ? (("undefined" == typeof __SENTRY_DEBUG__ || __SENTRY_DEBUG__) && Xl.log(`[Tracing] starting ${t.op} transaction - ${t.name}`), t) : (("undefined" == typeof __SENTRY_DEBUG__ || __SENTRY_DEBUG__) && Xl.log(`[Tracing] Discarding transaction because it's not included in the random sample (sampling rate = ${Number(n)})`), t)) : (("undefined" == typeof __SENTRY_DEBUG__ || __SENTRY_DEBUG__) && Xl.log("[Tracing] Discarding transaction because " + ("function" == typeof e.tracesSampler ? "tracesSampler returned 0 or false" : "a negative sampling decision was inherited or tracesSampleRate is set to 0")), t.sampled = !1, t) : (("undefined" == typeof __SENTRY_DEBUG__ || __SENTRY_DEBUG__) && Xl.warn("[Tracing] Discarding transaction because of invalid sample rate."), t.sampled = !1, t)
+                        }(n) ? n ? (t.sampled = Math.random() < n, t.sampled ? (("undefined" == typeof __SENTRY_DEBUG__ || __SENTRY_DEBUG__) && Xl.log(`[Tracing] starting ${t.op} transaction - ${t.name}`), t) : (("undefined" == typeof __SENTRY_DEBUG__ || __SENTRY_DEBUG__) && Xl.log(`[Tracing] Discarding transaction because it's not included in the random sample (sampling rate = ${Number(n)})`), t)) : (("undefined" == typeof __SENTRY_DEBUG__ || __SENTRY_DEBUG__) && Xl.log("[Tracing] Discarding transaction because " + ("function" == typeof e.tracesSampler ? "tracesSampler returned 0 or false" : "a negative sampling decision was inherited or tracesSampleRate is set to 0")), t.sampled = false, t) : (("undefined" == typeof __SENTRY_DEBUG__ || __SENTRY_DEBUG__) && Xl.warn("[Tracing] Discarding transaction because of invalid sample rate."), t.sampled = false, t)
                 }
 
                 function Yh() {
@@ -26347,7 +26350,7 @@
                         n = r && r.getOptions() || {},
                         o = n.instrumenter || "sentry",
                         i = t.instrumenter || "sentry";
-                    o !== i && (("undefined" == typeof __SENTRY_DEBUG__ || __SENTRY_DEBUG__) && Xl.error(`A transaction was started with instrumenter=\`${i}\`, but the SDK is configured with the \`${o}\` instrumenter.\nThe transaction will not be sampled. Please use the ${o} instrumentation to start transactions.`), t.sampled = !1);
+                    o !== i && (("undefined" == typeof __SENTRY_DEBUG__ || __SENTRY_DEBUG__) && Xl.error(`A transaction was started with instrumenter=\`${i}\`, but the SDK is configured with the \`${o}\` instrumenter.\nThe transaction will not be sampled. Please use the ${o} instrumentation to start transactions.`), t.sampled = false);
                     let a = new Ah(t, this);
                     return a = Zh(a, n, {
                         parentSampled: t.parentSampled,
@@ -26508,7 +26511,7 @@
                                 let o = e.length;
                                 if (!o) return r(true);
                                 const i = setTimeout((() => {
-                                    t && t > 0 && r(!1)
+                                    t && t > 0 && r(false)
                                 }), t);
                                 e.forEach((t => {
                                     Af(t).then((() => {
@@ -26836,7 +26839,7 @@
                 const Ed = "Not capturing exception because it's already been captured.";
                 class xd {
                     constructor(t) {
-                        if (this._options = t, this._integrations = {}, this._integrationsInitialized = !1, this._numProcessing = 0, this._outcomes = {}, this._hooks = {}, this._eventProcessors = [], t.dsn ? this._dsn = ap(t.dsn) : ("undefined" == typeof __SENTRY_DEBUG__ || __SENTRY_DEBUG__) && Xl.warn("No DSN provided, client will not send events."), this._dsn) {
+                        if (this._options = t, this._integrations = {}, this._integrationsInitialized = false, this._numProcessing = 0, this._outcomes = {}, this._hooks = {}, this._eventProcessors = [], t.dsn ? this._dsn = ap(t.dsn) : ("undefined" == typeof __SENTRY_DEBUG__ || __SENTRY_DEBUG__) && Xl.warn("No DSN provided, client will not send events."), this._dsn) {
                             const e = hd(this._dsn, t);
                             this._transport = t.transport({
                                 recordDroppedEvent: this.recordDroppedEvent.bind(this),
@@ -26868,7 +26871,7 @@
                     }
                     captureSession(t) {
                         "string" != typeof t.release ? ("undefined" == typeof __SENTRY_DEBUG__ || __SENTRY_DEBUG__) && Xl.warn("Discarded session because of missing or non-string release") : (this.sendSession(t), Yf(t, {
-                            init: !1
+                            init: false
                         }))
                     }
                     getDsn() {
@@ -26888,7 +26891,7 @@
                         return e ? this._isClientDoneProcessing(t).then((r => e.flush(t).then((t => r && t)))) : Af(true)
                     }
                     close(t) {
-                        return this.flush(t).then((t => (this.getOptions().enabled = !1, t)))
+                        return this.flush(t).then((t => (this.getOptions().enabled = false, t)))
                     }
                     getEventProcessors() {
                         return this._eventProcessors
@@ -26968,14 +26971,14 @@
                         this._hooks[t] && this._hooks[t].forEach((t => t(...e)))
                     }
                     _updateSessionFromEvent(t, e) {
-                        let r = !1,
-                            n = !1;
+                        let r = false,
+                            n = false;
                         const o = e.exception && e.exception.values;
                         if (o) {
                             n = true;
                             for (const t of o) {
                                 const e = t.mechanism;
-                                if (e && !1 === e.handled) {
+                                if (e && false === e.handled) {
                                     r = true;
                                     break
                                 }
@@ -26993,12 +26996,12 @@
                         return new Gf((e => {
                             let r = 0;
                             const n = setInterval((() => {
-                                0 == this._numProcessing ? (clearInterval(n), e(true)) : (r += 1, t && r >= t && (clearInterval(n), e(!1)))
+                                0 == this._numProcessing ? (clearInterval(n), e(true)) : (r += 1, t && r >= t && (clearInterval(n), e(false)))
                             }), 1)
                         }))
                     }
                     _isEnabled() {
-                        return !1 !== this.getOptions().enabled && undefined !== this._transport
+                        return false !== this.getOptions().enabled && undefined !== this._transport
                     }
                     _prepareEvent(t, e, r) {
                         const n = this.getOptions(),
@@ -27519,7 +27522,7 @@
                                 }
                             };
                             return ly(c, e, r, n)
-                        }(o, i, a, s) : ly(Rd(r, c || o, undefined, n, !1), i, a, s);
+                        }(o, i, a, s) : ly(Rd(r, c || o, undefined, n, false), i, a, s);
                         u.level = "error", fy(e, c, u, "onerror")
                     }))
                 }
@@ -27571,7 +27574,7 @@
 
                 function fy(t, e, r, n) {
                     bf(r, {
-                        handled: !1,
+                        handled: false,
                         type: n
                     }), t.captureEvent(r, {
                         originalException: e
@@ -27583,7 +27586,7 @@
                         e = t.getClient(),
                         r = e && e.getOptions() || {
                             stackParser: () => [],
-                            attachStacktrace: !1
+                            attachStacktrace: false
                         };
                     return [t, r.stackParser, r.attachStacktrace]
                 }
@@ -27620,7 +27623,7 @@
                                 data: {
                                     function: pp(t)
                                 },
-                                handled: !1,
+                                handled: false,
                                 type: "instrument"
                             }
                         }), t.apply(this, e)
@@ -27635,7 +27638,7 @@
                                     function: "requestAnimationFrame",
                                     handler: pp(t)
                                 },
-                                handled: !1,
+                                handled: false,
                                 type: "instrument"
                             }
                         })])
@@ -27653,7 +27656,7 @@
                                                 function: t,
                                                 handler: pp(e)
                                             },
-                                            handled: !1,
+                                            handled: false,
                                             type: "instrument"
                                         }
                                     },
@@ -27677,7 +27680,7 @@
                                             handler: pp(n),
                                             target: t
                                         },
-                                        handled: !1,
+                                        handled: false,
                                         type: "instrument"
                                     }
                                 }))
@@ -27689,7 +27692,7 @@
                                         handler: pp(n),
                                         target: t
                                     },
-                                    handled: !1,
+                                    handled: false,
                                     type: "instrument"
                                 }
                             }), o])
@@ -27802,7 +27805,7 @@
                         message: tf(t.args, " ")
                     };
                     if ("assert" === t.level) {
-                        if (!1 !== t.args[0]) return;
+                        if (false !== t.args[0]) return;
                         e.message = `Assertion failed: ${tf(t.args.slice(1)," ")||"console.assert"}`, e.data.arguments = t.args.slice(1)
                     }
                     Kf().addBreadcrumb(e, {
@@ -27956,27 +27959,27 @@
                         if (t.type) return t;
                         try {
                             if (function (t, e) {
-                                    if (!e) return !1;
+                                    if (!e) return false;
                                     if (function (t, e) {
                                             const r = t.message,
                                                 n = e.message;
-                                            if (!r && !n) return !1;
-                                            if (r && !n || !r && n) return !1;
-                                            if (r !== n) return !1;
-                                            if (!Ny(t, e)) return !1;
-                                            if (!Cy(t, e)) return !1;
+                                            if (!r && !n) return false;
+                                            if (r && !n || !r && n) return false;
+                                            if (r !== n) return false;
+                                            if (!Ny(t, e)) return false;
+                                            if (!Cy(t, e)) return false;
                                             return true
                                         }(t, e)) return true;
                                     if (function (t, e) {
                                             const r = Dy(e),
                                                 n = Dy(t);
-                                            if (!r || !n) return !1;
-                                            if (r.type !== n.type || r.value !== n.value) return !1;
-                                            if (!Ny(t, e)) return !1;
-                                            if (!Cy(t, e)) return !1;
+                                            if (!r || !n) return false;
+                                            if (r.type !== n.type || r.value !== n.value) return false;
+                                            if (!Ny(t, e)) return false;
+                                            if (!Cy(t, e)) return false;
                                             return true
                                         }(t, e)) return true;
-                                    return !1
+                                    return false
                                 }(t, this._previousEvent)) return ("undefined" == typeof __SENTRY_DEBUG__ || __SENTRY_DEBUG__) && Xl.warn("Event dropped due to being a duplicate of previously captured event."), null
                         } catch (t) {}
                         return this._previousEvent = t
@@ -27987,12 +27990,12 @@
                     let r = Ry(t),
                         n = Ry(e);
                     if (!r && !n) return true;
-                    if (r && !n || !r && n) return !1;
-                    if (n.length !== r.length) return !1;
+                    if (r && !n || !r && n) return false;
+                    if (n.length !== r.length) return false;
                     for (let t = 0; t < n.length; t++) {
                         const e = n[t],
                             o = r[t];
-                        if (e.filename !== o.filename || e.lineno !== o.lineno || e.colno !== o.colno || e.function !== o.function) return !1
+                        if (e.filename !== o.filename || e.lineno !== o.lineno || e.colno !== o.colno || e.function !== o.function) return false
                     }
                     return true
                 }
@@ -28001,11 +28004,11 @@
                     let r = t.fingerprint,
                         n = e.fingerprint;
                     if (!r && !n) return true;
-                    if (r && !n || !r && n) return !1;
+                    if (r && !n || !r && n) return false;
                     try {
                         return !(r.join("") !== n.join(""))
                     } catch (t) {
-                        return !1
+                        return false
                     }
                 }
 
@@ -28110,7 +28113,7 @@
                     return function (t, e) {
                         return !!e && t.includes(e.host)
                     }(t, n) || function (t, e) {
-                        if (!e) return !1;
+                        if (!e) return false;
                         return Hy(t) === Hy(e)
                     }(t, o)
                 }
@@ -28517,14 +28520,14 @@
                             else {
                                 let n = "";
                                 i = eg(t, i);
-                                let a = !1;
+                                let a = false;
                                 for (;;) {
                                     const t = e.charAt(r);
                                     if ("" === t) {
                                         o.push((i + n).trim());
                                         break
                                     }
-                                    if (a) ")" === t && (a = !1);
+                                    if (a) ")" === t && (a = false);
                                     else {
                                         if ("," === t) {
                                             r += 1, o.push((i + n).trim());
@@ -28551,7 +28554,7 @@
                 function sg(t, e) {
                     return r => {
                         const n = r;
-                        if (null === n) return !1;
+                        if (null === n) return false;
                         if (t)
                             if ("string" == typeof t) {
                                 if (n.matches(`.${t}`)) return true
@@ -28560,7 +28563,7 @@
                                     const n = t.classList[r];
                                     if (e.test(n)) return true
                                 }
-                                return !1
+                                return false
                             }(n, t)) return true;
                         return !(!e || !n.matches(e))
                     }
@@ -28569,14 +28572,14 @@
                 function cg(t, e, r, n, o, i) {
                     try {
                         const a = t.nodeType === t.ELEMENT_NODE ? t : t.parentElement;
-                        if (null === a) return !1;
+                        if (null === a) return false;
                         let s = -1,
                             c = -1;
                         if (i) {
                             if (c = ag(a, sg(n, o)), c < 0) return true;
                             s = ag(a, sg(e, r), c >= 0 ? c : 1 / 0)
                         } else {
-                            if (s = ag(a, sg(e, r)), s < 0) return !1;
+                            if (s = ag(a, sg(e, r)), s < 0) return false;
                             c = ag(a, sg(n, o), s >= 0 ? s : 1 / 0)
                         }
                         return s >= 0 ? !(c >= 0) || s <= c : !(c >= 0) && !!i
@@ -28605,7 +28608,7 @@
                         inlineImages: v,
                         recordCanvas: b,
                         keepIframeSrcFn: _,
-                        newlyAddedElement: w = !1
+                        newlyAddedElement: w = false
                     } = e, S = function (t, e) {
                         if (!e.hasNode(t)) return;
                         const r = e.getId(t);
@@ -28640,7 +28643,7 @@
                                 inlineImages: f,
                                 recordCanvas: p,
                                 keepIframeSrcFn: h,
-                                newlyAddedElement: d = !1,
+                                newlyAddedElement: d = false,
                                 rootId: y,
                                 maskAllText: m,
                                 maskTextClass: g,
@@ -28649,7 +28652,7 @@
                                 unmaskTextSelector: _
                             } = e, w = function (t, e, r, n) {
                                 try {
-                                    if (n && t.matches(n)) return !1;
+                                    if (n && t.matches(n)) return false;
                                     if ("string" == typeof e) {
                                         if (t.classList.contains(e)) return true
                                     } else
@@ -28659,7 +28662,7 @@
                                         }
                                     if (r) return t.matches(r)
                                 } catch (t) {}
-                                return !1
+                                return false
                             }(t, n, o, i), S = function (t) {
                                 if (t instanceof HTMLFormElement) return "form";
                                 const e = Mm(t.tagName);
@@ -28709,7 +28712,7 @@
                                         for (let n = 0; n < t.height; n += 50) {
                                             const o = e.getImageData,
                                                 i = Um in o ? o[Um] : o;
-                                            if (new Uint32Array(i.call(e, r, n, Math.min(50, t.width - r), Math.min(50, t.height - n)).data.buffer).some((t => 0 !== t))) return !1
+                                            if (new Uint32Array(i.call(e, r, n, Math.min(50, t.width - r), Math.min(50, t.height - n)).data.buffer).some((t => 0 !== t))) return false
                                         }
                                     return true
                                 })(t) || (E.rr_dataURL = t.toDataURL(l.type, l.quality));
@@ -28852,7 +28855,7 @@
                             type: Pm.Comment, textContent: t.textContent || "", rootId: S
                         };
                     default:
-                        return !1
+                        return false
                     }
                 }
 
@@ -28872,7 +28875,7 @@
                         unmaskTextClass: u,
                         maskTextSelector: l,
                         unmaskTextSelector: f,
-                        skipChild: p = !1,
+                        skipChild: p = false,
                         inlineStylesheet: h = true,
                         maskInputOptions: d = {},
                         maskAttributeFn: y,
@@ -28880,15 +28883,15 @@
                         maskInputFn: g,
                         slimDOMOptions: v,
                         dataURLOptions: b = {},
-                        inlineImages: _ = !1,
-                        recordCanvas: w = !1,
+                        inlineImages: _ = false,
+                        recordCanvas: w = false,
                         onSerialize: S,
                         onIframeLoad: E,
                         iframeLoadTimeout: x = 5e3,
                         onStylesheetLoad: O,
                         stylesheetLoadTimeout: k = 5e3,
-                        keepIframeSrcFn: T = (() => !1),
-                        newlyAddedElement: L = !1
+                        keepIframeSrcFn: T = (() => false),
+                        newlyAddedElement: L = false
                     } = e;
                     let {
                         preserveWhiteSpace: P = true
@@ -28931,7 +28934,7 @@
                                 if (e.headMetaVerification && ("google-site-verification" === lg(t.attributes.name) || "yandex-verification" === lg(t.attributes.name) || "csrf-token" === lg(t.attributes.name) || "p:domain_verify" === lg(t.attributes.name) || "verify-v1" === lg(t.attributes.name) || "verification" === lg(t.attributes.name) || "shopify-checkout-api-token" === lg(t.attributes.name))) return true
                             }
                         }
-                        return !1
+                        return false
                     }(I, v) && (P || I.type !== Pm.Text || I.isStyle || I.textContent.replace(/^\s+|\s+$/gm, "").length) ? Hm() : $m;
                     const C = Object.assign(I, {
                         id: j
@@ -28945,7 +28948,7 @@
                         e && jm(e) && (C.isShadowHost = true)
                     }
                     if ((C.type === Pm.Document || C.type === Pm.Element) && N) {
-                        v.headWhitespace && C.type === Pm.Element && "head" === C.tagName && (P = !1);
+                        v.headWhitespace && C.type === Pm.Element && "head" === C.tagName && (P = false);
                         const e = {
                             doc: r,
                             mirror: n,
@@ -28990,7 +28993,7 @@
                     return t.parentNode && Im(t.parentNode) && jm(t.parentNode) && (C.isShadow = true), C.type === Pm.Element && "iframe" === C.tagName && function (t, e, r) {
                         const n = t.contentWindow;
                         if (!n) return;
-                        let o, i = !1;
+                        let o, i = false;
                         try {
                             o = n.document.readyState
                         } catch (t) {
@@ -29021,7 +29024,7 @@
                                 unmaskTextClass: u,
                                 maskTextSelector: l,
                                 unmaskTextSelector: f,
-                                skipChild: !1,
+                                skipChild: false,
                                 inlineStylesheet: h,
                                 maskInputOptions: d,
                                 maskAttributeFn: y,
@@ -29042,7 +29045,7 @@
                             r && E(t, r)
                         }
                     }), x), C.type === Pm.Element && "link" === C.tagName && "stylesheet" === C.attributes.rel && function (t, e, r) {
-                        let n, o = !1;
+                        let n, o = false;
                         try {
                             n = t.sheet
                         } catch (t) {
@@ -29068,7 +29071,7 @@
                                 unmaskTextClass: u,
                                 maskTextSelector: l,
                                 unmaskTextSelector: f,
-                                skipChild: !1,
+                                skipChild: false,
                                 inlineStylesheet: h,
                                 maskInputOptions: d,
                                 maskAttributeFn: y,
@@ -29106,7 +29109,7 @@
                     removeNodeFromMap() {
                         console.error(hg)
                     },
-                    has: () => (console.error(hg), !1),
+                    has: () => (console.error(hg), false),
                     reset() {
                         console.error(hg)
                     }
@@ -29117,11 +29120,11 @@
                         o = 0;
                     return function (...i) {
                         const a = Date.now();
-                        o || !1 !== r.leading || (o = a);
+                        o || false !== r.leading || (o = a);
                         const s = e - (a - o),
                             c = this;
-                        s <= 0 || s > e ? (n && (clearTimeout(n), n = null), o = a, t.apply(c, i)) : n || !1 === r.trailing || (n = setTimeout((() => {
-                            o = !1 === r.leading ? 0 : Date.now(), n = null, t.apply(c, i)
+                        s <= 0 || s > e ? (n && (clearTimeout(n), n = null), o = a, t.apply(c, i)) : n || false === r.trailing || (n = setTimeout((() => {
+                            o = false === r.leading ? 0 : Date.now(), n = null, t.apply(c, i)
                         }), s))
                     }
                 }
@@ -29144,7 +29147,7 @@
                             o = r(n);
                         return "function" == typeof o && (o.prototype = o.prototype || {}, Object.defineProperties(o, {
                             __rrweb_original__: {
-                                enumerable: !1,
+                                enumerable: false,
                                 value: n
                             }
                         })), t[e] = o, () => {
@@ -29177,9 +29180,9 @@
                 }
 
                 function Sg(t, e, r, n, o) {
-                    if (!t) return !1;
+                    if (!t) return false;
                     const i = t.nodeType === t.ELEMENT_NODE ? t : t.parentElement;
-                    if (!i) return !1;
+                    if (!i) return false;
                     const a = sg(e, r);
                     if (!o) {
                         const t = n && i.matches(n);
@@ -29195,7 +29198,7 @@
                 }
 
                 function xg(t, e) {
-                    if (Im(t)) return !1;
+                    if (Im(t)) return false;
                     const r = e.getId(t);
                     return !e.has(r) || (!t.parentNode || t.parentNode.nodeType !== t.DOCUMENT_NODE) && (!t.parentNode || xg(t.parentNode, e))
                 }
@@ -29251,7 +29254,7 @@
 
                 function jg(t) {
                     const e = t.ownerDocument;
-                    if (!e) return !1;
+                    if (!e) return false;
                     const r = function (t) {
                         let e, r = t;
                         for (; e = Ig(r);) r = e;
@@ -29305,7 +29308,7 @@
                 const Ug = (t, e) => `${t}@${e}`;
                 class Fg {
                     constructor() {
-                        this.frozen = !1, this.locked = !1, this.texts = [], this.attributes = [], this.removes = [], this.mapRemoves = [], this.movedMap = {}, this.addedSet = new Set, this.movedSet = new Set, this.droppedSet = new Set, this.processMutations = t => {
+                        this.frozen = false, this.locked = false, this.texts = [], this.attributes = [], this.removes = [], this.mapRemoves = [], this.movedMap = {}, this.addedSet = new Set, this.movedSet = new Set, this.droppedSet = new Set, this.processMutations = t => {
                             t.forEach(this.processMutation), this.emit()
                         }, this.emit = () => {
                             if (this.frozen || this.locked) return;
@@ -29434,7 +29437,7 @@
                             switch (t.type) {
                             case "characterData": {
                                 const e = t.target.textContent;
-                                Sg(t.target, this.blockClass, this.blockSelector, this.unblockSelector, !1) || e === t.oldValue || this.texts.push({
+                                Sg(t.target, this.blockClass, this.blockSelector, this.unblockSelector, false) || e === t.oldValue || this.texts.push({
                                     value: cg(t.target, this.maskTextClass, this.maskTextSelector, this.unmaskTextClass, this.unmaskTextSelector, this.maskAllText) && e ? this.maskTextFn ? this.maskTextFn(e) : e.replace(/[\S]/g, "*") : e,
                                     node: t.target
                                 });
@@ -29460,7 +29463,7 @@
                                         maskInputFn: this.maskInputFn
                                     })
                                 }
-                                if (Sg(t.target, this.blockClass, this.blockSelector, this.unblockSelector, !1) || o === t.oldValue) return;
+                                if (Sg(t.target, this.blockClass, this.blockSelector, this.unblockSelector, false) || o === t.oldValue) return;
                                 let i = this.attributes.find((e => e.node === t.target));
                                 if ("IFRAME" === r.tagName && "src" === n && !this.keepIframeSrcFn(o)) {
                                     if (r.contentDocument) return;
@@ -29479,7 +29482,7 @@
                                             o = r.style.getPropertyPriority(t);
                                         e !== n.style.getPropertyValue(t) || o !== n.style.getPropertyPriority(t) ? i.styleDiff[t] = "" === o ? e : [e, o] : i._unchangedStyles[t] = [e, o]
                                     }
-                                    for (const t of Array.from(n.style)) "" === r.style.getPropertyValue(t) && (i.styleDiff[t] = !1)
+                                    for (const t of Array.from(n.style)) "" === r.style.getPropertyValue(t) && (i.styleDiff[t] = false)
                                 }
                                 break
                             }
@@ -29488,7 +29491,7 @@
                                 t.addedNodes.forEach((e => this.genAdds(e, t.target))), t.removedNodes.forEach((e => {
                                     const r = this.mirror.getId(e),
                                         n = Im(t.target) ? this.mirror.getId(t.target.host) : this.mirror.getId(t.target);
-                                    Sg(t.target, this.blockClass, this.blockSelector, this.unblockSelector, !1) || Eg(e, this.mirror) || ! function (t, e) {
+                                    Sg(t.target, this.blockClass, this.blockSelector, this.unblockSelector, false) || Eg(e, this.mirror) || ! function (t, e) {
                                         return -1 !== e.getId(t)
                                     }(e, this.mirror) || (this.addedSet.has(e) ? (Bg(this.addedSet, e), this.droppedSet.add(e)) : this.addedSet.has(t.target) && -1 === r || xg(t.target, this.mirror) || (this.movedSet.has(e) && this.movedMap[Ug(r, n)] ? Bg(this.movedSet, e) : this.removes.push({
                                         parentId: n,
@@ -29505,7 +29508,7 @@
                                     let r = null;
                                     e && this.mirror.hasNode(e) && (r = this.mirror.getId(e)), r && -1 !== r && (this.movedMap[Ug(this.mirror.getId(t), r)] = true)
                                 } else this.addedSet.add(t), this.droppedSet.delete(t);
-                                Sg(t, this.blockClass, this.blockSelector, this.unblockSelector, !1) || (t.childNodes.forEach((t => this.genAdds(t))), Lg(t) && t.shadowRoot.childNodes.forEach((e => {
+                                Sg(t, this.blockClass, this.blockSelector, this.unblockSelector, false) || (t.childNodes.forEach((t => this.genAdds(t))), Lg(t) && t.shadowRoot.childNodes.forEach((e => {
                                     this.processedNodeManager.add(e, this), this.genAdds(e, t)
                                 })))
                             }
@@ -29520,7 +29523,7 @@
                         this.frozen = true, this.canvasManager.freeze()
                     }
                     unfreeze() {
-                        this.frozen = !1, this.canvasManager.unfreeze(), this.emit()
+                        this.frozen = false, this.canvasManager.unfreeze(), this.emit()
                     }
                     isFrozen() {
                         return this.frozen
@@ -29529,7 +29532,7 @@
                         this.locked = true, this.canvasManager.lock()
                     }
                     unlock() {
-                        this.locked = !1, this.canvasManager.unlock(), this.emit()
+                        this.locked = false, this.canvasManager.unlock(), this.emit()
                     }
                     reset() {
                         this.shadowDomManager.reset(), this.canvasManager.reset()
@@ -29548,7 +29551,7 @@
                     const {
                         parentNode: n
                     } = e;
-                    if (!n) return !1;
+                    if (!n) return false;
                     const o = r.getId(n);
                     return !!t.some((t => t.id === o)) || Yg(t, n, r)
                 }
@@ -29603,7 +29606,7 @@
                     const a = null === (n = null === (r = null === window || undefined === window ? undefined : window.Zone) || undefined === r ? undefined : r.__symbol__) || undefined === n ? undefined : n.call(r, "MutationObserver");
                     a && window[a] && (i = window[a]);
                     const s = new i(qg((e => {
-                        t.onMutation && !1 === t.onMutation(e) || o.processMutations.bind(o)(e)
+                        t.onMutation && false === t.onMutation(e) || o.processMutations.bind(o)(e)
                     })));
                     return s.observe(e, {
                         attributes: true,
@@ -29624,11 +29627,11 @@
                     unblockSelector: i,
                     sampling: a
                 }) {
-                    if (!1 === a.mouseInteraction) return () => {};
+                    if (false === a.mouseInteraction) return () => {};
                     const s = true === a.mouseInteraction || undefined === a.mouseInteraction ? {} : a.mouseInteraction,
                         c = [];
                     let u = null;
-                    return Object.keys(Rg).filter((t => Number.isNaN(Number(t)) && !t.endsWith("_Departed") && !1 !== s[t])).forEach((a => {
+                    return Object.keys(Rg).filter((t => Number.isNaN(Number(t)) && !t.endsWith("_Departed") && false !== s[t])).forEach((a => {
                         let s = Mm(a);
                         const l = (e => a => {
                             const s = Kg(a);
@@ -29737,7 +29740,7 @@
                         if (v.classList.contains(a) || s && v.matches(s)) return;
                         const b = Fm(r);
                         let _ = Bm(v, m, b),
-                            w = !1;
+                            w = false;
                         const S = Rm({
                                 maskInputOptions: c,
                                 tagName: m,
@@ -29769,7 +29772,7 @@
                                 g(t, f ? {
                                     text: e,
                                     isChecked: !w,
-                                    userTriggered: !1
+                                    userTriggered: false
                                 } : {
                                     text: e,
                                     isChecked: !w
@@ -29806,10 +29809,10 @@
                         set() {
                             qg(m)({
                                 target: this,
-                                isTrusted: !1
+                                isTrusted: false
                             })
                         }
-                    }, !1, b)))), qg((() => {
+                    }, false, b)))), qg((() => {
                         v.forEach((t => t()))
                     }))
                 }
@@ -29879,7 +29882,7 @@
                             doc: r,
                             mirror: n
                         }) {
-                            if (!1 === e.mousemove) return () => {};
+                            if (false === e.mousemove) return () => {};
                             const o = "number" == typeof e.mousemove ? e.mousemove : 50,
                                 i = "number" == typeof e.mousemoveCallback ? e.mousemoveCallback : 500;
                             let a, s = [];
@@ -29900,7 +29903,7 @@
                                         timeOffset: vg() - a
                                     }), c("undefined" != typeof DragEvent && t instanceof DragEvent ? Dg.Drag : t instanceof MouseEvent ? Dg.MouseMove : Dg.TouchMove)
                                 })), o, {
-                                    trailing: !1
+                                    trailing: false
                                 })),
                                 l = [pg("mousemove", u, r), pg("touchmove", u, r), pg("drag", u, r)];
                             return qg((() => {
@@ -30172,7 +30175,7 @@
                             const c = qg((() => {
                                 const t = e.getSelection();
                                 if (!t || s && (null == t ? undefined : t.isCollapsed)) return;
-                                s = t.isCollapsed || !1;
+                                s = t.isCollapsed || false;
                                 const c = [],
                                     u = t.rangeCount || 0;
                                 for (let e = 0; e < u; e++) {
@@ -30331,7 +30334,7 @@
                         case Ng.Meta:
                         case Ng.Load:
                         case Ng.DomContentLoaded:
-                            return !1;
+                            return false;
                         case Ng.Plugin:
                             return e;
                         case Ng.Custom:
@@ -30357,7 +30360,7 @@
                                     this.replaceIds(e, t, ["id"])
                                 })), e;
                             case Dg.ViewportResize:
-                                return !1;
+                                return false;
                             case Dg.MediaInteraction:
                             case Dg.MouseInteraction:
                             case Dg.Scroll:
@@ -30379,7 +30382,7 @@
                                 })), e
                             }
                         }
-                        return !1
+                        return false
                     }
                     replace(t, e, r, n) {
                         for (const o of n)(Array.isArray(e[o]) || "number" == typeof e[o]) && (Array.isArray(e[o]) ? e[o] = t.getIds(r, e[o]) : e[o] = t.getId(r, e[o]));
@@ -30525,7 +30528,7 @@
                         this.nodeMap = new WeakMap
                     }
                     destroy() {
-                        this.loop = !1
+                        this.loop = false
                     }
                 }
 
@@ -30546,7 +30549,7 @@
                         unblockSelector: a = null,
                         ignoreClass: s = "rr-ignore",
                         ignoreSelector: c = null,
-                        maskAllText: u = !1,
+                        maskAllText: u = false,
                         maskTextClass: l = "rr-mask",
                         unmaskTextClass: f = null,
                         maskTextSelector: p = null,
@@ -30562,13 +30565,13 @@
                         sampling: S = {},
                         dataURLOptions: E = {},
                         mousemoveWait: x,
-                        recordCanvas: O = !1,
-                        recordCrossOriginIframes: k = !1,
+                        recordCanvas: O = false,
+                        recordCrossOriginIframes: k = false,
                         recordAfter: T = ("DOMContentLoaded" === t.recordAfter ? t.recordAfter : "load"),
-                        userTriggeredOnInput: L = !1,
-                        collectFonts: P = !1,
-                        inlineImages: I = !1,
-                        keepIframeSrcFn: j = (() => !1),
+                        userTriggeredOnInput: L = false,
+                        collectFonts: P = false,
+                        inlineImages: I = false,
+                        keepIframeSrcFn: j = (() => false),
                         ignoreCSSAttributes: C = new Set([]),
                         errorHandler: N,
                         onMutation: D,
@@ -30576,9 +30579,9 @@
                     } = t;
                     Wg(N);
                     const A = !k || window.parent === window;
-                    let M = !1;
+                    let M = false;
                     if (!A) try {
-                        window.parent.document && (M = !1)
+                        window.parent.document && (M = false)
                     } catch (t) {
                         M = true
                     }
@@ -30623,7 +30626,7 @@
                             do {
                                 if (this === e) return true
                             } while (e = e && e.parentNode);
-                            return !1
+                            return false
                         })
                     }();
                     let B = 0;
@@ -30725,7 +30728,7 @@
                             },
                             mirror: _v
                         }),
-                        X = (t = !1) => {
+                        X = (t = false) => {
                             Y(vv({
                                 type: Ng.Meta,
                                 data: {
@@ -30740,19 +30743,19 @@
                                     blockClass: n = "rr-block",
                                     blockSelector: o = null,
                                     unblockSelector: i = null,
-                                    maskAllText: a = !1,
+                                    maskAllText: a = false,
                                     maskTextClass: s = "rr-mask",
                                     unmaskTextClass: c = null,
                                     maskTextSelector: u = null,
                                     unmaskTextSelector: l = null,
                                     inlineStylesheet: f = true,
-                                    inlineImages: p = !1,
-                                    recordCanvas: h = !1,
-                                    maskAllInputs: d = !1,
+                                    inlineImages: p = false,
+                                    recordCanvas: h = false,
+                                    maskAllInputs: d = false,
                                     maskAttributeFn: y,
                                     maskTextFn: m,
                                     maskInputFn: g,
-                                    slimDOM: v = !1,
+                                    slimDOM: v = false,
                                     dataURLOptions: b,
                                     preserveWhiteSpace: _,
                                     onSerialize: w,
@@ -30760,7 +30763,7 @@
                                     iframeLoadTimeout: E,
                                     onStylesheetLoad: x,
                                     stylesheetLoadTimeout: O,
-                                    keepIframeSrcFn: k = (() => !1)
+                                    keepIframeSrcFn: k = (() => false)
                                 } = e || {};
                                 return fg(t, {
                                     doc: t,
@@ -30773,7 +30776,7 @@
                                     unmaskTextClass: c,
                                     maskTextSelector: u,
                                     unmaskTextSelector: l,
-                                    skipChild: !1,
+                                    skipChild: false,
                                     inlineStylesheet: f,
                                     maskInputOptions: true === d ? {
                                         color: true,
@@ -30791,7 +30794,7 @@
                                         week: true,
                                         textarea: true,
                                         select: true
-                                    } : !1 === d ? {} : d,
+                                    } : false === d ? {} : d,
                                     maskAttributeFn: y,
                                     maskTextFn: m,
                                     maskInputFn: g,
@@ -30806,7 +30809,7 @@
                                         headMetaHttpEquiv: true,
                                         headMetaAuthorship: true,
                                         headMetaVerification: true
-                                    } : !1 === v ? {} : v,
+                                    } : false === v ? {} : v,
                                     dataURLOptions: b,
                                     inlineImages: p,
                                     recordCanvas: h,
@@ -30817,7 +30820,7 @@
                                     onStylesheetLoad: x,
                                     stylesheetLoadTimeout: O,
                                     keepIframeSrcFn: k,
-                                    newlyAddedElement: !1
+                                    newlyAddedElement: false
                                 })
                             }(document, {
                                 mirror: _v,
@@ -31067,7 +31070,7 @@
                                 if ("INPUT" === t.tagName && !["submit", "button"].includes(t.getAttribute("type") || "")) return true;
                                 if ("A" === t.tagName && (t.hasAttribute("download") || t.hasAttribute("target") && "_self" !== t.getAttribute("target"))) return true;
                                 if (e && t.matches(e)) return true;
-                                return !1
+                                return false
                             }(e, this._ignoreSelector) || ! function (t) {
                                 return !(!t.data || "number" != typeof t.data.nodeId || !t.timestamp)
                             }(t)) return;
@@ -31425,7 +31428,7 @@
                         n.forEach((t => t()))
                     }
                 }
-                const Wv = 'var t=Uint8Array,n=Uint16Array,r=Int32Array,e=new t([0,0,0,0,0,0,0,0,1,1,1,1,2,2,2,2,3,3,3,3,4,4,4,4,5,5,5,5,0,0,0,0]),i=new t([0,0,0,0,1,1,2,2,3,3,4,4,5,5,6,6,7,7,8,8,9,9,10,10,11,11,12,12,13,13,0,0]),a=new t([16,17,18,0,8,7,9,6,10,5,11,4,12,3,13,2,14,1,15]),s=function(t,e){for(var i=new n(31),a=0;a<31;++a)i[a]=e+=1<<t[a-1];var s=new r(i[30]);for(a=1;a<30;++a)for(var o=i[a];o<i[a+1];++o)s[o]=o-i[a]<<5|a;return{b:i,r:s}},o=s(e,2),f=o.b,h=o.r;f[28]=258,h[258]=28;for(var l=s(i,0).r,u=new n(32768),c=0;c<32768;++c){var v=(43690&c)>>1|(21845&c)<<1;v=(61680&(v=(52428&v)>>2|(13107&v)<<2))>>4|(3855&v)<<4,u[c]=((65280&v)>>8|(255&v)<<8)>>1}var d=function(t,r,e){for(var i=t.length,a=0,s=new n(r);a<i;++a)t[a]&&++s[t[a]-1];var o,f=new n(r);for(a=1;a<r;++a)f[a]=f[a-1]+s[a-1]<<1;if(e){o=new n(1<<r);var h=15-r;for(a=0;a<i;++a)if(t[a])for(var l=a<<4|t[a],c=r-t[a],v=f[t[a]-1]++<<c,d=v|(1<<c)-1;v<=d;++v)o[u[v]>>h]=l}else for(o=new n(i),a=0;a<i;++a)t[a]&&(o[a]=u[f[t[a]-1]++]>>15-t[a]);return o},g=new t(288);for(c=0;c<144;++c)g[c]=8;for(c=144;c<256;++c)g[c]=9;for(c=256;c<280;++c)g[c]=7;for(c=280;c<288;++c)g[c]=8;var w=new t(32);for(c=0;c<32;++c)w[c]=5;var p=d(g,9,0),y=d(w,5,0),m=function(t){return(t+7)/8|0},b=function(n,r,e){return(null==r||r<0)&&(r=0),(null==e||e>n.length)&&(e=n.length),new t(n.subarray(r,e))},M=["unexpected EOF","invalid block type","invalid length/literal","invalid distance","stream finished","no stream handler",,"no callback","invalid UTF-8 data","extra field too long","date not in range 1980-2099","filename too long","stream finishing","invalid zip data"],E=function(t,n,r){var e=new Error(n||M[t]);if(e.code=t,Error.captureStackTrace&&Error.captureStackTrace(e,E),!r)throw e;return e},z=function(t,n,r){r<<=7&n;var e=n/8|0;t[e]|=r,t[e+1]|=r>>8},A=function(t,n,r){r<<=7&n;var e=n/8|0;t[e]|=r,t[e+1]|=r>>8,t[e+2]|=r>>16},_=function(r,e){for(var i=[],a=0;a<r.length;++a)r[a]&&i.push({s:a,f:r[a]});var s=i.length,o=i.slice();if(!s)return{t:F,l:0};if(1==s){var f=new t(i[0].s+1);return f[i[0].s]=1,{t:f,l:1}}i.sort((function(t,n){return t.f-n.f})),i.push({s:-1,f:25001});var h=i[0],l=i[1],u=0,c=1,v=2;for(i[0]={s:-1,f:h.f+l.f,l:h,r:l};c!=s-1;)h=i[i[u].f<i[v].f?u++:v++],l=i[u!=c&&i[u].f<i[v].f?u++:v++],i[c++]={s:-1,f:h.f+l.f,l:h,r:l};var d=o[0].s;for(a=1;a<s;++a)o[a].s>d&&(d=o[a].s);var g=new n(d+1),w=x(i[c-1],g,0);if(w>e){a=0;var p=0,y=w-e,m=1<<y;for(o.sort((function(t,n){return g[n.s]-g[t.s]||t.f-n.f}));a<s;++a){var b=o[a].s;if(!(g[b]>e))break;p+=m-(1<<w-g[b]),g[b]=e}for(p>>=y;p>0;){var M=o[a].s;g[M]<e?p-=1<<e-g[M]++-1:++a}for(;a>=0&&p;--a){var E=o[a].s;g[E]==e&&(--g[E],++p)}w=e}return{t:new t(g),l:w}},x=function(t,n,r){return-1==t.s?Math.max(x(t.l,n,r+1),x(t.r,n,r+1)):n[t.s]=r},D=function(t){for(var r=t.length;r&&!t[--r];);for(var e=new n(++r),i=0,a=t[0],s=1,o=function(t){e[i++]=t},f=1;f<=r;++f)if(t[f]==a&&f!=r)++s;else{if(!a&&s>2){for(;s>138;s-=138)o(32754);s>2&&(o(s>10?s-11<<5|28690:s-3<<5|12305),s=0)}else if(s>3){for(o(a),--s;s>6;s-=6)o(8304);s>2&&(o(s-3<<5|8208),s=0)}for(;s--;)o(a);s=1,a=t[f]}return{c:e.subarray(0,i),n:r}},T=function(t,n){for(var r=0,e=0;e<n.length;++e)r+=t[e]*n[e];return r},k=function(t,n,r){var e=r.length,i=m(n+2);t[i]=255&e,t[i+1]=e>>8,t[i+2]=255^t[i],t[i+3]=255^t[i+1];for(var a=0;a<e;++a)t[i+a+4]=r[a];return 8*(i+4+e)},C=function(t,r,s,o,f,h,l,u,c,v,m){z(r,m++,s),++f[256];for(var b=_(f,15),M=b.t,E=b.l,x=_(h,15),C=x.t,U=x.l,F=D(M),I=F.c,S=F.n,L=D(C),O=L.c,j=L.n,q=new n(19),B=0;B<I.length;++B)++q[31&I[B]];for(B=0;B<O.length;++B)++q[31&O[B]];for(var G=_(q,7),H=G.t,J=G.l,K=19;K>4&&!H[a[K-1]];--K);var N,P,Q,R,V=v+5<<3,W=T(f,g)+T(h,w)+l,X=T(f,M)+T(h,C)+l+14+3*K+T(q,H)+2*q[16]+3*q[17]+7*q[18];if(c>=0&&V<=W&&V<=X)return k(r,m,t.subarray(c,c+v));if(z(r,m,1+(X<W)),m+=2,X<W){N=d(M,E,0),P=M,Q=d(C,U,0),R=C;var Y=d(H,J,0);z(r,m,S-257),z(r,m+5,j-1),z(r,m+10,K-4),m+=14;for(B=0;B<K;++B)z(r,m+3*B,H[a[B]]);m+=3*K;for(var Z=[I,O],$=0;$<2;++$){var tt=Z[$];for(B=0;B<tt.length;++B){var nt=31&tt[B];z(r,m,Y[nt]),m+=H[nt],nt>15&&(z(r,m,tt[B]>>5&127),m+=tt[B]>>12)}}}else N=p,P=g,Q=y,R=w;for(B=0;B<u;++B){var rt=o[B];if(rt>255){A(r,m,N[(nt=rt>>18&31)+257]),m+=P[nt+257],nt>7&&(z(r,m,rt>>23&31),m+=e[nt]);var et=31&rt;A(r,m,Q[et]),m+=R[et],et>3&&(A(r,m,rt>>5&8191),m+=i[et])}else A(r,m,N[rt]),m+=P[rt]}return A(r,m,N[256]),m+P[256]},U=new r([65540,131080,131088,131104,262176,1048704,1048832,2114560,2117632]),F=new t(0),I=function(){for(var t=new Int32Array(256),n=0;n<256;++n){for(var r=n,e=9;--e;)r=(1&r&&-306674912)^r>>>1;t[n]=r}return t}(),S=function(){var t=1,n=0;return{p:function(r){for(var e=t,i=n,a=0|r.length,s=0;s!=a;){for(var o=Math.min(s+2655,a);s<o;++s)i+=e+=r[s];e=(65535&e)+15*(e>>16),i=(65535&i)+15*(i>>16)}t=e,n=i},d:function(){return(255&(t%=65521))<<24|(65280&t)<<8|(255&(n%=65521))<<8|n>>8}}},L=function(a,s,o,f,u){if(!u&&(u={l:1},s.dictionary)){var c=s.dictionary.subarray(-32768),v=new t(c.length+a.length);v.set(c),v.set(a,c.length),a=v,u.w=c.length}return function(a,s,o,f,u,c){var v=c.z||a.length,d=new t(f+v+5*(1+Math.ceil(v/7e3))+u),g=d.subarray(f,d.length-u),w=c.l,p=7&(c.r||0);if(s){p&&(g[0]=c.r>>3);for(var y=U[s-1],M=y>>13,E=8191&y,z=(1<<o)-1,A=c.p||new n(32768),_=c.h||new n(z+1),x=Math.ceil(o/3),D=2*x,T=function(t){return(a[t]^a[t+1]<<x^a[t+2]<<D)&z},F=new r(25e3),I=new n(288),S=new n(32),L=0,O=0,j=c.i||0,q=0,B=c.w||0,G=0;j+2<v;++j){var H=T(j),J=32767&j,K=_[H];if(A[J]=K,_[H]=J,B<=j){var N=v-j;if((L>7e3||q>24576)&&(N>423||!w)){p=C(a,g,0,F,I,S,O,q,G,j-G,p),q=L=O=0,G=j;for(var P=0;P<286;++P)I[P]=0;for(P=0;P<30;++P)S[P]=0}var Q=2,R=0,V=E,W=J-K&32767;if(N>2&&H==T(j-W))for(var X=Math.min(M,N)-1,Y=Math.min(32767,j),Z=Math.min(258,N);W<=Y&&--V&&J!=K;){if(a[j+Q]==a[j+Q-W]){for(var $=0;$<Z&&a[j+$]==a[j+$-W];++$);if($>Q){if(Q=$,R=W,$>X)break;var tt=Math.min(W,$-2),nt=0;for(P=0;P<tt;++P){var rt=j-W+P&32767,et=rt-A[rt]&32767;et>nt&&(nt=et,K=rt)}}}W+=(J=K)-(K=A[J])&32767}if(R){F[q++]=268435456|h[Q]<<18|l[R];var it=31&h[Q],at=31&l[R];O+=e[it]+i[at],++I[257+it],++S[at],B=j+Q,++L}else F[q++]=a[j],++I[a[j]]}}for(j=Math.max(j,B);j<v;++j)F[q++]=a[j],++I[a[j]];p=C(a,g,w,F,I,S,O,q,G,j-G,p),w||(c.r=7&p|g[p/8|0]<<3,p-=7,c.h=_,c.p=A,c.i=j,c.w=B)}else{for(j=c.w||0;j<v+w;j+=65535){var st=j+65535;st>=v&&(g[p/8|0]=w,st=v),p=k(g,p+1,a.subarray(j,st))}c.i=v}return b(d,0,f+m(p)+u)}(a,null==s.level?6:s.level,null==s.mem?Math.ceil(1.5*Math.max(8,Math.min(13,Math.log(a.length)))):12+s.mem,o,f,u)},O=function(t,n,r){for(;r;++n)t[n]=r,r>>>=8},j=function(){function n(n,r){if("function"==typeof n&&(r=n,n={}),this.ondata=r,this.o=n||{},this.s={l:0,i:32768,w:32768,z:32768},this.b=new t(98304),this.o.dictionary){var e=this.o.dictionary.subarray(-32768);this.b.set(e,32768-e.length),this.s.i=32768-e.length}}return n.prototype.p=function(t,n){this.ondata(L(t,this.o,0,0,this.s),n)},n.prototype.push=function(n,r){this.ondata||E(5),this.s.l&&E(4);var e=n.length+this.s.z;if(e>this.b.length){if(e>2*this.b.length-32768){var i=new t(-32768&e);i.set(this.b.subarray(0,this.s.z)),this.b=i}var a=this.b.length-this.s.z;a&&(this.b.set(n.subarray(0,a),this.s.z),this.s.z=this.b.length,this.p(this.b,!1)),this.b.set(this.b.subarray(-32768)),this.b.set(n.subarray(a),32768),this.s.z=n.length-a+32768,this.s.i=32766,this.s.w=32768}else this.b.set(n,this.s.z),this.s.z+=n.length;this.s.l=1&r,(this.s.z>this.s.w+8191||r)&&(this.p(this.b,r||!1),this.s.w=this.s.i,this.s.i-=2)},n}();function q(t,n){n||(n={});var r=function(){var t=-1;return{p:function(n){for(var r=t,e=0;e<n.length;++e)r=I[255&r^n[e]]^r>>>8;t=r},d:function(){return~t}}}(),e=t.length;r.p(t);var i,a=L(t,n,10+((i=n).filename?i.filename.length+1:0),8),s=a.length;return function(t,n){var r=n.filename;if(t[0]=31,t[1]=139,t[2]=8,t[8]=n.level<2?4:9==n.level?2:0,t[9]=3,0!=n.mtime&&O(t,4,Math.floor(new Date(n.mtime||Date.now())/1e3)),r){t[3]=8;for(var e=0;e<=r.length;++e)t[e+10]=r.charCodeAt(e)}}(a,n),O(a,s-8,r.d()),O(a,s-4,e),a}var B=function(){function t(t,n){this.c=S(),this.v=1,j.call(this,t,n)}return t.prototype.push=function(t,n){this.c.p(t),j.prototype.push.call(this,t,n)},t.prototype.p=function(t,n){var r=L(t,this.o,this.v&&(this.o.dictionary?6:2),n&&4,this.s);this.v&&(function(t,n){var r=n.level,e=0==r?0:r<6?1:9==r?3:2;if(t[0]=120,t[1]=e<<6|(n.dictionary&&32),t[1]|=31-(t[0]<<8|t[1])%31,n.dictionary){var i=S();i.p(n.dictionary),O(t,2,i.d())}}(r,this.o),this.v=0),n&&O(r,r.length-4,this.c.d()),this.ondata(r,n)},t}(),G="undefined"!=typeof TextEncoder&&new TextEncoder,H="undefined"!=typeof TextDecoder&&new TextDecoder;try{H.decode(F,{stream:true})}catch(t){}var J=function(){function t(t){this.ondata=t}return t.prototype.push=function(t,n){this.ondata||E(5),this.d&&E(4),this.ondata(K(t),this.d=n||!1)},t}();function K(n,r){if(r){for(var e=new t(n.length),i=0;i<n.length;++i)e[i]=n.charCodeAt(i);return e}if(G)return G.encode(n);var a=n.length,s=new t(n.length+(n.length>>1)),o=0,f=function(t){s[o++]=t};for(i=0;i<a;++i){if(o+5>s.length){var h=new t(o+8+(a-i<<1));h.set(s),s=h}var l=n.charCodeAt(i);l<128||r?f(l):l<2048?(f(192|l>>6),f(128|63&l)):l>55295&&l<57344?(f(240|(l=65536+(1047552&l)|1023&n.charCodeAt(++i))>>18),f(128|l>>12&63),f(128|l>>6&63),f(128|63&l)):(f(224|l>>12),f(128|l>>6&63),f(128|63&l))}return b(s,0,o)}const N=new class{constructor(){this._init()}clear(){this._init()}addEvent(t){if(!t)throw new Error("Adding invalid event");const n=this._hasEvents?",":"";this.stream.push(n+t),this._hasEvents=true}finish(){this.stream.push("]",true);const t=function(t){let n=0;for(let r=0,e=t.length;r<e;r++)n+=t[r].length;const r=new Uint8Array(n);for(let n=0,e=0,i=t.length;n<i;n++){const i=t[n];r.set(i,e),e+=i.length}return r}(this._deflatedData);return this._init(),t}_init(){this._hasEvents=!1,this._deflatedData=[],this.deflate=new B,this.deflate.ondata=(t,n)=>{this._deflatedData.push(t)},this.stream=new J(((t,n)=>{this.deflate.push(t,n)})),this.stream.push("[")}},P={clear:()=>{N.clear()},addEvent:t=>N.addEvent(t),finish:()=>N.finish(),compress:t=>function(t){return q(K(t))}(t)};addEventListener("message",(function(t){const n=t.data.method,r=t.data.id,e=t.data.arg;if(n in P&&"function"==typeof P[n])try{const t=P[n](e);postMessage({id:r,method:n,success:true,response:t})}catch(t){postMessage({id:r,method:n,success:!1,response:t.message}),console.error(t)}})),postMessage({id:undefined,method:"init",success:true,response:undefined});';
+                const Wv = 'var t=Uint8Array,n=Uint16Array,r=Int32Array,e=new t([0,0,0,0,0,0,0,0,1,1,1,1,2,2,2,2,3,3,3,3,4,4,4,4,5,5,5,5,0,0,0,0]),i=new t([0,0,0,0,1,1,2,2,3,3,4,4,5,5,6,6,7,7,8,8,9,9,10,10,11,11,12,12,13,13,0,0]),a=new t([16,17,18,0,8,7,9,6,10,5,11,4,12,3,13,2,14,1,15]),s=function(t,e){for(var i=new n(31),a=0;a<31;++a)i[a]=e+=1<<t[a-1];var s=new r(i[30]);for(a=1;a<30;++a)for(var o=i[a];o<i[a+1];++o)s[o]=o-i[a]<<5|a;return{b:i,r:s}},o=s(e,2),f=o.b,h=o.r;f[28]=258,h[258]=28;for(var l=s(i,0).r,u=new n(32768),c=0;c<32768;++c){var v=(43690&c)>>1|(21845&c)<<1;v=(61680&(v=(52428&v)>>2|(13107&v)<<2))>>4|(3855&v)<<4,u[c]=((65280&v)>>8|(255&v)<<8)>>1}var d=function(t,r,e){for(var i=t.length,a=0,s=new n(r);a<i;++a)t[a]&&++s[t[a]-1];var o,f=new n(r);for(a=1;a<r;++a)f[a]=f[a-1]+s[a-1]<<1;if(e){o=new n(1<<r);var h=15-r;for(a=0;a<i;++a)if(t[a])for(var l=a<<4|t[a],c=r-t[a],v=f[t[a]-1]++<<c,d=v|(1<<c)-1;v<=d;++v)o[u[v]>>h]=l}else for(o=new n(i),a=0;a<i;++a)t[a]&&(o[a]=u[f[t[a]-1]++]>>15-t[a]);return o},g=new t(288);for(c=0;c<144;++c)g[c]=8;for(c=144;c<256;++c)g[c]=9;for(c=256;c<280;++c)g[c]=7;for(c=280;c<288;++c)g[c]=8;var w=new t(32);for(c=0;c<32;++c)w[c]=5;var p=d(g,9,0),y=d(w,5,0),m=function(t){return(t+7)/8|0},b=function(n,r,e){return(null==r||r<0)&&(r=0),(null==e||e>n.length)&&(e=n.length),new t(n.subarray(r,e))},M=["unexpected EOF","invalid block type","invalid length/literal","invalid distance","stream finished","no stream handler",,"no callback","invalid UTF-8 data","extra field too long","date not in range 1980-2099","filename too long","stream finishing","invalid zip data"],E=function(t,n,r){var e=new Error(n||M[t]);if(e.code=t,Error.captureStackTrace&&Error.captureStackTrace(e,E),!r)throw e;return e},z=function(t,n,r){r<<=7&n;var e=n/8|0;t[e]|=r,t[e+1]|=r>>8},A=function(t,n,r){r<<=7&n;var e=n/8|0;t[e]|=r,t[e+1]|=r>>8,t[e+2]|=r>>16},_=function(r,e){for(var i=[],a=0;a<r.length;++a)r[a]&&i.push({s:a,f:r[a]});var s=i.length,o=i.slice();if(!s)return{t:F,l:0};if(1==s){var f=new t(i[0].s+1);return f[i[0].s]=1,{t:f,l:1}}i.sort((function(t,n){return t.f-n.f})),i.push({s:-1,f:25001});var h=i[0],l=i[1],u=0,c=1,v=2;for(i[0]={s:-1,f:h.f+l.f,l:h,r:l};c!=s-1;)h=i[i[u].f<i[v].f?u++:v++],l=i[u!=c&&i[u].f<i[v].f?u++:v++],i[c++]={s:-1,f:h.f+l.f,l:h,r:l};var d=o[0].s;for(a=1;a<s;++a)o[a].s>d&&(d=o[a].s);var g=new n(d+1),w=x(i[c-1],g,0);if(w>e){a=0;var p=0,y=w-e,m=1<<y;for(o.sort((function(t,n){return g[n.s]-g[t.s]||t.f-n.f}));a<s;++a){var b=o[a].s;if(!(g[b]>e))break;p+=m-(1<<w-g[b]),g[b]=e}for(p>>=y;p>0;){var M=o[a].s;g[M]<e?p-=1<<e-g[M]++-1:++a}for(;a>=0&&p;--a){var E=o[a].s;g[E]==e&&(--g[E],++p)}w=e}return{t:new t(g),l:w}},x=function(t,n,r){return-1==t.s?Math.max(x(t.l,n,r+1),x(t.r,n,r+1)):n[t.s]=r},D=function(t){for(var r=t.length;r&&!t[--r];);for(var e=new n(++r),i=0,a=t[0],s=1,o=function(t){e[i++]=t},f=1;f<=r;++f)if(t[f]==a&&f!=r)++s;else{if(!a&&s>2){for(;s>138;s-=138)o(32754);s>2&&(o(s>10?s-11<<5|28690:s-3<<5|12305),s=0)}else if(s>3){for(o(a),--s;s>6;s-=6)o(8304);s>2&&(o(s-3<<5|8208),s=0)}for(;s--;)o(a);s=1,a=t[f]}return{c:e.subarray(0,i),n:r}},T=function(t,n){for(var r=0,e=0;e<n.length;++e)r+=t[e]*n[e];return r},k=function(t,n,r){var e=r.length,i=m(n+2);t[i]=255&e,t[i+1]=e>>8,t[i+2]=255^t[i],t[i+3]=255^t[i+1];for(var a=0;a<e;++a)t[i+a+4]=r[a];return 8*(i+4+e)},C=function(t,r,s,o,f,h,l,u,c,v,m){z(r,m++,s),++f[256];for(var b=_(f,15),M=b.t,E=b.l,x=_(h,15),C=x.t,U=x.l,F=D(M),I=F.c,S=F.n,L=D(C),O=L.c,j=L.n,q=new n(19),B=0;B<I.length;++B)++q[31&I[B]];for(B=0;B<O.length;++B)++q[31&O[B]];for(var G=_(q,7),H=G.t,J=G.l,K=19;K>4&&!H[a[K-1]];--K);var N,P,Q,R,V=v+5<<3,W=T(f,g)+T(h,w)+l,X=T(f,M)+T(h,C)+l+14+3*K+T(q,H)+2*q[16]+3*q[17]+7*q[18];if(c>=0&&V<=W&&V<=X)return k(r,m,t.subarray(c,c+v));if(z(r,m,1+(X<W)),m+=2,X<W){N=d(M,E,0),P=M,Q=d(C,U,0),R=C;var Y=d(H,J,0);z(r,m,S-257),z(r,m+5,j-1),z(r,m+10,K-4),m+=14;for(B=0;B<K;++B)z(r,m+3*B,H[a[B]]);m+=3*K;for(var Z=[I,O],$=0;$<2;++$){var tt=Z[$];for(B=0;B<tt.length;++B){var nt=31&tt[B];z(r,m,Y[nt]),m+=H[nt],nt>15&&(z(r,m,tt[B]>>5&127),m+=tt[B]>>12)}}}else N=p,P=g,Q=y,R=w;for(B=0;B<u;++B){var rt=o[B];if(rt>255){A(r,m,N[(nt=rt>>18&31)+257]),m+=P[nt+257],nt>7&&(z(r,m,rt>>23&31),m+=e[nt]);var et=31&rt;A(r,m,Q[et]),m+=R[et],et>3&&(A(r,m,rt>>5&8191),m+=i[et])}else A(r,m,N[rt]),m+=P[rt]}return A(r,m,N[256]),m+P[256]},U=new r([65540,131080,131088,131104,262176,1048704,1048832,2114560,2117632]),F=new t(0),I=function(){for(var t=new Int32Array(256),n=0;n<256;++n){for(var r=n,e=9;--e;)r=(1&r&&-306674912)^r>>>1;t[n]=r}return t}(),S=function(){var t=1,n=0;return{p:function(r){for(var e=t,i=n,a=0|r.length,s=0;s!=a;){for(var o=Math.min(s+2655,a);s<o;++s)i+=e+=r[s];e=(65535&e)+15*(e>>16),i=(65535&i)+15*(i>>16)}t=e,n=i},d:function(){return(255&(t%=65521))<<24|(65280&t)<<8|(255&(n%=65521))<<8|n>>8}}},L=function(a,s,o,f,u){if(!u&&(u={l:1},s.dictionary)){var c=s.dictionary.subarray(-32768),v=new t(c.length+a.length);v.set(c),v.set(a,c.length),a=v,u.w=c.length}return function(a,s,o,f,u,c){var v=c.z||a.length,d=new t(f+v+5*(1+Math.ceil(v/7e3))+u),g=d.subarray(f,d.length-u),w=c.l,p=7&(c.r||0);if(s){p&&(g[0]=c.r>>3);for(var y=U[s-1],M=y>>13,E=8191&y,z=(1<<o)-1,A=c.p||new n(32768),_=c.h||new n(z+1),x=Math.ceil(o/3),D=2*x,T=function(t){return(a[t]^a[t+1]<<x^a[t+2]<<D)&z},F=new r(25e3),I=new n(288),S=new n(32),L=0,O=0,j=c.i||0,q=0,B=c.w||0,G=0;j+2<v;++j){var H=T(j),J=32767&j,K=_[H];if(A[J]=K,_[H]=J,B<=j){var N=v-j;if((L>7e3||q>24576)&&(N>423||!w)){p=C(a,g,0,F,I,S,O,q,G,j-G,p),q=L=O=0,G=j;for(var P=0;P<286;++P)I[P]=0;for(P=0;P<30;++P)S[P]=0}var Q=2,R=0,V=E,W=J-K&32767;if(N>2&&H==T(j-W))for(var X=Math.min(M,N)-1,Y=Math.min(32767,j),Z=Math.min(258,N);W<=Y&&--V&&J!=K;){if(a[j+Q]==a[j+Q-W]){for(var $=0;$<Z&&a[j+$]==a[j+$-W];++$);if($>Q){if(Q=$,R=W,$>X)break;var tt=Math.min(W,$-2),nt=0;for(P=0;P<tt;++P){var rt=j-W+P&32767,et=rt-A[rt]&32767;et>nt&&(nt=et,K=rt)}}}W+=(J=K)-(K=A[J])&32767}if(R){F[q++]=268435456|h[Q]<<18|l[R];var it=31&h[Q],at=31&l[R];O+=e[it]+i[at],++I[257+it],++S[at],B=j+Q,++L}else F[q++]=a[j],++I[a[j]]}}for(j=Math.max(j,B);j<v;++j)F[q++]=a[j],++I[a[j]];p=C(a,g,w,F,I,S,O,q,G,j-G,p),w||(c.r=7&p|g[p/8|0]<<3,p-=7,c.h=_,c.p=A,c.i=j,c.w=B)}else{for(j=c.w||0;j<v+w;j+=65535){var st=j+65535;st>=v&&(g[p/8|0]=w,st=v),p=k(g,p+1,a.subarray(j,st))}c.i=v}return b(d,0,f+m(p)+u)}(a,null==s.level?6:s.level,null==s.mem?Math.ceil(1.5*Math.max(8,Math.min(13,Math.log(a.length)))):12+s.mem,o,f,u)},O=function(t,n,r){for(;r;++n)t[n]=r,r>>>=8},j=function(){function n(n,r){if("function"==typeof n&&(r=n,n={}),this.ondata=r,this.o=n||{},this.s={l:0,i:32768,w:32768,z:32768},this.b=new t(98304),this.o.dictionary){var e=this.o.dictionary.subarray(-32768);this.b.set(e,32768-e.length),this.s.i=32768-e.length}}return n.prototype.p=function(t,n){this.ondata(L(t,this.o,0,0,this.s),n)},n.prototype.push=function(n,r){this.ondata||E(5),this.s.l&&E(4);var e=n.length+this.s.z;if(e>this.b.length){if(e>2*this.b.length-32768){var i=new t(-32768&e);i.set(this.b.subarray(0,this.s.z)),this.b=i}var a=this.b.length-this.s.z;a&&(this.b.set(n.subarray(0,a),this.s.z),this.s.z=this.b.length,this.p(this.b,false)),this.b.set(this.b.subarray(-32768)),this.b.set(n.subarray(a),32768),this.s.z=n.length-a+32768,this.s.i=32766,this.s.w=32768}else this.b.set(n,this.s.z),this.s.z+=n.length;this.s.l=1&r,(this.s.z>this.s.w+8191||r)&&(this.p(this.b,r||false),this.s.w=this.s.i,this.s.i-=2)},n}();function q(t,n){n||(n={});var r=function(){var t=-1;return{p:function(n){for(var r=t,e=0;e<n.length;++e)r=I[255&r^n[e]]^r>>>8;t=r},d:function(){return~t}}}(),e=t.length;r.p(t);var i,a=L(t,n,10+((i=n).filename?i.filename.length+1:0),8),s=a.length;return function(t,n){var r=n.filename;if(t[0]=31,t[1]=139,t[2]=8,t[8]=n.level<2?4:9==n.level?2:0,t[9]=3,0!=n.mtime&&O(t,4,Math.floor(new Date(n.mtime||Date.now())/1e3)),r){t[3]=8;for(var e=0;e<=r.length;++e)t[e+10]=r.charCodeAt(e)}}(a,n),O(a,s-8,r.d()),O(a,s-4,e),a}var B=function(){function t(t,n){this.c=S(),this.v=1,j.call(this,t,n)}return t.prototype.push=function(t,n){this.c.p(t),j.prototype.push.call(this,t,n)},t.prototype.p=function(t,n){var r=L(t,this.o,this.v&&(this.o.dictionary?6:2),n&&4,this.s);this.v&&(function(t,n){var r=n.level,e=0==r?0:r<6?1:9==r?3:2;if(t[0]=120,t[1]=e<<6|(n.dictionary&&32),t[1]|=31-(t[0]<<8|t[1])%31,n.dictionary){var i=S();i.p(n.dictionary),O(t,2,i.d())}}(r,this.o),this.v=0),n&&O(r,r.length-4,this.c.d()),this.ondata(r,n)},t}(),G="undefined"!=typeof TextEncoder&&new TextEncoder,H="undefined"!=typeof TextDecoder&&new TextDecoder;try{H.decode(F,{stream:true})}catch(t){}var J=function(){function t(t){this.ondata=t}return t.prototype.push=function(t,n){this.ondata||E(5),this.d&&E(4),this.ondata(K(t),this.d=n||false)},t}();function K(n,r){if(r){for(var e=new t(n.length),i=0;i<n.length;++i)e[i]=n.charCodeAt(i);return e}if(G)return G.encode(n);var a=n.length,s=new t(n.length+(n.length>>1)),o=0,f=function(t){s[o++]=t};for(i=0;i<a;++i){if(o+5>s.length){var h=new t(o+8+(a-i<<1));h.set(s),s=h}var l=n.charCodeAt(i);l<128||r?f(l):l<2048?(f(192|l>>6),f(128|63&l)):l>55295&&l<57344?(f(240|(l=65536+(1047552&l)|1023&n.charCodeAt(++i))>>18),f(128|l>>12&63),f(128|l>>6&63),f(128|63&l)):(f(224|l>>12),f(128|l>>6&63),f(128|63&l))}return b(s,0,o)}const N=new class{constructor(){this._init()}clear(){this._init()}addEvent(t){if(!t)throw new Error("Adding invalid event");const n=this._hasEvents?",":"";this.stream.push(n+t),this._hasEvents=true}finish(){this.stream.push("]",true);const t=function(t){let n=0;for(let r=0,e=t.length;r<e;r++)n+=t[r].length;const r=new Uint8Array(n);for(let n=0,e=0,i=t.length;n<i;n++){const i=t[n];r.set(i,e),e+=i.length}return r}(this._deflatedData);return this._init(),t}_init(){this._hasEvents=false,this._deflatedData=[],this.deflate=new B,this.deflate.ondata=(t,n)=>{this._deflatedData.push(t)},this.stream=new J(((t,n)=>{this.deflate.push(t,n)})),this.stream.push("[")}},P={clear:()=>{N.clear()},addEvent:t=>N.addEvent(t),finish:()=>N.finish(),compress:t=>function(t){return q(K(t))}(t)};addEventListener("message",(function(t){const n=t.data.method,r=t.data.id,e=t.data.arg;if(n in P&&"function"==typeof P[n])try{const t=P[n](e);postMessage({id:r,method:n,success:true,response:t})}catch(t){postMessage({id:r,method:n,success:false,response:t.message}),console.error(t)}})),postMessage({id:undefined,method:"init",success:true,response:undefined});';
 
                 function Vv(t, e) {
                     ("undefined" == typeof __SENTRY_DEBUG__ || __SENTRY_DEBUG__) && (Xl.info(t), e && Jv(t))
@@ -31456,7 +31459,7 @@
                 }
                 class Xv {
                     constructor() {
-                        this.events = [], this._totalSize = 0, this.hasCheckout = !1
+                        this.events = [], this._totalSize = 0, this.hasCheckout = false
                     }
                     get hasEvents() {
                         return this.events.length > 0
@@ -31479,7 +31482,7 @@
                         }))
                     }
                     clear() {
-                        this.events = [], this._totalSize = 0, this.hasCheckout = !1
+                        this.events = [], this._totalSize = 0, this.hasCheckout = false
                     }
                     getEarliestTimestamp() {
                         const t = this.events.map((t => t.timestamp)).sort()[0];
@@ -31533,7 +31536,7 @@
                 }
                 class tb {
                     constructor(t) {
-                        this._worker = new Qv(t), this._earliestTimestamp = null, this._totalSize = 0, this.hasCheckout = !1
+                        this._worker = new Qv(t), this._earliestTimestamp = null, this._totalSize = 0, this.hasCheckout = false
                     }
                     get hasEvents() {
                         return !!this._earliestTimestamp
@@ -31557,7 +31560,7 @@
                         return this._finishRequest()
                     }
                     clear() {
-                        this._earliestTimestamp = null, this._totalSize = 0, this.hasCheckout = !1, this._worker.postMessage("clear")
+                        this._earliestTimestamp = null, this._totalSize = 0, this.hasCheckout = false, this._worker.postMessage("clear")
                     }
                     getEarliestTimestamp() {
                         return this._earliestTimestamp
@@ -31658,7 +31661,7 @@
                     try {
                         return "sessionStorage" in wm && !!wm.sessionStorage
                     } catch (t) {
-                        return !1
+                        return false
                     }
                 }
 
@@ -31696,7 +31699,7 @@
                 function cb({
                     sessionSampleRate: t,
                     allowBuffering: e,
-                    stickySession: r = !1
+                    stickySession: r = false
                 }, {
                     previousSessionId: n
                 } = {}) {
@@ -31789,9 +31792,9 @@
                 }
 
                 function yb(t, e) {
-                    if (!t.eventBuffer || t.isPaused() || !t.isEnabled()) return !1;
+                    if (!t.eventBuffer || t.isPaused() || !t.isEnabled()) return false;
                     const r = Ev(e.timestamp);
-                    return !(r + t.timeouts.sessionIdlePause < Date.now()) && (!(r > t.getContext().initialTimestamp + t.getOptions().maxReplayDuration) || (Vv(`[Replay] Skipping event with timestamp ${r} because it is after maxReplayDuration`, t.getOptions()._experiments.traceInternals), !1))
+                    return !(r + t.timeouts.sessionIdlePause < Date.now()) && (!(r > t.getContext().initialTimestamp + t.getOptions().maxReplayDuration) || (Vv(`[Replay] Skipping event with timestamp ${r} because it is after maxReplayDuration`, t.getOptions()._experiments.traceInternals), false))
                 }
 
                 function mb(t) {
@@ -31809,10 +31812,10 @@
                 function bb(t) {
                     const e = function () {
                         const t = Kf().getClient();
-                        if (!t) return !1;
+                        if (!t) return false;
                         const e = t.getTransport();
-                        if (!e) return !1;
-                        return e.send.__sentry__baseTransport__ || !1
+                        if (!e) return false;
+                        return e.send.__sentry__baseTransport__ || false
                     }();
                     return (r, n) => {
                         if (!t.isEnabled() || !mb(r) && !gb(r)) return;
@@ -31835,7 +31838,7 @@
                     }
                 }
 
-                function _b(t, e = !1) {
+                function _b(t, e = false) {
                     const r = e ? bb(t) : undefined;
                     return Object.assign(((e, n) => {
                         if (!t.isEnabled()) return e;
@@ -31859,7 +31862,7 @@
                                             }
                                         }
                                     }
-                                }), !1)))
+                                }), false)))
                             }(t, e), e;
                         if (function (t, e) {
                                 return !(t.type || !t.exception || !t.exception.values || !t.exception.values.length || !e.originalException || !e.originalException.__rrweb__)
@@ -31922,7 +31925,7 @@
                                 }
                             }
                         }(e);
-                        null !== r && (t.getContext().urls.push(r.name), t.triggerUserActivity(), t.addUpdate((() => (wb(t, [r]), !1))))
+                        null !== r && (t.getContext().urls.push(r.name), t.triggerUserActivity(), t.addUpdate((() => (wb(t, [r]), false))))
                     }
                 }
 
@@ -32348,7 +32351,7 @@
                         if ("console" === e.category) return function (t) {
                             const e = t.data && t.data.arguments;
                             if (!Array.isArray(e) || 0 === e.length) return Av(t);
-                            let r = !1;
+                            let r = false;
                             const n = e.map((t => {
                                 if (!t) return t;
                                 if ("string" == typeof t) return t.length > km ? (r = true, `${t.slice(0,km)}…`) : t;
@@ -32402,13 +32405,13 @@
                 }
 
                 function $b(t) {
-                    let e = !1;
+                    let e = false;
                     return (r, n) => {
                         if (!t.checkAndHandleExpiredSession()) return void(("undefined" == typeof __SENTRY_DEBUG__ || __SENTRY_DEBUG__) && Xl.warn("[Replay] Received replay event after session expired."));
                         const o = n || !e;
                         e = true, t.clickDetector && Rv(t.clickDetector, r), t.addUpdate((() => {
                             if ("buffer" === t.recordingMode && o && t.setInitialState(), !hb(t, r, o)) return true;
-                            if (!o) return !1;
+                            if (!o) return false;
                             if (function (t, e) {
                                     if (!e || !t.session || 0 !== t.session.segmentId) return;
                                     hb(t, function (t) {
@@ -32433,7 +32436,7 @@
                                                 }
                                             }
                                         }
-                                    }(t), !1)
+                                    }(t), false)
                                 }(t, o), t.session && t.session.previousSessionId) return true;
                             if ("buffer" === t.recordingMode && t.session && t.eventBuffer) {
                                 const e = t.eventBuffer.getEarliestTimestamp();
@@ -32597,7 +32600,7 @@
 
                 function Jb(t, e, r) {
                     const n = new Map;
-                    let o = !1;
+                    let o = false;
                     return (...i) => {
                         const a = Math.floor(Date.now() / 1e3);
                         if ((t => {
@@ -32609,7 +32612,7 @@
                             const t = o;
                             return o = true, t ? "__SKIPPED" : qb
                         }
-                        o = !1;
+                        o = false;
                         const s = n.get(a) || 0;
                         return n.set(a, s + 1), t(...i)
                     }
@@ -32622,7 +32625,7 @@
                         Kb.prototype.__init.call(this), Kb.prototype.__init2.call(this), Kb.prototype.__init3.call(this), Kb.prototype.__init4.call(this), Kb.prototype.__init5.call(this), Kb.prototype.__init6.call(this), this.eventBuffer = null, this.performanceEntries = [], this.replayPerformanceEntries = [], this.recordingMode = "session", this.timeouts = {
                             sessionIdlePause: 3e5,
                             sessionIdleExpire: 9e5
-                        }, this._lastActivity = Date.now(), this._isEnabled = !1, this._isPaused = !1, this._hasInitializedCoreListeners = !1, this._context = {
+                        }, this._lastActivity = Date.now(), this._isEnabled = false, this._isPaused = false, this._hasInitializedCoreListeners = false, this._context = {
                             errorIds: new Set,
                             traceIds: new Set,
                             urls: [],
@@ -32679,7 +32682,7 @@
                             errorSampleRate: e,
                             sessionSampleRate: r
                         } = this._options;
-                        e <= 0 && r <= 0 || (this._initializeSessionForSampling(t), this.session ? !1 !== this.session.sampled && (this.recordingMode = "buffer" === this.session.sampled && 0 === this.session.segmentId ? "buffer" : "session", qv(`[Replay] Starting replay in ${this.recordingMode} mode`, this._options._experiments.traceInternals), this._initializeRecording()) : this._handleException(new Error("Unable to initialize and create session")))
+                        e <= 0 && r <= 0 || (this._initializeSessionForSampling(t), this.session ? false !== this.session.sampled && (this.recordingMode = "buffer" === this.session.sampled && 0 === this.session.segmentId ? "buffer" : "session", qv(`[Replay] Starting replay in ${this.recordingMode} mode`, this._options._experiments.traceInternals), this._initializeRecording()) : this._handleException(new Error("Unable to initialize and create session")))
                     }
                     start() {
                         if (this._isEnabled && "session" === this.recordingMode) throw new Error("Replay recording is already in progress");
@@ -32692,7 +32695,7 @@
                         }, {
                             stickySession: this._options.stickySession,
                             sessionSampleRate: 1,
-                            allowBuffering: !1
+                            allowBuffering: false
                         });
                         this.session = t, this._initializeRecording()
                     }
@@ -32728,15 +32731,15 @@
                         try {
                             return this._stopRecording && (this._stopRecording(), this._stopRecording = undefined), true
                         } catch (t) {
-                            return this._handleException(t), !1
+                            return this._handleException(t), false
                         }
                     }
                     async stop({
-                        forceFlush: t = !1,
+                        forceFlush: t = false,
                         reason: e
                     } = {}) {
                         if (this._isEnabled) {
-                            this._isEnabled = !1;
+                            this._isEnabled = false;
                             try {
                                 Vv("[Replay] Stopping Replay" + (e ? ` triggered by ${e}` : ""), this._options._experiments.traceInternals), this._removeListeners(), this.stopRecording(), this._debouncedFlush.cancel(), t && await this._flush({
                                     force: true
@@ -32750,7 +32753,7 @@
                         this._isPaused || (this._isPaused = true, this.stopRecording(), Vv("[Replay] Pausing replay", this._options._experiments.traceInternals))
                     }
                     resume() {
-                        this._isPaused && this._checkSession() && (this._isPaused = !1, this.startRecording(), Vv("[Replay] Resuming replay", this._options._experiments.traceInternals))
+                        this._isPaused && this._checkSession() && (this._isPaused = false, this.startRecording(), Vv("[Replay] Resuming replay", this._options._experiments.traceInternals))
                     }
                     async sendBufferedReplayOrFlush({
                         continueRecording: t = true
@@ -32825,7 +32828,7 @@
                         this.setInitialState(), this._updateSessionActivity(), this.eventBuffer = rb({
                             useCompression: this._options.useCompression,
                             workerUrl: this._options.workerUrl
-                        }), this._removeListeners(), this._addListeners(), this._isEnabled = true, this._isPaused = !1, this.startRecording()
+                        }), this._removeListeners(), this._addListeners(), this._isEnabled = true, this._isPaused = false, this.startRecording()
                     }
                     _handleException(t) {
                         ("undefined" == typeof __SENTRY_DEBUG__ || __SENTRY_DEBUG__) && Xl.error("[Replay]", t), ("undefined" == typeof __SENTRY_DEBUG__ || __SENTRY_DEBUG__) && this._options._experiments && this._options._experiments.captureExceptions && jp(t)
@@ -32845,12 +32848,12 @@
                         this.session = r
                     }
                     _checkSession() {
-                        if (!this.session) return !1;
+                        if (!this.session) return false;
                         const t = this.session;
                         return !fb(t, {
                             sessionIdleExpire: this.timeouts.sessionIdleExpire,
                             maxReplayDuration: this._options.maxReplayDuration
-                        }) || (this._refreshSession(t), !1)
+                        }) || (this._refreshSession(t), false)
                     }
                     async _refreshSession(t) {
                         this._isEnabled && (await this.stop({
@@ -33008,7 +33011,7 @@
                     }
                     __init5() {
                         this._flush = async ({
-                            force: t = !1
+                            force: t = false
                         } = {}) => {
                             if (!this._isEnabled && !t) return;
                             if (!this.checkAndHandleExpiredSession()) return void(("undefined" == typeof __SENTRY_DEBUG__ || __SENTRY_DEBUG__) && Xl.error("[Replay] Attempting to finish replay event after session expired."));
@@ -33051,7 +33054,7 @@
                             return !n || (this.stop({
                                 reason: "mutationLimit",
                                 forceFlush: "session" === this.recordingMode
-                            }), !1)
+                            }), false)
                         }
                     }
                 }
@@ -33062,7 +33065,7 @@
                 }
                 const Qb = 'img,image,svg,video,object,picture,embed,map,audio,link[rel="icon"],link[rel="apple-touch-icon"]',
                     t_ = ["content-length", "content-type", "accept"];
-                let e_ = !1;
+                let e_ = false;
                 class r_ {
                     static __initStatic() {
                         this.id = "Replay"
@@ -33168,7 +33171,7 @@
                                 ...M,
                                 slimDOMOptions: "all",
                                 inlineStylesheet: true,
-                                inlineImages: !1,
+                                inlineImages: false,
                                 collectFonts: true,
                                 errorHandler: t => {
                                     try {
@@ -33716,7 +33719,7 @@
                 };
                 class E_ {
                     constructor(t) {
-                        this.name = "BrowserTracing", this._hasSetTracePropagationTargets = !1, zh(), ("undefined" == typeof __SENTRY_DEBUG__ || __SENTRY_DEBUG__) && (this._hasSetTracePropagationTargets = !(!t || !t.tracePropagationTargets && !t.tracingOrigins)), this.options = {
+                        this.name = "BrowserTracing", this._hasSetTracePropagationTargets = false, zh(), ("undefined" == typeof __SENTRY_DEBUG__ || __SENTRY_DEBUG__) && (this._hasSetTracePropagationTargets = !(!t || !t.tracePropagationTargets && !t.tracingOrigins)), this.options = {
                             ...S_,
                             ...t
                         }, undefined !== this.options._experiments.enableLongTask && (this.options.enableLongTask = this.options._experiments.enableLongTask), t && !t.tracePropagationTargets && t.tracingOrigins && (this.options.tracePropagationTargets = t.tracingOrigins), this._collectWebVitals = p_(), this.options.enableLongTask && hm("longtask", (({
@@ -33818,12 +33821,12 @@
                             h = "function" == typeof r ? r(p) : p,
                             d = undefined === h ? {
                                 ...p,
-                                sampled: !1
+                                sampled: false
                             } : h;
                         d.metadata = d.name !== p.name ? {
                             ...d.metadata,
                             source: "custom"
-                        } : d.metadata, this._latestRouteName = d.name, this._latestRouteSource = d.metadata && d.metadata.source, !1 === d.sampled && ("undefined" == typeof __SENTRY_DEBUG__ || __SENTRY_DEBUG__) && Xl.log(`[Tracing] Will not send ${d.op} transaction because of beforeNavigate.`), ("undefined" == typeof __SENTRY_DEBUG__ || __SENTRY_DEBUG__) && Xl.log(`[Tracing] Starting ${d.op} transaction on scope`);
+                        } : d.metadata, this._latestRouteName = d.name, this._latestRouteSource = d.metadata && d.metadata.source, false === d.sampled && ("undefined" == typeof __SENTRY_DEBUG__ || __SENTRY_DEBUG__) && Xl.log(`[Tracing] Will not send ${d.op} transaction because of beforeNavigate.`), ("undefined" == typeof __SENTRY_DEBUG__ || __SENTRY_DEBUG__) && Xl.log(`[Tracing] Starting ${d.op} transaction on scope`);
                         const {
                             location: y
                         } = qy, m = Hh(e, d, n, o, true, {
@@ -33867,7 +33870,7 @@
                         };
                         ["click"].forEach((t => {
                             addEventListener(t, e, {
-                                once: !1,
+                                once: false,
                                 capture: true
                             })
                         }))
@@ -34102,7 +34105,7 @@
                             model: B_,
                             manufacturer: F_,
                             architecture: U_,
-                            is_emulator: !1
+                            is_emulator: false
                         },
                         debug_meta: {
                             images: q_(r.resources)
@@ -34166,25 +34169,25 @@
                     });
                     return u
                 }
-                let J_ = !1;
+                let J_ = false;
                 const K_ = 3e4;
 
                 function X_(t) {
-                    if (J_) return ("undefined" == typeof __SENTRY_DEBUG__ || __SENTRY_DEBUG__) && Xl.log("[Profiling] Profiling has been disabled for the duration of the current user session."), !1;
-                    if (!t.sampled) return ("undefined" == typeof __SENTRY_DEBUG__ || __SENTRY_DEBUG__) && Xl.log("[Profiling] Discarding profile because transaction was not sampled."), !1;
+                    if (J_) return ("undefined" == typeof __SENTRY_DEBUG__ || __SENTRY_DEBUG__) && Xl.log("[Profiling] Profiling has been disabled for the duration of the current user session."), false;
+                    if (!t.sampled) return ("undefined" == typeof __SENTRY_DEBUG__ || __SENTRY_DEBUG__) && Xl.log("[Profiling] Discarding profile because transaction was not sampled."), false;
                     const e = Kf().getClient(),
                         r = e && e.getOptions();
-                    if (!r) return ("undefined" == typeof __SENTRY_DEBUG__ || __SENTRY_DEBUG__) && Xl.log("[Profiling] Profiling disabled, no options found."), !1;
+                    if (!r) return ("undefined" == typeof __SENTRY_DEBUG__ || __SENTRY_DEBUG__) && Xl.log("[Profiling] Profiling disabled, no options found."), false;
                     const n = r.profilesSampleRate;
-                    if (!("number" != typeof (o = n) && "boolean" != typeof o || "number" == typeof o && isNaN(o) ? (("undefined" == typeof __SENTRY_DEBUG__ || __SENTRY_DEBUG__) && Xl.warn(`[Profiling] Invalid sample rate. Sample rate must be a boolean or a number between 0 and 1. Got ${JSON.stringify(o)} of type ${JSON.stringify(typeof o)}.`), 0) : true === o || !1 === o || !(o < 0 || o > 1) || (("undefined" == typeof __SENTRY_DEBUG__ || __SENTRY_DEBUG__) && Xl.warn(`[Profiling] Invalid sample rate. Sample rate must be between 0 and 1. Got ${o}.`), 0))) return ("undefined" == typeof __SENTRY_DEBUG__ || __SENTRY_DEBUG__) && Xl.warn("[Profiling] Discarding profile because of invalid sample rate."), !1;
+                    if (!("number" != typeof (o = n) && "boolean" != typeof o || "number" == typeof o && isNaN(o) ? (("undefined" == typeof __SENTRY_DEBUG__ || __SENTRY_DEBUG__) && Xl.warn(`[Profiling] Invalid sample rate. Sample rate must be a boolean or a number between 0 and 1. Got ${JSON.stringify(o)} of type ${JSON.stringify(typeof o)}.`), 0) : true === o || false === o || !(o < 0 || o > 1) || (("undefined" == typeof __SENTRY_DEBUG__ || __SENTRY_DEBUG__) && Xl.warn(`[Profiling] Invalid sample rate. Sample rate must be between 0 and 1. Got ${o}.`), 0))) return ("undefined" == typeof __SENTRY_DEBUG__ || __SENTRY_DEBUG__) && Xl.warn("[Profiling] Discarding profile because of invalid sample rate."), false;
                     var o;
-                    if (!n) return ("undefined" == typeof __SENTRY_DEBUG__ || __SENTRY_DEBUG__) && Xl.log("[Profiling] Discarding profile because a negative sampling decision was inherited or profileSampleRate is set to 0"), !1;
-                    return !!(true === n || Math.random() < n) || (("undefined" == typeof __SENTRY_DEBUG__ || __SENTRY_DEBUG__) && Xl.log(`[Profiling] Discarding profile because it's not included in the random sample (sampling rate = ${Number(n)})`), !1)
+                    if (!n) return ("undefined" == typeof __SENTRY_DEBUG__ || __SENTRY_DEBUG__) && Xl.log("[Profiling] Discarding profile because a negative sampling decision was inherited or profileSampleRate is set to 0"), false;
+                    return !!(true === n || Math.random() < n) || (("undefined" == typeof __SENTRY_DEBUG__ || __SENTRY_DEBUG__) && Xl.log(`[Profiling] Discarding profile because it's not included in the random sample (sampling rate = ${Number(n)})`), false)
                 }
 
                 function Q_(t, e, r, n) {
                     return function (t) {
-                        return t.samples.length < 2 ? (("undefined" == typeof __SENTRY_DEBUG__ || __SENTRY_DEBUG__) && Xl.log("[Profiling] Discarding profile because it contains less than 2 samples"), !1) : !!t.frames.length || (("undefined" == typeof __SENTRY_DEBUG__ || __SENTRY_DEBUG__) && Xl.log("[Profiling] Discarding profile because it contains no frames"), !1)
+                        return t.samples.length < 2 ? (("undefined" == typeof __SENTRY_DEBUG__ || __SENTRY_DEBUG__) && Xl.log("[Profiling] Discarding profile because it contains less than 2 samples"), false) : !!t.frames.length || (("undefined" == typeof __SENTRY_DEBUG__ || __SENTRY_DEBUG__) && Xl.log("[Profiling] Discarding profile because it contains no frames"), false)
                     }(r) ? z_(t, e, r, n) : null
                 }
                 const tw = new Map;
@@ -34575,7 +34578,7 @@
                                 var o = -1,
                                     i = function r() {
                                         for (; ++o < e.length;)
-                                            if (n.call(e, o)) return r.value = e[o], r.done = !1, r;
+                                            if (n.call(e, o)) return r.value = e[o], r.done = false, r;
                                         return r.value = t, r.done = true, r
                                     };
                                 return i.next = i
@@ -34618,14 +34621,14 @@
                             function t() {
                                 for (; r.length;) {
                                     var n = r.pop();
-                                    if (n in e) return t.value = n, t.done = !1, t
+                                    if (n in e) return t.value = n, t.done = false, t
                                 }
                                 return t.done = true, t
                             }
                     }, e.values = j, I.prototype = {
                         constructor: I,
                         reset: function (e) {
-                            if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = !1, this.delegate = null, this.method = "next", this.arg = t, this.tryEntries.forEach(P), !e)
+                            if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = false, this.delegate = null, this.method = "next", this.arg = t, this.tryEntries.forEach(P), !e)
                                 for (var r in this) "t" === r.charAt(0) && n.call(this, r) && !isNaN(+r.slice(1)) && (this[r] = t)
                         },
                         stop: function () {
@@ -34774,7 +34777,7 @@
                             dsn: "https://3b4bb33e1dfc432c9ccd9f9ce5a4bd25@o197999.ingest.sentry.io/6008007",
                             release: "".concat("honey-extension", "@").concat("17.0.2"),
                             attachStacktrace: true,
-                            autoSessionTracking: !1
+                            autoSessionTracking: false
                         })), fw = t
                     }(i, pw), setTimeout((function () {
                         if ("www.joinhoney.com" === window.location.hostname) {
@@ -35057,7 +35060,7 @@
                                 var o = -1,
                                     i = function r() {
                                         for (; ++o < e.length;)
-                                            if (n.call(e, o)) return r.value = e[o], r.done = !1, r;
+                                            if (n.call(e, o)) return r.value = e[o], r.done = false, r;
                                         return r.value = t, r.done = true, r
                                     };
                                 return i.next = i
@@ -35100,14 +35103,14 @@
                             function t() {
                                 for (; r.length;) {
                                     var n = r.pop();
-                                    if (n in e) return t.value = n, t.done = !1, t
+                                    if (n in e) return t.value = n, t.done = false, t
                                 }
                                 return t.done = true, t
                             }
                     }, e.values = N, C.prototype = {
                         constructor: C,
                         reset: function (e) {
-                            if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = !1, this.delegate = null, this.method = "next", this.arg = t, this.tryEntries.forEach(j), !e)
+                            if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = false, this.delegate = null, this.method = "next", this.arg = t, this.tryEntries.forEach(j), !e)
                                 for (var r in this) "t" === r.charAt(0) && n.call(this, r) && !isNaN(+r.slice(1)) && (this[r] = t)
                         },
                         stop: function () {
@@ -35196,11 +35199,11 @@
                         if (null != r) {
                             var n, o, i, a, s = [],
                                 c = true,
-                                u = !1;
+                                u = false;
                             try {
                                 if (i = (r = r.call(t)).next, 0 === e) {
                                     if (Object(r) !== r) return;
-                                    c = !1
+                                    c = false
                                 } else
                                     for (; !(c = (n = i.call(r)).done) && (s.push(n.value), s.length !== e); c = true);
                             } catch (t) {
@@ -35417,7 +35420,7 @@
                                         shouldUseFramework: i
                                     }, {
                                         ignoreResponse: true,
-                                        background: !1,
+                                        background: false,
                                         tab: t.id
                                     })
                                 }));
@@ -35536,7 +35539,7 @@
                                     vimOptions: {
                                         recipeOverride: o,
                                         disableTimeout: true,
-                                        v5SupportEnabled: !1
+                                        v5SupportEnabled: false
                                     },
                                     vimName: r,
                                     inputData: {
@@ -35674,8 +35677,8 @@
                             case 0:
                                 return n = r.types, o = r.frameworks, t.next = 4, Q(r.storeId);
                             case 4:
-                                i = t.sent, W(n, o, r.shouldUseFramework, !1, r.ignoreForFeatures), !Object.values(n).every((function (t) {
-                                    return !1 === t
+                                i = t.sent, W(n, o, r.shouldUseFramework, false, r.ignoreForFeatures), !Object.values(n).every((function (t) {
+                                    return false === t
                                 })) || Object.keys(n).includes("PRODUCT") && i || _.Z.check();
                             case 7:
                             case "end":
@@ -35726,7 +35729,7 @@
                                             return r.urlText = n + o, r
                                         } catch (t) {
                                             return {
-                                                hostname: !1,
+                                                hostname: false,
                                                 urlText: ""
                                             }
                                         }
@@ -35834,11 +35837,11 @@
                         if (null != r) {
                             var n, o, i, a, s = [],
                                 c = true,
-                                u = !1;
+                                u = false;
                             try {
                                 if (i = (r = r.call(t)).next, 0 === e) {
                                     if (Object(r) !== r) return;
-                                    c = !1
+                                    c = false
                                 } else
                                     for (; !(c = (n = i.call(r)).done) && (s.push(n.value), s.length !== e); c = true);
                             } catch (t) {
@@ -35870,7 +35873,7 @@
                     for (var r = 0, n = new Array(e); r < e; r++) n[r] = t[r];
                     return n
                 }
-                var _ = !1;
+                var _ = false;
 
                 function w(t) {
                     var e;
@@ -35919,7 +35922,7 @@
                                             return n >= t.length ? {
                                                 done: true
                                             } : {
-                                                done: !1,
+                                                done: false,
                                                 value: t[n++]
                                             }
                                         },
@@ -35932,7 +35935,7 @@
                                 throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.")
                             }
                             var i, a = true,
-                                s = !1;
+                                s = false;
                             return {
                                 s: function () {
                                     r = r.call(t)
@@ -36001,7 +36004,7 @@
                                     s = x(n, i);
                                 if (o && (!s || _ && Object.values(s).every((function (t) {
                                         return !O(t, i)
-                                    }))) && (a = !1, s = x(o, i)), s)
+                                    }))) && (a = false, s = x(o, i)), s)
                                     if (_) {
                                         var c;
                                         Object.values(s).forEach((function (r, n) {
@@ -36151,11 +36154,11 @@
                         if (null != r) {
                             var n, o, i, a, s = [],
                                 c = true,
-                                u = !1;
+                                u = false;
                             try {
                                 if (i = (r = r.call(t)).next, 0 === e) {
                                     if (Object(r) !== r) return;
-                                    c = !1
+                                    c = false
                                 } else
                                     for (; !(c = (n = i.call(r)).done) && (s.push(n.value), s.length !== e); c = true);
                             } catch (t) {
@@ -36376,7 +36379,7 @@
                                 var o = -1,
                                     i = function r() {
                                         for (; ++o < e.length;)
-                                            if (n.call(e, o)) return r.value = e[o], r.done = !1, r;
+                                            if (n.call(e, o)) return r.value = e[o], r.done = false, r;
                                         return r.value = t, r.done = true, r
                                     };
                                 return i.next = i
@@ -36419,14 +36422,14 @@
                             function t() {
                                 for (; r.length;) {
                                     var n = r.pop();
-                                    if (n in e) return t.value = n, t.done = !1, t
+                                    if (n in e) return t.value = n, t.done = false, t
                                 }
                                 return t.done = true, t
                             }
                     }, e.values = N, C.prototype = {
                         constructor: C,
                         reset: function (e) {
-                            if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = !1, this.delegate = null, this.method = "next", this.arg = t, this.tryEntries.forEach(j), !e)
+                            if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = false, this.delegate = null, this.method = "next", this.arg = t, this.tryEntries.forEach(j), !e)
                                 for (var r in this) "t" === r.charAt(0) && n.call(this, r) && !isNaN(+r.slice(1)) && (this[r] = t)
                         },
                         stop: function () {
@@ -36869,7 +36872,7 @@
                                 var o = -1,
                                     i = function r() {
                                         for (; ++o < e.length;)
-                                            if (n.call(e, o)) return r.value = e[o], r.done = !1, r;
+                                            if (n.call(e, o)) return r.value = e[o], r.done = false, r;
                                         return r.value = t, r.done = true, r
                                     };
                                 return i.next = i
@@ -36912,14 +36915,14 @@
                             function t() {
                                 for (; r.length;) {
                                     var n = r.pop();
-                                    if (n in e) return t.value = n, t.done = !1, t
+                                    if (n in e) return t.value = n, t.done = false, t
                                 }
                                 return t.done = true, t
                             }
                     }, e.values = j, I.prototype = {
                         constructor: I,
                         reset: function (e) {
-                            if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = !1, this.delegate = null, this.method = "next", this.arg = t, this.tryEntries.forEach(P), !e)
+                            if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = false, this.delegate = null, this.method = "next", this.arg = t, this.tryEntries.forEach(P), !e)
                                 for (var r in this) "t" === r.charAt(0) && n.call(this, r) && !isNaN(+r.slice(1)) && (this[r] = t)
                         },
                         stop: function () {
@@ -37236,12 +37239,12 @@
                     try {
                         e.couponsEnabled = c()(t.metadata.pns_siteSelCartCodeBox).length > 0 && c()(t.metadata.pns_siteSelCartTotalPrice).length > 0 && t.metadata.pns_siteSelCartCodeSubmit
                     } catch (t) {
-                        e.couponsEnabled = !1
+                        e.couponsEnabled = false
                     }
                     try {
                         e.onOfferPage = r.active && !t.standDown && c()(t.metadata.pns_siteSelShowHoneyGold).length > 0
                     } catch (t) {
-                        e.onOfferPage = !1
+                        e.onOfferPage = false
                     }
                     return e.onFindSavingsPage = e.couponsEnabled || e.onOfferPage, e
                 }
@@ -37349,7 +37352,7 @@
                                     state: {
                                         storeId: e
                                     },
-                                    force: !1,
+                                    force: false,
                                     feature: "tagging-insurance",
                                     surface: "badge"
                                 });
@@ -37388,11 +37391,11 @@
                             state: M({
                                 cta: r
                             }, e),
-                            force: !1,
+                            force: false,
                             feature: "notification",
                             surface: "popup"
                         }).then((function () {
-                            return o().all([p.Z.getLastSetIcon(), X(t.id), K(t.id, "userInitiated", !1), K(t.id, "applyCodesShown", a()().unix())]).spread((function (e, n) {
+                            return o().all([p.Z.getLastSetIcon(), X(t.id), K(t.id, "userInitiated", false), K(t.id, "applyCodesShown", a()().unix())]).spread((function (e, n) {
                                 var o;
                                 return B > a()().unix() || (B = a()().add(10, "seconds").unix()), E.Z.sendEvent("ext003023", {
                                     sub_src: "findsavings_modal",
@@ -37405,7 +37408,7 @@
                                     ok: t.coupons && t.coupons.length > 0,
                                     coupons: t.coupons && t.coupons.length || 0,
                                     coupons_tested: S.Z.getNumCoupons(),
-                                    user_initiated: !1,
+                                    user_initiated: false,
                                     user_hbc: t.userHBC,
                                     cta: r,
                                     icon: e,
@@ -37486,7 +37489,7 @@
                                                                     data: d
                                                                 }, {
                                                                     background: true
-                                                                }).reflect(), y = !1, t.ugcAllowed) {
+                                                                }).reflect(), y = false, t.ugcAllowed) {
                                                                 e.next = 21;
                                                                 break
                                                             }
@@ -37529,7 +37532,7 @@
                                                         case 40:
                                                             w = e.sent, S = t && null === t.affiliateURL, x = w && w.successRate < .2 && w.failuresCount > 10, y = (!S || !x) && "user-hasnt-seen-ui";
                                                         case 44:
-                                                            return O = !1, e.next = 47, v.Z.get("userCodeShareUi-shown-".concat(t.id)).then((function (t) {
+                                                            return O = false, e.next = 47, v.Z.get("userCodeShareUi-shown-".concat(t.id)).then((function (t) {
                                                                 O = t === r
                                                             })).catch(Y, (function () {}));
                                                         case 47:
@@ -37552,7 +37555,7 @@
                                                                 coupon_code: h,
                                                                 savings: n - l,
                                                                 skipPromptReason: y
-                                                            }), e.abrupt("return", !1);
+                                                            }), e.abrupt("return", false);
                                                         case 54:
                                                         case "end":
                                                             return e.stop()
@@ -37574,12 +37577,12 @@
                         })).catch(Y, (function () {}))
                     })).catch((function () {}))
                 }
-                var dt = !1;
+                var dt = false;
 
                 function yt(t) {
                     var e = t.metadata.pns_siteSelCartCodeBox;
                     if (e) {
-                        var r = !1;
+                        var r = false;
                         c()(e).on("keypress paste", (function () {
                             dt || (b.Z.send("site_support:watchUGCRequest", {
                                 store: t
@@ -37590,7 +37593,7 @@
                             if (!e.keyCode || 13 === e.keyCode) {
                                 var n = e.target.value.slice(0, 100);
                                 if (n && r) {
-                                    r = !1, st("manualCoupon", n);
+                                    r = false, st("manualCoupon", n);
                                     var o = L.Z.cleanPrice(c()(t.metadata.pns_siteSelCartTotalPrice).last().text());
                                     v.Z.set("stores:".concat(t.id, ":usershare"), {
                                         code: n,
@@ -37614,13 +37617,13 @@
                         })), c()(e).attr("couponInputBound", true)
                     }
                 }
-                var mt = !1;
+                var mt = false;
 
                 function gt(t) {
                     var e = t.metadata.pns_siteSelCartCodeBox;
                     e && c()("body").on("DOMNodeInserted", (function () {
                         mt || (mt = true, setTimeout((function () {
-                            c()(e).length && !c()(e).attr("couponInputBound") && yt(t), mt = !1
+                            c()(e).length && !c()(e).attr("couponInputBound") && yt(t), mt = false
                         }), 1e3))
                     }))
                 }
@@ -37630,7 +37633,7 @@
                     try {
                         r = L.Z.cleanPrice(c()(t.metadata.pns_siteSelCartTotalPrice).last().text().trim())
                     } catch (t) {
-                        return !1
+                        return false
                     }
                     var o = t.coupons,
                         i = e.attemptTs,
@@ -37642,13 +37645,13 @@
                         h = e.urlPathname,
                         d = undefined === h ? "" : h;
                     if (e.coupons && 0 === e.coupons.length && 0 === o.length) return true;
-                    if (n > s + 3600) return !1;
-                    if (r !== l && d === window.location.pathname) return !1;
+                    if (n > s + 3600) return false;
+                    if (r !== l && d === window.location.pathname) return false;
                     var y = o.every((function (t, e) {
                         var r = p[e] || {};
                         return t.code === r.code
                     }));
-                    return !1 !== y && (E.Z.sendEvent("ext003003", {
+                    return false !== y && (E.Z.sendEvent("ext003003", {
                         store: t,
                         interaction: "silenced",
                         last_savings_attempt_ts: s,
@@ -37668,7 +37671,7 @@
                         return R().wrap((function (t) {
                             for (;;) switch (t.prev = t.next) {
                             case 0:
-                                return r = !1, n = S.Z.getCtaType(e), t.next = 4, v.Z.get("user:lastSavings:".concat(e.id, ":").concat(n)).catch(Y, (function () {
+                                return r = false, n = S.Z.getCtaType(e), t.next = 4, v.Z.get("user:lastSavings:".concat(e.id, ":").concat(n)).catch(Y, (function () {
                                     return {}
                                 }));
                             case 4:
@@ -37683,8 +37686,8 @@
 
                 function wt(t, e) {
                     var r = true;
-                    t.cartTotalPrice && t.cartTotalPrice !== bt(e) || (r = !1);
-                    var n = !1;
+                    t.cartTotalPrice && t.cartTotalPrice !== bt(e) || (r = false);
+                    var n = false;
                     return t.savings > 0 && t.initPrice !== bt(e) && (n = true), {
                         attemptTs: t.attemptTs,
                         bestCoupon: t.bestCoupon,
@@ -37708,7 +37711,7 @@
                             case 2:
                                 return r = t.sent, n = !!e.coupons.length, t.next = 6, X(e.id);
                             case 6:
-                                return o = t.sent, i = e.hasFindSavingsMixin || o || e.templateId, a = e.metadata.pns_codeTopFunnel || !1, s = true === e.metadata.mixinFallback || !1, c = h.Z.checkGoldStatus(e.gold).active, u = n && (!i && !a || s), t.abrupt("return", {
+                                return o = t.sent, i = e.hasFindSavingsMixin || o || e.templateId, a = e.metadata.pns_codeTopFunnel || false, s = true === e.metadata.mixinFallback || false, c = h.Z.checkGoldStatus(e.gold).active, u = n && (!i && !a || s), t.abrupt("return", {
                                     doMixinFallback: u,
                                     hasGold: c,
                                     mixinFallbackEnabled: r
@@ -37720,7 +37723,7 @@
                         }), t)
                     })))).apply(this, arguments)
                 }
-                var xt, Ot, kt = (xt = !1, function () {
+                var xt, Ot, kt = (xt = false, function () {
                     return xt ? o().resolve() : (xt = true, it().then((function (t) {
                         var e = S.Z.getCtaType(t);
                         o().all([S.Z.isApplying(), v.Z.get("stores:notification"), t.applyCodesClick ? ht() : "", v.Z.get("user:lastSavings:".concat(t.id, ":").concat(e)), v.Z.get("store:hide:".concat(t.id))]).spread(function () {
@@ -37813,13 +37816,13 @@
                                                             e.next = 2;
                                                             break
                                                         }
-                                                        return e.abrupt("return", !1);
+                                                        return e.abrupt("return", false);
                                                     case 2:
                                                         if (!t.gold || !t.gold.isNNA) {
                                                             e.next = 4;
                                                             break
                                                         }
-                                                        return e.abrupt("return", !1);
+                                                        return e.abrupt("return", false);
                                                     case 4:
                                                         return e.next = 6, m.Z.getCouponStats(t.id);
                                                     case 6:
@@ -37837,7 +37840,7 @@
                                                         }
                                                         return e.abrupt("return", true);
                                                     case 18:
-                                                        return e.abrupt("return", !1);
+                                                        return e.abrupt("return", false);
                                                     case 19:
                                                     case "end":
                                                         return e.stop()
@@ -38936,7 +38939,7 @@
                                 return t && t.page && t.page.currentPageId
                             }(t)
                         }(t);
-                        if (!e) return !1;
+                        if (!e) return false;
                         var r = c(e)(t);
                         return !(!r || !r.tipsTimedOut)
                     }
@@ -39910,7 +39913,7 @@
                                 var o = -1,
                                     i = function r() {
                                         for (; ++o < e.length;)
-                                            if (n.call(e, o)) return r.value = e[o], r.done = !1, r;
+                                            if (n.call(e, o)) return r.value = e[o], r.done = false, r;
                                         return r.value = t, r.done = true, r
                                     };
                                 return i.next = i
@@ -39953,14 +39956,14 @@
                             function t() {
                                 for (; r.length;) {
                                     var n = r.pop();
-                                    if (n in e) return t.value = n, t.done = !1, t
+                                    if (n in e) return t.value = n, t.done = false, t
                                 }
                                 return t.done = true, t
                             }
                     }, e.values = N, C.prototype = {
                         constructor: C,
                         reset: function (e) {
-                            if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = !1, this.delegate = null, this.method = "next", this.arg = t, this.tryEntries.forEach(j), !e)
+                            if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = false, this.delegate = null, this.method = "next", this.arg = t, this.tryEntries.forEach(j), !e)
                                 for (var r in this) "t" === r.charAt(0) && n.call(this, r) && !isNaN(+r.slice(1)) && (this[r] = t)
                         },
                         stop: function () {
@@ -40059,11 +40062,11 @@
                         if (null != r) {
                             var n, o, i, a, s = [],
                                 c = true,
-                                u = !1;
+                                u = false;
                             try {
                                 if (i = (r = r.call(t)).next, 0 === e) {
                                     if (Object(r) !== r) return;
-                                    c = !1
+                                    c = false
                                 } else
                                     for (; !(c = (n = i.call(r)).done) && (s.push(n.value), s.length !== e); c = true);
                             } catch (t) {
@@ -40180,7 +40183,7 @@
                         p = (0, a.v9)((function (t) {
                             return t.user.follow
                         })),
-                        h = m((0, n.useState)(!1), 2),
+                        h = m((0, n.useState)(false), 2),
                         g = h[0],
                         v = h[1],
                         _ = (0, a.I0)();
@@ -40229,7 +40232,7 @@
                         storeFollowButton: n.createElement(l.Z, {
                             isHeaderButton: true,
                             subSrc: "launchpad",
-                            allowTooltip: !1,
+                            allowTooltip: false,
                             user: r,
                             store: {
                                 storeId: c.id,
@@ -40243,7 +40246,7 @@
                 _.propTypes = {
                     inPopover: i().bool
                 }, _.defaultProps = {
-                    inPopover: !1
+                    inPopover: false
                 };
                 const w = _
             }
@@ -40255,7 +40258,7 @@
         if (undefined !== o) return o.exports;
         var i = r[t] = {
             id: t,
-            loaded: !1,
+            loaded: false,
             exports: {}
         };
         return e[t].call(i.exports, i, i.exports, n), i.loaded = true, i.exports
@@ -40264,7 +40267,7 @@
         if (!r) {
             var a = 1 / 0;
             for (l = 0; l < t.length; l++) {
-                for (var [r, o, i] = t[l], s = true, c = 0; c < r.length; c++)(!1 & i || a >= i) && Object.keys(n.O).every((t => n.O[t](r[c]))) ? r.splice(c--, 1) : (s = !1, i < a && (a = i));
+                for (var [r, o, i] = t[l], s = true, c = 0; c < r.length; c++)(false & i || a >= i) && Object.keys(n.O).every((t => n.O[t](r[c]))) ? r.splice(c--, 1) : (s = false, i < a && (a = i));
                 if (s) {
                     t.splice(l--, 1);
                     var u = o();

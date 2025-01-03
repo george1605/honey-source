@@ -1,30 +1,30 @@
 ((() => {
     'use strict';
     !function (e, n, t, o) {
-      new (t || (t = Promise))(function (s, c) {
+      new (t || (t = Promise))(function (resolve, reject) {
         function r(e) {
           try {
             a(o.next(e));
           } catch (e) {
-            c(e);
+            reject(e);
           }
         }
         function i(e) {
           try {
             a(o.throw(e));
           } catch (e) {
-            c(e);
+            reject(e);
           }
         }
         function a(e) {
           var n;
-          e.done ? s(e.value) : (n = e.value, n instanceof t ? n : new t(function (e) {
+          e.done ? resolve(e.value) : (n = e.value, n instanceof t ? n : new t(function (e) {
             e(n);
           })).then(r, i);
         }
         a((o = o.apply(e, n || [])).next());
       });
-    }(this, void 0, void 0, function* () {
+    }(this, undefined, undefined, function* () {
       console.log('init honeySPBContent');
       const e = yield function (e, n = {}, t = {}) {
         return function (e, n, t) {
